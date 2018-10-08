@@ -14,18 +14,24 @@
    <string>SecondaryWindow</string>
   </property>
   <widget class="QWidget" name="centralWidget">
-   <widget class="QLabel" name="label">
+   <widget class="QWidget" name="gridLayoutWidget">
     <property name="geometry">
      <rect>
-      <x>190</x>
-      <y>120</y>
-      <width>361</width>
-      <height>161</height>
+      <x>0</x>
+      <y>0</y>
+      <width>611</width>
+      <height>371</height>
      </rect>
     </property>
-    <property name="text">
-     <string>You are in secondary page</string>
-    </property>
+    <layout class="QGridLayout" name="gridLayout">
+     <item row="0" column="0" alignment="Qt::AlignHCenter|Qt::AlignVCenter">
+      <widget class="QLabel" name="label">
+       <property name="text">
+        <string>You are in secondary page</string>
+       </property>
+      </widget>
+     </item>
+    </layout>
    </widget>
   </widget>
   <widget class="QMenuBar" name="menuBar">
@@ -34,7 +40,7 @@
      <x>0</x>
      <y>0</y>
      <width>611</width>
-     <height>33</height>
+     <height>20</height>
     </rect>
    </property>
   </widget>

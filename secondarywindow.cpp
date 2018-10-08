@@ -6,6 +6,7 @@ SecondaryWindow::SecondaryWindow(QWidget *parent) :
     ui(new Ui::SecondaryWindow)
 {
     ui->setupUi(this);
+
 }
 
 SecondaryWindow::~SecondaryWindow()
