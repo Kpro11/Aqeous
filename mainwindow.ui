@@ -6,26 +6,35 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>400</width>
-    <height>300</height>
+    <width>960</width>
+    <height>514</height>
    </rect>
   </property>
   <property name="windowTitle">
    <string>MainWindow</string>
   </property>
   <widget class="QWidget" name="centralWidget">
-   <widget class="QLabel" name="label">
+   <widget class="QWidget" name="gridLayoutWidget">
     <property name="geometry">
      <rect>
-      <x>70</x>
-      <y>60</y>
-      <width>251</width>
-      <height>91</height>
+      <x>0</x>
+      <y>0</y>
+      <width>961</width>
+      <height>461</height>
      </rect>
     </property>
-    <property name="text">
-     <string>You are in mainpage</string>
-    </property>
+    <layout class="QGridLayout" name="gridLayout">
+     <property name="leftMargin">
+      <number>0</number>
+     </property>
+     <item row="0" column="0" alignment="Qt::AlignHCenter|Qt::AlignVCenter">
+      <widget class="QPushButton" name="showROVSIM">
+       <property name="text">
+        <string>Click here to start simulator</string>
+       </property>
+      </widget>
+     </item>
+    </layout>
    </widget>
   </widget>
   <widget class="QMenuBar" name="menuBar">
@@ -33,8 +42,8 @@
     <rect>
      <x>0</x>
      <y>0</y>
-     <width>400</width>
-     <height>33</height>
+     <width>960</width>
+     <height>20</height>
     </rect>
    </property>
   </widget>
