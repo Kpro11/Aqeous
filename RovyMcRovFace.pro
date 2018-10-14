@@ -25,15 +25,18 @@ CONFIG += c++11
 SOURCES += \
         main.cpp \
         mainwindow.cpp \
-    secondarywindow.cpp
+    secondarywindow.cpp \
+    thrustergroup.cpp
 
 HEADERS += \
         mainwindow.h \
-    secondarywindow.h
+    secondarywindow.h \
+    thrustergroup.h
 
 FORMS += \
         mainwindow.ui \
-    secondarywindow.ui
+    secondarywindow.ui \
+    thrustergroup.ui
 
 # Default rules for deployment.
 qnx: target.path = /tmp/$${TARGET}/bin

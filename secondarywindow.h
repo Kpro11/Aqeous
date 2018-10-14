@@ -2,6 +2,7 @@
 #define SECONDARYWINDOW_H
 
 #include <QMainWindow>
+#include "thrustergroup.h"
 
 namespace Ui {
 class SecondaryWindow;
@@ -17,6 +18,8 @@ public:
 
 private:
     Ui::SecondaryWindow *ui;
+
+     ThrusterGroup *thruster_col;
 };
 
 #endif // SECONDARYWINDOW_H
