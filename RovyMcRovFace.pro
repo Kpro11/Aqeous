@@ -4,7 +4,7 @@
 #
 #-------------------------------------------------
 
-QT       += core gui widgets
+QT       += core gui widgets network
 
 TARGET = RovyMcRovFace
 TEMPLATE = app
@@ -25,11 +25,13 @@ CONFIG += c++11
 SOURCES += \
         main.cpp \
         mainwindow.cpp \
-    secondarywindow.cpp
+    secondarywindow.cpp \
+    client.cpp
 
 HEADERS += \
         mainwindow.h \
-    secondarywindow.h
+    secondarywindow.h \
+    client.h
 
 FORMS += \
         mainwindow.ui \
