@@ -16,6 +16,29 @@ MainWindow::MainWindow(QWidget *parent) :
     //setAttribute(Qt::WA_PaintOnScreen); // not needed in Qt 5.2 and up
     setWindowOpacity(0.95);
 
+    mCamera = new QCamera();
+
+    mCameraViewfinder = new QCameraViewfinder(this);
+
+    mCameraImageCapture = new QCameraImageCapture(mCamera,this);
+
+    mVBoxLayout = new QVBoxLayout();
+
+    mCamera->setViewfinder(mCameraViewfinder);
+
+    mVBoxLayout->addWidget(mCameraViewfinder);
+    mVBoxLayout->setMargin(0);
+
+    ui->camera_col->addLayout(mVBoxLayout);
+    mCamera->start();
+
+
+
+
+    valueI = ui->depth_slider->value();
+
+    ui->depth_counter->display(valueI);
+
 }
 
 MainWindow::~MainWindow()
@@ -23,9 +46,13 @@ MainWindow::~MainWindow()
     delete ui;
 }
 
-void MainWindow::on_showROVSIM_clicked()
-{
-    int retcode = system("C:/_work/FhSim/sfhdev/FhSimPlayPen_vs14-64/bin/FhRtVis.exe C:/_work/FhSim/rov/input/Argus_Mini/Simulate/MiniNetPosCtrl");
-    qDebug() << retcode;
-}
 
+
+
+
+
+void MainWindow::on_depth_slider_valueChanged(int value)
+{
+
+    ui->depth_counter->display(value);
+}
