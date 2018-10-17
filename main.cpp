@@ -3,14 +3,14 @@
 #include <QApplication>
 #include "qdebug.h"
 #include "QScreen"
-#include "client.h"
 #include <QTcpSocket>
+#include <QtCore>
+#include <QtNetwork>
 
 int main(int argc, char *argv[])
 {
     QApplication a(argc, argv);
 
-    Client client;
     QTcpSocket socket;
 
     socket.connectToHost("127.0.0.1", 5005);
