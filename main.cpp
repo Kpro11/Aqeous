@@ -4,8 +4,7 @@
 #include "qdebug.h"
 #include "QScreen"
 #include <QTcpSocket>
-#include <QtCore>
-#include <QtNetwork>
+#include <QtCore> //Needed for QTextCodec
 
 int main(int argc, char *argv[])
 {
