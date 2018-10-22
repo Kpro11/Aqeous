@@ -15,6 +15,9 @@ public:
     explicit SecondaryWindow(QWidget *parent = nullptr);
     ~SecondaryWindow();
 
+private slots:
+    void on_openSim_clicked();
+
 private:
     Ui::SecondaryWindow *ui;
 };
