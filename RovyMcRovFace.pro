@@ -5,6 +5,7 @@
 #-------------------------------------------------
 
 QT       += core gui widgets
+QT += avwidgets
 
 TARGET = RovyMcRovFace
 TEMPLATE = app

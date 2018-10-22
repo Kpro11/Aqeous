@@ -1,6 +1,13 @@
 #include "mainwindow.h"
 #include "ui_mainwindow.h"
 #include "qdebug.h"
+#include <QtAV>
+#include <QtAVWidgets>
+#include <QMessageBox>
+#include <QUrl>
+#include <QVBoxLayout>
+
+using namespace QtAV;
 
 MainWindow::MainWindow(QWidget *parent) :
     QMainWindow(parent),
@@ -14,18 +21,23 @@ MainWindow::MainWindow(QWidget *parent) :
     //setAttribute(Qt::WA_NoSystemBackground, true);
     //setAttribute(Qt::WA_TranslucentBackground, true);
     //setAttribute(Qt::WA_PaintOnScreen); // not needed in Qt 5.2 and up
-    setWindowOpacity(0.95);
+    //setWindowOpacity(0.95);
+
+    m_player = new AVPlayer(ui->verticalLayout_2);
+    m_vo = new VideoOutput(ui->verticalLayout_2);
+    if (!m_vo->widget()) {
+       QMessageBox::warning(0, QString::fromLatin1("QtAV error"), tr("Can not create video renderer"));
+       return;
+    }
+    m_player->setRenderer(m_vo);
+    ui->verticalLayout_2->addWidget(m_vo->widget());
+    m_player->play("udp://224.0.0.1:9999");
+
 
 }
 
 MainWindow::~MainWindow()
 {
     delete ui;
-}
-
-void MainWindow::on_showROVSIM_clicked()
-{
-    int retcode = system("C:/_work/FhSim/sfhdev/FhSimPlayPen_vs14-64/bin/FhRtVis.exe C:/_work/FhSim/rov/input/Argus_Mini/Simulate/MiniNetPosCtrl");
-    qDebug() << retcode;
 }
 
