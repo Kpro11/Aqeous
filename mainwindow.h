@@ -2,6 +2,7 @@
 #define MAINWINDOW_H
 
 #include <QMainWindow>
+#include <QtAV>
 
 namespace Ui {
 class MainWindow;
@@ -15,12 +16,12 @@ public:
     explicit MainWindow(QWidget *parent = nullptr);
     ~MainWindow();
 
-private slots:
-    void on_showROVSIM_clicked();
-
 
 private:
     Ui::MainWindow *ui;
+    QtAV::VideoOutput *m_vo;
+    QtAV::AVPlayer *m_player;
+
 };
 
 
