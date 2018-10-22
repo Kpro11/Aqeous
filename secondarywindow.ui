@@ -45,7 +45,7 @@
       <item row="1" column="0">
        <widget class="QPushButton" name="openSim">
         <property name="text">
-         <string>PushButton</string>
+         <string>Open simulator, tcp_rov_forces.py and start streaming with obs</string>
         </property>
        </widget>
       </item>

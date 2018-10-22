@@ -17,9 +17,17 @@ SecondaryWindow::~SecondaryWindow()
 
 void SecondaryWindow::on_openSim_clicked()
 {
-    int returnCode = system("start C:/_work/FhSim/sfhdev/FhSimPlayPen_vs14_amd64/bin/tcp/runvisROV.bat");
-    int returnCode2 = system("start python C:/_work/FhSim/sfhdev/FhSimPlayPen_vs14_amd64/bin/tcp/tcp_rov_forces.py");
 
-    qDebug() << returnCode;
-    qDebug() << returnCode2;
+
+
+    qDebug("Starting the simulator");
+    system("start C:/_work/FhSim/sfhdev/FhSimPlayPen_vs14_amd64/bin/tcp/runvisROV.bat && exit");
+    system("start python C:/_work/FhSim/sfhdev/FhSimPlayPen_vs14_amd64/bin/tcp/tcp_rov_forces.py && exit");
+
+    //start obs
+    qDebug("Starting obs (Remember to setup obs as explained in the readme)");
+    system("cd \"C:\\Program Files\\obs-studio\\bin\\64bit\" && start obs64 --profile RovSimProfile --scene RovSimScene --startrecording && exit");
+
+    //qDebug() << returnCode;
+    //qDebug() << returnCode2;
 }
