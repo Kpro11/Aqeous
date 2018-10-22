@@ -23,14 +23,14 @@ MainWindow::MainWindow(QWidget *parent) :
     //setAttribute(Qt::WA_PaintOnScreen); // not needed in Qt 5.2 and up
     //setWindowOpacity(0.95);
 
-    m_player = new AVPlayer(this);
-    m_vo = new VideoOutput(this);
+    m_player = new AVPlayer(ui->verticalLayout_2);
+    m_vo = new VideoOutput(ui->verticalLayout_2);
     if (!m_vo->widget()) {
        QMessageBox::warning(0, QString::fromLatin1("QtAV error"), tr("Can not create video renderer"));
        return;
     }
     m_player->setRenderer(m_vo);
-    layout()->addWidget(m_vo->widget());
+    ui->verticalLayout_2->addWidget(m_vo->widget());
     m_player->play("udp://224.0.0.1:9999");
 
 
