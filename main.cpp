@@ -3,12 +3,10 @@
 #include <QApplication>
 #include "qdebug.h"
 #include "QScreen"
-#include <QtAVWidgets>
 
 int main(int argc, char *argv[])
 {
 
-    QtAV::Widgets::registerRenderers();
     QApplication a(argc, argv);
     
     // 2 windows code taken from https://stackoverflow.com/questions/34551046/create-two-windows

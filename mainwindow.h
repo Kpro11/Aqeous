@@ -2,7 +2,6 @@
 #define MAINWINDOW_H
 
 #include <QMainWindow>
-#include <QtAV>
 
 namespace Ui {
 class MainWindow;
@@ -19,9 +18,6 @@ public:
 
 private:
     Ui::MainWindow *ui;
-    QtAV::VideoOutput *m_vo;
-    QtAV::AVPlayer *m_player;
-
 };
 
 
