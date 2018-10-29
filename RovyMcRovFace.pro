@@ -6,6 +6,7 @@
 
 QT       += core gui multimedia multimediawidgets
 
+
 TARGET = RovyMcRovFace
 TEMPLATE = app
 
@@ -26,17 +27,23 @@ SOURCES += \
         main.cpp \
         mainwindow.cpp \
     secondarywindow.cpp \
-    thrustergroup.cpp
+    thrustergroup.cpp \
+    powerstatus.cpp \
+    controltester.cpp
 
 HEADERS += \
         mainwindow.h \
     secondarywindow.h \
-    thrustergroup.h
+    thrustergroup.h \
+    powerstatus.h \
+    controltester.h
 
 FORMS += \
         mainwindow.ui \
     secondarywindow.ui \
-    thrustergroup.ui
+    thrustergroup.ui \
+    powerstatus.ui \
+    controltester.ui
 
 # Default rules for deployment.
 qnx: target.path = /tmp/$${TARGET}/bin

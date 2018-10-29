@@ -15,6 +15,10 @@ public:
     explicit ThrusterGroup(QWidget *parent = nullptr);
     ~ThrusterGroup();
 
+
+
+
+
 private:
     Ui::ThrusterGroup *ui;
 };
