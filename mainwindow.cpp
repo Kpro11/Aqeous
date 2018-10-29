@@ -15,14 +15,6 @@ MainWindow::MainWindow(QWidget *parent) :
 {
     ui->setupUi(this);
 
-    //uncoments these when we are ready for transparrency
-    //setWindowFlags(Qt::Widget | Qt::FramelessWindowHint);
-    //setParent(0); // Create TopLevel-Widget
-    //setAttribute(Qt::WA_NoSystemBackground, true);
-    //setAttribute(Qt::WA_TranslucentBackground, true);
-    //setAttribute(Qt::WA_PaintOnScreen); // not needed in Qt 5.2 and up
-    //setWindowOpacity(0.95);
-
     m_player = new AVPlayer(ui->QtAVWindow);
 
     m_vo = new VideoOutput(ui->QtAVWindow);
