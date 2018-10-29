@@ -48,7 +48,7 @@
        <number>5</number>
       </property>
       <item>
-       <layout class="QHBoxLayout" name="camera_col"/>
+       <layout class="QHBoxLayout" name="QtAVWindow"/>
       </item>
      </layout>
     </item>
@@ -170,7 +170,7 @@
      <x>0</x>
      <y>0</y>
      <width>960</width>
-     <height>22</height>
+     <height>20</height>
     </rect>
    </property>
   </widget>
