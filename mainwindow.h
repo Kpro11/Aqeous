@@ -8,6 +8,7 @@
 #include <QCameraImageCapture>
 #include <QVBoxLayout>
 #include "thrustergroup.h"
+#include <QtAV>
 
 namespace Ui {
 class MainWindow;
@@ -39,7 +40,8 @@ private slots:
 
 private:
     Ui::MainWindow *ui;
-
+    QtAV::VideoOutput *m_vo;
+    QtAV::AVPlayer *m_player;
 
 };
 

@@ -31,6 +31,8 @@ public:
     int t5;
     int t6;
 
+private slots:
+    void on_openSim_clicked();
 
 private:
     Ui::SecondaryWindow *ui;

@@ -4,8 +4,9 @@
 #
 #-------------------------------------------------
 
-QT       += core gui multimedia multimediawidgets
+QT       += core gui widgets multimedia multimediawidgets
 
+QT += avwidgets
 
 TARGET = RovyMcRovFace
 TEMPLATE = app
