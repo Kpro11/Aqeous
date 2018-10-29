@@ -25,11 +25,8 @@ SecondaryWindow::~SecondaryWindow()
     delete ui;
 }
 
-void SecondaryWindow::on_openSim_clicked()
+void SecondaryWindow::on_openSimulator_clicked()
 {
-
-
-
     qDebug("Starting the simulator");
     system("start C:/_work/FhSim/sfhdev/FhSimPlayPen_vs14_amd64/bin/tcp/runvisROV.bat && exit");
     system("start python C:/_work/FhSim/sfhdev/FhSimPlayPen_vs14_amd64/bin/tcp/tcp_rov_forces.py && exit");
