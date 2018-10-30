@@ -15,6 +15,7 @@ MainWindow::MainWindow(QWidget *parent) :
 {
     ui->setupUi(this);
 
+    // setup the QtAV player
     m_player = new AVPlayer(ui->QtAVWindow);
 
     m_vo = new VideoOutput(ui->QtAVWindow);
@@ -24,8 +25,11 @@ MainWindow::MainWindow(QWidget *parent) :
     }
     m_player->setRenderer(m_vo);
     ui->QtAVWindow->addWidget(m_vo->widget());
+    // change the following url to whatever
+    // QtAV support a ton of different formats, so use whatever floats your boat.
     m_player->play("udp://224.0.0.1:9999");
 
+    // depth:
     valueI = ui->depth_slider->value();
 
     ui->depth_counter->display(valueI);

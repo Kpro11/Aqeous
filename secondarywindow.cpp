@@ -28,13 +28,14 @@ SecondaryWindow::~SecondaryWindow()
 void SecondaryWindow::on_openSimulator_clicked()
 {
     qDebug("Starting the simulator");
+
+    // the commands are prepended by a "start" because "start" will spawn a new process so this program doesnt halt.
+    // Runs the simulator:
     system("start C:/_work/FhSim/sfhdev/FhSimPlayPen_vs14_amd64/bin/tcp/runvisROV.bat && exit");
+    // Runs the python program that sends commands to the simulator. Program replaces a physical controller. This is required when not using a physical controller
     system("start python C:/_work/FhSim/sfhdev/FhSimPlayPen_vs14_amd64/bin/tcp/tcp_rov_forces.py && exit");
 
-    //start obs
+    // Starts Open Brodcasting Software with the correct settings and starts recording (which is streaming in our case)
     qDebug("Starting obs (Remember to setup obs as explained in the readme)");
     system("cd \"C:\\Program Files\\obs-studio\\bin\\64bit\" && start obs64 --profile RovSimProfile --scene RovSimScene --startrecording && exit");
-
-    //qDebug() << returnCode;
-    //qDebug() << returnCode2;
 }
