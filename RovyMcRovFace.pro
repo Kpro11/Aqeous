@@ -63,14 +63,12 @@ SOURCES += \
         main.cpp \
         mainwindow.cpp \
     secondarywindow.cpp \
-    iwindows_xinput_wrapper.cpp \
     gamepadserver.cpp \
     gamepadstate.cpp
 
 HEADERS += \
         mainwindow.h \
     secondarywindow.h \
-    iwindows_xinput_wrapper.h \
     gamepadserver.h \
     gamepadstate.h
 
