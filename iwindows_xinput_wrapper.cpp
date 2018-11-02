@@ -164,12 +164,12 @@ void IWindows_XInput_Wrapper::TranslateButtons(short uID, WORD bID)
 void IWindows_XInput_Wrapper::TranslateTriggers(short uID, short X, short Y, IWindows_XInput_Enum e)
 {
     // Normalize values between -1.0 and 1.0
-    double normX = (double) X / 32767.0;
-    double normY = (double) Y / 32767.0;
+    double normX = fmax(-1.0, (double) X / 32767.0);
+    double normY = fmax(-1.0, (double) Y / 32767.0);
 
     // Factoring in deadzone
-    double StickX = (abs(X) < deadzoneX ? 0 : X);
-    double StickY = (abs(Y) < deadzoneY ? 0 : Y);
+    double StickX = (abs(normX) < deadzoneX ? 0 : normX);
+    double StickY = (abs(normY) < deadzoneY ? 0 : normY);
 
     // Send signal to corrent thumbstick
     /// TODO: can potentially simplify this to one function

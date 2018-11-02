@@ -147,8 +147,8 @@ private:
      * @brief deadzoneX/Y
      *      Specifies thumbstick deadzones
      */
-    double deadzoneX = 0.15*32767.0;
-    double deadzoneY = 0.15*32767.0;
+    double deadzoneX = 0.15;
+    double deadzoneY = 0.15;
 };
 
 #endif // IWINDOWS_XINPUT_WRAPPER_H

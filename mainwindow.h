@@ -4,6 +4,7 @@
 #include <QMainWindow>
 #include <QDebug>
 #include "iwindows_xinput_wrapper.h"
+#include "gamepadserver.h"
 
 namespace Ui {
 class MainWindow;
@@ -19,19 +20,8 @@ public:
 
     IWindows_XInput_Wrapper * xWrapper;
 
-public slots:
-
-    void GetButtons(short uID, QList<XboxOneButtons> PressedButtons);
-    void GetLeftTrigger(short uID, byte Value);
-    void GetRightTrigger(short uID, byte Value);
-
-    void GetLeftThumbstick(short, double x, double y);
-    void GetRightThumbstick(short uID, double, double y);
-
-private slots:
-    void on_pushButton_clicked();
-
-    void on_pushButton_2_clicked();
+protected slots:
+    void catchGamepadState(const GamepadState & gps, const int & playerId);
 
 private:
     Ui::MainWindow *ui;
