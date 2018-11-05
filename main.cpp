@@ -6,6 +6,8 @@
 #include <QTcpSocket>
 #include <QtCore> //Needed for QTextCodec
 #include <QtAVWidgets>
+#include <tcprov.h>
+#include <thread>
 
 int main(int argc, char *argv[])
 {
@@ -56,18 +58,9 @@ int main(int argc, char *argv[])
     // qDebug() << qList.length();
     // qDebug() << "Width: " << width;
 
-    QTcpSocket socket;
-
-    socket.connectToHost("127.0.0.1", 5005);
-
-    QObject::connect(&socket, &QTcpSocket::readyRead, [&]
-        {
-            //this is called when readyRead() is emitted
-            qDebug() << "New data available: " << socket.bytesAvailable();
-            QByteArray datas = socket.readAll();
-            QString DataAsString = QTextCodec::codecForMib(106)->toUnicode(datas);
-            qDebug() << DataAsString;
-        });
+    // starting tcp communication in a new thread
+    TcpRov *com = new TcpRov();
+    std::thread t1(&TcpRov::startTcpLoop, com);
 
     return a.exec();
 }

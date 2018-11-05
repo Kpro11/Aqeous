@@ -30,14 +30,16 @@ SOURCES += \
     secondarywindow.cpp \
     thrustergroup.cpp \
     powerstatus.cpp \
-    controltester.cpp
+    controltester.cpp \
+    tcprov.cpp
 
 HEADERS += \
         mainwindow.h \
     secondarywindow.h \
     thrustergroup.h \
     powerstatus.h \
-    controltester.h
+    controltester.h \
+    tcprov.h
 
 FORMS += \
         mainwindow.ui \
