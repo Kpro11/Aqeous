@@ -4,7 +4,9 @@
 #
 #-------------------------------------------------
 
-QT       += core gui widgets network
+QT       += core gui widgets multimedia multimediawidgets network
+
+QT += avwidgets
 
 TARGET = RovyMcRovFace
 TEMPLATE = app
@@ -25,17 +27,29 @@ CONFIG += c++11
 SOURCES += \
         main.cpp \
         mainwindow.cpp \
-    secondarywindow.cpp
+    secondarywindow.cpp \
+    thrustergroup.cpp \
+    powerstatus.cpp \
+    controltester.cpp
 
 HEADERS += \
         mainwindow.h \
-    secondarywindow.h
+    secondarywindow.h \
+    thrustergroup.h \
+    powerstatus.h \
+    controltester.h
 
 FORMS += \
         mainwindow.ui \
-    secondarywindow.ui
+    secondarywindow.ui \
+    thrustergroup.ui \
+    powerstatus.ui \
+    controltester.ui
 
 # Default rules for deployment.
 qnx: target.path = /tmp/$${TARGET}/bin
 else: unix:!android: target.path = /opt/$${TARGET}/bin
 !isEmpty(target.path): INSTALLS += target
+
+RESOURCES += \
+    icons.qrc

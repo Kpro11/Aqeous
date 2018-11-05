@@ -5,9 +5,12 @@
 #include "QScreen"
 #include <QTcpSocket>
 #include <QtCore> //Needed for QTextCodec
+#include <QtAVWidgets>
 
 int main(int argc, char *argv[])
 {
+
+    QtAV::Widgets::registerRenderers();
     QApplication a(argc, argv);
 
     QTcpSocket socket;
