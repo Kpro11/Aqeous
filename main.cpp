@@ -3,11 +3,8 @@
 #include <QApplication>
 #include "qdebug.h"
 #include "QScreen"
-#include <QTcpSocket>
-#include <QtCore> //Needed for QTextCodec
 #include <QtAVWidgets>
 #include <tcprov.h>
-#include <thread>
 
 int main(int argc, char *argv[])
 {
@@ -58,9 +55,9 @@ int main(int argc, char *argv[])
     // qDebug() << qList.length();
     // qDebug() << "Width: " << width;
 
-    // starting tcp communication in a new thread
+    // starting tcp communication
     TcpRov *com = new TcpRov();
-    std::thread t1(&TcpRov::startTcpLoop, com);
+    QObject::connect(&w2, SIGNAL(connectToROV()), com, SLOT(tcpConnect()));
 
     return a.exec();
 }
