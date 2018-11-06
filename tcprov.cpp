@@ -22,6 +22,9 @@ void TcpRov::readTcpData() {
     QByteArray datas = socket->readAll();
     QString DataAsString = QTextCodec::codecForMib(106)->toUnicode(datas);
     qDebug() << DataAsString;
+    // after we recive data then send the next data.
+    // this happens currently approximatly once every 0.1 seconds
+    tcpSend();
 }
 
 void TcpRov::tcpConnect() {
@@ -32,3 +35,29 @@ void TcpRov::tcpConnect() {
     }
 }
 
+void TcpRov::tcpSend() {
+    qDebug("writing data");
+    if(socket->state() == QAbstractSocket::ConnectedState) {
+        QByteArray block;
+        QDataStream out(&block, QIODevice::WriteOnly);
+        out.setVersion(QDataStream::Qt_5_11);
+
+        out << nextN;
+        out << nextE;
+        out << nextD;
+        out << nextPSY;
+
+        // TOTO reset those variables here
+
+        //qDebug() << "block" << block;
+        //out.device()->seek(0);
+        //qDebug() << "block" << block;
+        //out << quint64(block.size() - sizeof(quint64));
+        //qDebug() << "block" << block;
+
+        socket->write(block);
+        qDebug() << "Writed block " << block;
+    } else {
+        qDebug() << "Error: not connected to tcp";
+    }
+}
