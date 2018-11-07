@@ -1,10 +1,14 @@
 #ifndef GAMEPADSTATE_H
 #define GAMEPADSTATE_H
 
+#include <QObject>
+
 #include <cinttypes>
 
-class GamepadState
+class GamepadState : public QObject
 {
+    Q_OBJECT
+
 public:
 
     // Joystick Definition
