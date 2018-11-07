@@ -34,6 +34,7 @@ void SecondaryWindow::on_openSimulator_clicked()
     system("start C:/_work/FhSim/sfhdev/FhSimPlayPen_vs14_amd64/bin/tcp/runvisRtVisROV.bat && exit");
     // Runs the python program that sends commands to the simulator. Program replaces a physical controller. This is required when not using a physical controller
     //system("start python C:/_work/FhSim/sfhdev/FhSimPlayPen_vs14_amd64/bin/tcp/tcp_rov_forces.py && exit");
+
     // emits signal so that we can connect to the ROV using tcp
     emit connectToROV();
 
