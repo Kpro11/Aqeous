@@ -27,4 +27,3 @@ _The reason you have to use the release option and potential fix is discussed in
 **This does only work on windows** because 1. the simulator only works on windows, and 2. the path's to the different programs are, for now, hardcoded to windows locations. 
 
 After that you should be good to go. If not, check that obs is properly recording the fhsim window and then check that the settings are set according to this https://obsproject.com/forum/resources/obs-studio-send-an-udp-stream-to-a-second-pc-using-obs.455/
-
