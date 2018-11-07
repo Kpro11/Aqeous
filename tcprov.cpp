@@ -61,3 +61,11 @@ void TcpRov::tcpSend() {
         qDebug() << "Error: not connected to tcp";
     }
 }
+
+void TcpRov::setValues(quint64 north, quint64 east, quint64 down, quint64 psi) {
+    nextN = north;
+    nextE = east;
+    nextD = down;
+    nextPSY = psi;
+    tcpSend();
+}
