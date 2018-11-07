@@ -2,7 +2,6 @@
 #include "ui_secondarywindow.h"
 #include <QDebug>
 
-
 SecondaryWindow::SecondaryWindow(QWidget *parent) :
     QMainWindow(parent),
     ui(new Ui::SecondaryWindow)
