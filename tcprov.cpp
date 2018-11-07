@@ -36,7 +36,7 @@ void TcpRov::tcpConnect() {
 }
 
 void TcpRov::tcpSend() {
-    qDebug("writing data");
+    qDebug("Writing data");
     if(socket->state() == QAbstractSocket::ConnectedState) {
         QByteArray block;
         QDataStream out(&block, QIODevice::WriteOnly);
@@ -54,9 +54,10 @@ void TcpRov::tcpSend() {
         //qDebug() << "block" << block;
         //out << quint64(block.size() - sizeof(quint64));
         //qDebug() << "block" << block;
-
-        socket->write(block);
-        qDebug() << "Writed block " << block;
+        QString s = QString::number(nextN);
+        s = s + ":";
+        socket->write(s.toUtf8());
+        qDebug() << "Wrote block " << block;
     } else {
         qDebug() << "Error: not connected to tcp";
     }

@@ -39,6 +39,8 @@ MainWindow::MainWindow(QWidget *parent) :
             this, SLOT(catchGamepadState(GamepadState, int)));
 
     this->setWindowTitle(tr("Gamepad Server v0.1"));
+
+    tcprov;
 }
 
 MainWindow::~MainWindow()
@@ -47,8 +49,8 @@ MainWindow::~MainWindow()
 }
 
 
-void MainWindow::catchGamepadState(const GamepadState & gps, const int & playerId, int value) {
-    ui->depth_counter->display(value);
+void MainWindow::catchGamepadState(const GamepadState & gps, const int & playerId) {
+    //ui->depth_counter->display(value);
 
     Sleep(1000);
     qDebug() << "Player " << playerId << ": ";
@@ -60,6 +62,14 @@ void MainWindow::catchGamepadState(const GamepadState & gps, const int & playerI
     qDebug() << "Right Thumb :: Y Axis: " << gps.m_rThumb.xAxis <<
                 "\t Y Axis: " << gps.m_rThumb.yAxis;
 
+    quint64 north = gps.m_lThumb.yAxis;
+    quint64 east = gps.m_lThumb.xAxis;
+    quint64 down = gps.m_rThumb.yAxis;
+    quint64 psi = gps.m_rThumb.xAxis;
+
+    tcprov.setValues(north, east, down, psi);
+
+    /*
     if (gps.m_pad_a) {
         qDebug() << "A Pressed.";
     }
@@ -102,5 +112,6 @@ void MainWindow::catchGamepadState(const GamepadState & gps, const int & playerI
     if (gps.m_pad_back) {
         qDebug() << "Back Pressed.";
     }
+    */
 
 }

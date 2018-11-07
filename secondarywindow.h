@@ -39,7 +39,7 @@ private slots:
 
     void on_connectROV_clicked();
 
-    void on_openSim_clicked();
+    //void on_openSim_clicked();
 
 private:
     Ui::SecondaryWindow *ui;
