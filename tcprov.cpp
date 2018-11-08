@@ -20,13 +20,13 @@ TcpRov::TcpRov(QObject *parent) : QObject(parent)
 {
     timer = new QTimer(parent);
     connect(timer, SIGNAL(timeout()), this, SLOT(tcpRead()));
-    timer->start(timeStep * 1000);
 }
 
 // This function reads the data from the socket.
 void TcpRov::tcpRead() {
 
     if (ConnectSocket == INVALID_SOCKET) {
+        timer->stop();
         return;
     }
 
@@ -41,11 +41,15 @@ void TcpRov::tcpRead() {
 
     if (iResult > 0)
         qDebug() << "Bytes received: " << iResult;
-    else if (iResult == 0)
+    else if (iResult == 0) {
+        timer->stop();
         qDebug() << "Connection closed";
-    else
+        return;
+    } else {
         qDebug() << "recv failed with error: " << WSAGetLastError();
-
+        timer->stop();
+        return;
+    }
     memcpy(&readData.PosN, &recvbuf[0], 8);
     memcpy(&readData.PosE, &recvbuf[0 + 8 * 1], 8);
     memcpy(&readData.PosD, &recvbuf[0 + 8 * 2], 8);
@@ -117,6 +121,9 @@ void TcpRov::tcpConnect() {
     // But for this simple example we just free the resources returned by getaddrinfo and print an error message
     freeaddrinfo(result);
 
+    // start tcpRead timer
+    timer->start(timeStep * 1000);
+
     qDebug() << "finnished connecting";
 }
 
@@ -161,6 +168,7 @@ void TcpRov::tcpSend() {
     if (iResult == SOCKET_ERROR)
     {
         qDebug() << "Send failed with WSA error: " << WSAGetLastError();
+        timer->stop();
         return;
     }
 
