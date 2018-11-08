@@ -14,7 +14,7 @@ public:
     explicit TcpRov(QObject *parent = nullptr);
 
     QTimer *tcpReadTimer;
-    QTimer *tcpConnectTimer;
+    //QTimer *tcpConnectTimer;
 
     double timeStep = 0.1;					// Communication interval
     double recNum = 4;						// Number of messages (8-byte double precision numbers) to receive
@@ -61,8 +61,8 @@ public slots:
     void tcpSend();
     void setValues(quint64, quint64, quint64, quint64);
     void resetValues();
-    void timerStopReadStartConnect();
-    void timerStopConnectStartRead();
+    void startTcpReadTimer();
+    void stopTcpReadTimer();
 };
 
 void winsockConnect(SOCKET *, addrinfo *);

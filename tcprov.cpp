@@ -18,7 +18,9 @@
 
 TcpRov::TcpRov(QObject *parent) : QObject(parent)
 {
-    //most of the initialization is done in main.cpp
+    // Create and connect tcp timers
+    tcpReadTimer = new QTimer(this);
+    QObject::connect(tcpReadTimer, SIGNAL(timeout()), this, SLOT(tcpRead()));
 }
 
 // This function reads the data from the socket.
@@ -36,12 +38,12 @@ void TcpRov::tcpRead() {
     if (iResult > 0)
         qDebug() << "Bytes received: " << iResult;
     else if (iResult == 0) {
-        timerStopReadStartConnect();
+        stopTcpReadTimer();
         qDebug() << "Connection closed";
         return;
     } else {
         qDebug() << "recv failed with error: " << WSAGetLastError();
-        timerStopReadStartConnect();
+        stopTcpReadTimer();
         return;
     }
 
@@ -120,7 +122,7 @@ void TcpRov::tcpConnect() {
     // But for this simple example we just free the resources returned by getaddrinfo and print an error message
     freeaddrinfo(result);
 
-    timerStopConnectStartRead();
+    startTcpReadTimer();
 
     qDebug() << "finnished connecting";
 }
@@ -166,7 +168,7 @@ void TcpRov::tcpSend() {
     if (iResult == SOCKET_ERROR)
     {
         qDebug() << "Send failed with WSA error: " << WSAGetLastError();
-        timerStopReadStartConnect();
+        stopTcpReadTimer();
         return;
     }
 
@@ -176,23 +178,16 @@ void TcpRov::tcpSend() {
     resetValues();
 }
 
-void TcpRov::timerStopReadStartConnect() {
-    qDebug() << "Stopping the tcpReadTimer, starting the tcpConnectTimer";
-    // stop the timer that launches the tcpRead function because of server disconect.
-    tcpReadTimer->stop();
-    // starting to listen for a new connection every 3 seconds
-    tcpConnectTimer->start(3000);
+void TcpRov::startTcpReadTimer() {
 
-}
-
-void TcpRov::timerStopConnectStartRead() {
-    qDebug() << "Stopping the tcpConnectTimer, starting the tcpReadTimer";
-
-    // stop the timer that listens for a new connection
-    tcpConnectTimer->stop();
-
+    qDebug() << "Starting the tcpReadTimer";
     // start to launch the read functions every timeStep
     tcpReadTimer->start(timeStep * 1000);
+}
+
+void TcpRov::stopTcpReadTimer() {
+    qDebug() << "Stopping the tcpReadTimer";
+    tcpReadTimer->stop();
 }
 
 // this function sets the values that will be sent to the socket
