@@ -34,6 +34,8 @@ public:
     int iRead = 0;                          // how many times have we read data?
     double runTime;                         // how long has the tcp connection lasted
 
+    std::string msg_buf;
+
     // Data structure to receive from FhSim
     class TCPVessel {
         public:

@@ -71,7 +71,7 @@ void TcpRov::tcpConnect() {
     // Resolve the server address and port
     iResult = getaddrinfo(IPString.c_str(), PortString.c_str(), &hints, &result);
     if (iResult != 0) {
-        printf("getaddrinfo failed: %d\n", iResult);
+        qDebug() << "getaddrinfo failed: " << iResult;
         WSACleanup();
     }
 
@@ -82,7 +82,7 @@ void TcpRov::tcpConnect() {
     ConnectSocket = socket(ptr->ai_family, ptr->ai_socktype, ptr->ai_protocol);
 
     if (ConnectSocket == INVALID_SOCKET) {
-        printf("Error at socket(): %ld\n", WSAGetLastError());
+        qDebug() << "Error at socket(): " << WSAGetLastError();
         freeaddrinfo(result);
         WSACleanup();
     }
@@ -91,7 +91,7 @@ void TcpRov::tcpConnect() {
     winsockConnect(&ConnectSocket, ptr);
 
     if (ConnectSocket == INVALID_SOCKET) {
-        printf("Unable to connect to server!\n");
+        qDebug() << "Unable to connect to server!";
         WSACleanup();
     }
 
@@ -113,22 +113,30 @@ void TcpRov::tcpSend() {
     qDebug () << "Sending time: " << runTime;
 
 
-    // temp values
-    nextN = -30.0 + 0.5 * sin(runTime*3.14159265/6.0);
-    nextE = 0;
-    nextD = 0.2 * runTime;
-    nextPSY = 0.1 * sin(runTime*3.14159265/6.0);
+    // The reference variables that sintef provided:
+    // protip: scroll out in the simulator to see the ship
+    /*
+    nextData.ForceSurge = -30.0 + 0.5 * sin(runTime*3.14159265/6.0);
+    nextData.ForceSway = 0;
+    nextData.ForceHeave = 0.2 * runTime;
+    nextData.ForceYaw = 0.1 * sin(runTime*3.14159265/6.0);
+    */
 
-
-    std::string msg_buf;
+    msg_buf.clear();
 
     // Need to reserve space
+    //msg_buf.reserve(sizeof(runTime) + sizeof(nextData));
     msg_buf.reserve(sizeof(nextData));
 
+    // the simulator expects the first number to be the time it has run, but in their referance implementation they do not send this number
+    // adding runTime just changes the rotation of the rov, so i guess that code is not in  the current simulator
+
+    //msg_buf.append((const char*)&runTime, sizeof(runTime));
     msg_buf.append((const char*)&nextData.ForceSurge, sizeof(nextData.ForceSurge));
     msg_buf.append((const char*)&nextData.ForceSway, sizeof(nextData.ForceSway));
     msg_buf.append((const char*)&nextData.ForceHeave, sizeof(nextData.ForceHeave));
     msg_buf.append((const char*)&nextData.ForceYaw, sizeof(nextData.ForceYaw));
+
 
     int iResult = send(ConnectSocket, &msg_buf[0], msg_buf.size(), 0);
     if (iResult == SOCKET_ERROR)
@@ -150,7 +158,6 @@ void TcpRov::setValues(quint64 north, quint64 east, quint64 down, quint64 psi) {
     nextD = down;
     nextPSY = psi;
     */
-    tcpSend();
 }
 
 // this function is an extension of TcpRov::tcpConnect and was made because "connect" is a reserved word for QT. But this function does not inherit from QT.
