@@ -1,53 +1,29 @@
-<<<<<<< HEAD
 #include "tcprov.h"
 #include <stdlib.h>
 #include "secondarywindow.h"
 #include <QTextCodec>
 
+#include <QDebug>
+#include <windows.h>
+#include <winsock2.h>
+
+#include <ws2tcpip.h>
+
+
 TcpRov::TcpRov(QObject *parent) : QObject(parent)
 {
-    socket = new QTcpSocket( this );
-
-    in.setDevice(socket);
-    in.setVersion(QDataStream::Qt_5_11);
-
-    connect( socket, SIGNAL(readyRead()), SLOT(readTcpData()) );
-
-    //socket->connectToHost("127.0.0.1", 5000);
-    if (socket->waitForConnected()) {
-        qDebug("succesfully connected!");
+    // TCP connection (no need to change anything here) ===================================================
+    // Initialize Winsock
+    WSADATA wsaData;
+    int wsaError = WSAStartup(MAKEWORD(2,2), &wsaData);
+    if (wsaError != 0) {
+        qDebug() << "WSAStartup failed: " << wsaError;
     }
+
 }
 
 void TcpRov::readTcpData() {
-    /*
-    // do this stuff here http://doc.qt.io/qt-5/qtnetwork-fortuneclient-example.html
-    in.startTransaction();
-
-    double a;
-    double b;
-    double c;
-    double d;
-
-    in >> a;
-    in >> b;
-    in >> c;
-    in >> d;
-
-    if (!in.commitTransaction()) {
-        qDebug() << "Error in reading";
-    }
-
-    qDebug() << "data: " << a << b << c << d;
-    */
-
-
-
-    qDebug() << "New data available: " << socket->bytesAvailable();
-    QByteArray datas = socket->readAll();
-    QString DataAsString = QTextCodec::codecForMib(106)->toUnicode(datas);
-    qDebug() << DataAsString;
-
+    //TODO implement
 
     // after we recive data then send the next data.
     // this happens currently approximatly once every 0.1 seconds
@@ -55,110 +31,28 @@ void TcpRov::readTcpData() {
 }
 
 void TcpRov::tcpConnect() {
-    qDebug("Trying to connect");
-    socket->connectToHost("127.0.0.1", 5000);
-    if (socket->waitForConnected()) {
-        qDebug("succesfully connected!");
-    }
+    // TODO implement
 }
 
 void TcpRov::tcpSend() {
+    // todo implement further
+
     qDebug("writing data");
-    if(socket->state() == QAbstractSocket::ConnectedState) {
-        QByteArray block;
-        QDataStream out(&block, QIODevice::WriteOnly);
-        out.setVersion(QDataStream::Qt_5_11);
+    std::string msg_buf;
+    msg_buf.reserve(sizeof (nextN) + sizeof (nextE) + sizeof (nextD) + sizeof (nextPSY));
 
-        out << nextN;
-        out << nextE;
-        out << nextD;
-        out << nextPSY;
-
-        // TOTO reset those variables here
-
-        //qDebug() << "block" << block;
-        //out.device()->seek(0);
-        //qDebug() << "block" << block;
-        //out << quint64(block.size() - sizeof(quint64));
-        //qDebug() << "block" << block;
-
-        socket->write(block);
-        qDebug() << "Writed block " << block;
-    } else {
-        qDebug() << "Error: not connected to tcp";
-    }
-}
-=======
-#include "tcprov.h"
-#include <stdlib.h>
-#include <thread>
-#include "secondarywindow.h"
-#include <QTextCodec>
-
-TcpRov::TcpRov(QObject *parent) : QObject(parent)
-{
-    socket = new QTcpSocket( this );
-
-    connect( socket, SIGNAL(readyRead()), SLOT(readTcpData()) );
-
-    socket->connectToHost("127.0.0.1", 5000);
-    if (socket->waitForConnected()) {
-        qDebug("succesfully connected!");
-    }
-}
-
-void TcpRov::readTcpData() {
-    qDebug() << "reading data";
-    qDebug() << "New data available: " << socket->bytesAvailable();
-    QByteArray datas = socket->readAll();
-    QString DataAsString = QTextCodec::codecForMib(106)->toUnicode(datas);
-    qDebug() << DataAsString;
-    // after we recive data then send the next data.
-    // this happens currently approximatly once every 0.1 seconds
-    tcpSend();
-}
-
-void TcpRov::tcpConnect() {
-    qDebug("Trying to connect");
-    socket->connectToHost("127.0.0.1", 5000);
-    if (socket->waitForConnected()) {
-        qDebug("succesfully connected!");
-    }
-}
-
-void TcpRov::tcpSend() {
-    qDebug("Writing data");
-    if(socket->state() == QAbstractSocket::ConnectedState) {
-        QByteArray block;
-        QDataStream out(&block, QIODevice::WriteOnly);
-        out.setVersion(QDataStream::Qt_5_11);
-
-        out << nextN;
-        out << nextE;
-        out << nextD;
-        out << nextPSY;
-
-        // TOTO reset those variables here
-
-        //qDebug() << "block" << block;
-        //out.device()->seek(0);
-        //qDebug() << "block" << block;
-        //out << quint64(block.size() - sizeof(quint64));
-        //qDebug() << "block" << block;
-        QString s = QString::number(nextN);
-        s = s + ":";
-        socket->write(s.toUtf8());
-        qDebug() << "Wrote block " << block;
-    } else {
-        qDebug() << "Error: not connected to tcp";
-    }
+    msg_buf.append((const char*)&nextN, sizeof(nextN));
+    msg_buf.append((const char*)&nextE, sizeof(nextE));
+    msg_buf.append((const char*)&nextD, sizeof(nextD));
+    msg_buf.append((const char*)&nextPSY, sizeof(nextPSY));
 }
 
 void TcpRov::setValues(quint64 north, quint64 east, quint64 down, quint64 psi) {
+    /*
     nextN = north;
     nextE = east;
     nextD = down;
     nextPSY = psi;
+    */
     tcpSend();
 }
->>>>>>> 6c7d860d3878ab0a111bebd2402ff9ef4cfb6661

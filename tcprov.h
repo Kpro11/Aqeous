@@ -1,23 +1,27 @@
 #ifndef TCPROV_H
 #define TCPROV_H
 
+
+//#include <winsock2.h>
+
 #include <QObject>
-#include <QTcpSocket>
-#include <QDataStream>
+
 
 class TcpRov : public QObject
 {
     Q_OBJECT
 public:
     explicit TcpRov(QObject *parent = nullptr);
-    QTcpSocket *socket;
 
-    quint64 nextN = 500;
-    quint64 nextE = 0;
-    quint64 nextD = 0;
-    quint64 nextPSY = 0;
+    double nextN = 500;
+    double nextE = 0;
+    double nextD = 0;
+    double nextPSY = 0;
 
-    QDataStream in;
+    double tStp = 0.1;						// Communication interval
+    double recNum = 4;						// Number of messages (8-byte double precision numbers) to receive
+    double senNum = 4;						// Number of messages (8-byte double precision numbers) to send
+//    WSADATA wsaData;                        // initalize Winsock
 
 signals:
 
