@@ -30,15 +30,15 @@ void TcpRov::readTcpData() {
     else
         qDebug() << "recv failed with error: " << WSAGetLastError();
 
-    memcpy(&VesselState.PosN, &recvbuf[0], 8);
-    memcpy(&VesselState.PosE, &recvbuf[0 + 8 * 1], 8);
-    memcpy(&VesselState.PosD, &recvbuf[0 + 8 * 2], 8);
-    memcpy(&VesselState.PosPsi, &recvbuf[0 + 8 * 3], 8);
+    memcpy(&readData.PosN, &recvbuf[0], 8);
+    memcpy(&readData.PosE, &recvbuf[0 + 8 * 1], 8);
+    memcpy(&readData.PosD, &recvbuf[0 + 8 * 2], 8);
+    memcpy(&readData.PosPsi, &recvbuf[0 + 8 * 3], 8);
 
-    qDebug() << "VesselState.PosN: " << VesselState.PosN << " m";
-    qDebug() << "VesselState.PosE: " << VesselState.PosE << " m";
-    qDebug() << "VesselState.PosD: " << VesselState.PosD << " m";
-    qDebug() << "VesselState.PosPsi: " << VesselState.PosPsi << " rad";
+    qDebug() << "readData.PosN: " << readData.PosN << " m";
+    qDebug() << "readData.PosE: " << readData.PosE << " m";
+    qDebug() << "readData.PosD: " << readData.PosD << " m";
+    qDebug() << "readData.PosPsi: " << readData.PosPsi << " rad";
 
     qDebug() << "Finnished reading data";
 
@@ -106,16 +106,41 @@ void TcpRov::tcpConnect() {
 }
 
 void TcpRov::tcpSend() {
-    // todo implement further
 
     qDebug("writing data");
-    std::string msg_buf;
-    msg_buf.reserve(sizeof (nextN) + sizeof (nextE) + sizeof (nextD) + sizeof (nextPSY));
 
-    msg_buf.append((const char*)&nextN, sizeof(nextN));
-    msg_buf.append((const char*)&nextE, sizeof(nextE));
-    msg_buf.append((const char*)&nextD, sizeof(nextD));
-    msg_buf.append((const char*)&nextPSY, sizeof(nextPSY));
+    runTime = (iRead + 1) * timeStep;
+    qDebug () << "Sending time: " << runTime;
+
+
+    // temp values
+    nextN = -30.0 + 0.5 * sin(runTime*3.14159265/6.0);
+    nextE = 0;
+    nextD = 0.2 * runTime;
+    nextPSY = 0.1 * sin(runTime*3.14159265/6.0);
+
+
+    std::string msg_buf;
+
+    // Need to reserve space
+    msg_buf.reserve(sizeof(nextData));
+
+    msg_buf.append((const char*)&nextData.ForceSurge, sizeof(nextData.ForceSurge));
+    msg_buf.append((const char*)&nextData.ForceSway, sizeof(nextData.ForceSway));
+    msg_buf.append((const char*)&nextData.ForceHeave, sizeof(nextData.ForceHeave));
+    msg_buf.append((const char*)&nextData.ForceYaw, sizeof(nextData.ForceYaw));
+
+    int iResult = send(ConnectSocket, &msg_buf[0], msg_buf.size(), 0);
+    if (iResult == SOCKET_ERROR)
+    {
+        qDebug() << "Send failed with WSA error: " << WSAGetLastError();
+        return;
+    }
+    qDebug() << "Bytes sent: " << iResult;
+
+    iRead++;
+    // Continue the loop
+    readTcpData();
 }
 
 void TcpRov::setValues(quint64 north, quint64 east, quint64 down, quint64 psi) {

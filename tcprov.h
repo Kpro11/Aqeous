@@ -7,14 +7,6 @@
 
 #define DEFAULT_BUFLEN 1024
 
-// Data structure to receive from FhSim
-class TCPVessel {
-    public:
-        double PosN = 0.0;
-        double PosE = 0.0;
-        double PosD = 0.0;
-        double PosPsi = 0.0;
-};
 
 
 class TcpRov : public QObject
@@ -28,7 +20,7 @@ public:
     double nextD = 0;
     double nextPSY = 0;
 
-    double tStp = 0.1;						// Communication interval
+    double timeStep = 0.1;						// Communication interval
     double recNum = 4;						// Number of messages (8-byte double precision numbers) to receive
     double senNum = 4;						// Number of messages (8-byte double precision numbers) to send
 
@@ -42,8 +34,26 @@ public:
     int iRead = 0;                          // how many times have we read data?
     double runTime;                         // how long has the tcp connection lasted
 
-    TCPVessel VesselState;					// Data structure to receive from FhSim
+    // Data structure to receive from FhSim
+    class TCPVessel {
+        public:
+            double PosN = 0.0;
+            double PosE = 0.0;
+            double PosD = 0.0;
+            double PosPsi = 0.0;
+    };
 
+    // Data structure to send to FhSim
+    class TCPThruster {
+        public:
+            double ForceSurge = 0.0;
+            double ForceSway = 0.0;
+            double ForceHeave = 0.0;
+            double ForceYaw = 0.0;
+    };
+
+    TCPVessel readData;					// Data to receive from FhSim
+    TCPThruster nextData;               // Data to send to FhSim
 
 signals:
 
