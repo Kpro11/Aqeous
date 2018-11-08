@@ -23,6 +23,7 @@ public:
 private slots:
     //void on_depth_slider_valueChanged(int value);
     void catchGamepadState(const GamepadState & gps, const int & playerId);
+    void on_depth_slider_valueChanged(int value);
 
 private:
     Ui::MainWindow *ui;

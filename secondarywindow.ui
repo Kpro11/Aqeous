@@ -131,6 +131,7 @@
          </layout>
         </item>
         <item>
+<<<<<<< HEAD
          <layout class="QHBoxLayout" name="horizontalLayout_7">
           <item>
            <widget class="QPushButton" name="connectROV">
@@ -140,6 +141,9 @@
            </widget>
           </item>
          </layout>
+=======
+         <layout class="QHBoxLayout" name="horizontalLayout_7"/>
+>>>>>>> ac39cb33881198bba321ec19f2bbb9fcb336228c
         </item>
         <item>
          <layout class="QHBoxLayout" name="horizontalLayout_8"/>

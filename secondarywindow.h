@@ -31,6 +31,7 @@ public:
     int t5;
     int t6;
 
+<<<<<<< HEAD
 signals:
     void connectToROV();
 
@@ -38,6 +39,10 @@ private slots:
     void on_openSimulator_clicked();
 
     void on_connectROV_clicked();
+=======
+private slots:
+    void on_openSimulator_clicked();
+>>>>>>> ac39cb33881198bba321ec19f2bbb9fcb336228c
 
 private:
     Ui::SecondaryWindow *ui;
