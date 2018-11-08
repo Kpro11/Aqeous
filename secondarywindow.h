@@ -32,14 +32,10 @@ public:
     int t6;
 
 signals:
-    void connectToROV();
+    //void connectToROV();
 
 private slots:
     void on_openSimulator_clicked();
-
-    void on_connectROV_clicked();
-
-    //void on_openSim_clicked();
 
 private:
     Ui::SecondaryWindow *ui;

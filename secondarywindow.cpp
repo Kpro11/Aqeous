@@ -35,15 +35,10 @@ void SecondaryWindow::on_openSimulator_clicked()
     //system("start python C:/_work/FhSim/sfhdev/FhSimPlayPen_vs14_amd64/bin/tcp/tcp_rov_forces.py && exit");
 
     // emits signal so that we can connect to the ROV using tcp
-    emit connectToROV();
+    // emit connectToROV();
 
     // Starts Open Brodcasting Software with the correct settings and starts recording (which is streaming in our case)
     qDebug("Starting obs (Remember to setup obs as explained in the readme)");
     system("cd \"C:\\Program Files\\obs-studio\\bin\\64bit\" && start obs64 --profile RovSimProfile --scene RovSimScene --startrecording && exit");
 }
 
-void SecondaryWindow::on_connectROV_clicked()
-{
-    // emits signal so that we can connect to the ROV using tcp
-    emit connectToROV();
-}

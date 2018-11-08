@@ -131,15 +131,7 @@
          </layout>
         </item>
         <item>
-         <layout class="QHBoxLayout" name="horizontalLayout_7">
-          <item>
-           <widget class="QPushButton" name="connectROV">
-            <property name="text">
-             <string>Connect to ROV</string>
-            </property>
-           </widget>
-          </item>
-         </layout>
+         <layout class="QHBoxLayout" name="horizontalLayout_7"/>
         </item>
         <item>
          <layout class="QHBoxLayout" name="horizontalLayout_8"/>
