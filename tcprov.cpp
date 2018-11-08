@@ -2,7 +2,7 @@
 #include <stdlib.h>
 #include "secondarywindow.h"
 #include <QTextCodec>
-
+#include <QTimer>
 #include <QDebug>
 #include <windows.h>
 #include <winsock2.h>
@@ -10,18 +10,34 @@
 
 #pragma comment(lib, "Ws2_32.lib")
 
+// This class / function connects, reads and writes to the FhSim simulator or sintef backend using WinSockets
+// This class also keeps track of the next variables to send.
+// We initially implemnted this using QTcpSocket, but the communication with the simulator was not well defined
+// so it was difficult to figure out the message format/encoding. We therefor based this code upon the supplied
+// reference implementation recived from sintef.
+
 TcpRov::TcpRov(QObject *parent) : QObject(parent)
 {
-
+    timer = new QTimer(parent);
+    connect(timer, SIGNAL(timeout()), this, SLOT(tcpRead()));
+    timer->start(timeStep * 1000);
 }
 
+// This function reads the data from the socket.
 void TcpRov::tcpRead() {
+
+    if (ConnectSocket == INVALID_SOCKET) {
+        return;
+    }
+
     qDebug() << "Reading data";
+
+    int iResult;
 
     char recvbuf[DEFAULT_BUFLEN];
     int recvbuflen = 8 * recNum;
 
-    int iResult = recv(ConnectSocket, recvbuf, recvbuflen, 0);
+    iResult = recv(ConnectSocket, recvbuf, recvbuflen, 0);
 
     if (iResult > 0)
         qDebug() << "Bytes received: " << iResult;
@@ -42,10 +58,11 @@ void TcpRov::tcpRead() {
 
     qDebug() << "Finnished reading data";
 
-    // continue the loop
+    // send next data
     tcpSend();
 }
 
+// this function connects to FhSim/backend and start the read-write loop
 void TcpRov::tcpConnect() {
     qDebug() << "Conecting...";
 
@@ -101,11 +118,9 @@ void TcpRov::tcpConnect() {
     freeaddrinfo(result);
 
     qDebug() << "finnished connecting";
-
-    // start the reading and sending loop
-    tcpRead();
 }
 
+// this function send data to the socket
 void TcpRov::tcpSend() {
 
     qDebug("writing data");
@@ -153,11 +168,9 @@ void TcpRov::tcpSend() {
 
     //reset nextData values
     resetValues();
-
-    // Continue the loop
-    tcpRead();
 }
 
+// this function sets the values that will be sent to the socket
 void TcpRov::setValues(quint64 north, quint64 east, quint64 down, quint64 psi) {
     nextData.ForceSurge = static_cast<double>(north);
     nextData.ForceSway = static_cast<double>(east);

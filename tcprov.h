@@ -1,13 +1,11 @@
 #ifndef TCPROV_H
 #define TCPROV_H
 
-
 #include <QObject>
 #include <winsock2.h>
+#include <QTimer>
 
 #define DEFAULT_BUFLEN 1024
-
-
 
 class TcpRov : public QObject
 {
@@ -15,7 +13,9 @@ class TcpRov : public QObject
 public:
     explicit TcpRov(QObject *parent = nullptr);
 
-    double timeStep = 0.1;						// Communication interval
+    QTimer *timer;
+
+    double timeStep = 0.1;					// Communication interval
     double recNum = 4;						// Number of messages (8-byte double precision numbers) to receive
     double senNum = 4;						// Number of messages (8-byte double precision numbers) to send
 
