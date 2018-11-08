@@ -15,11 +15,6 @@ class TcpRov : public QObject
 public:
     explicit TcpRov(QObject *parent = nullptr);
 
-    double nextN = 500;
-    double nextE = 0;
-    double nextD = 0;
-    double nextPSY = 0;
-
     double timeStep = 0.1;						// Communication interval
     double recNum = 4;						// Number of messages (8-byte double precision numbers) to receive
     double senNum = 4;						// Number of messages (8-byte double precision numbers) to send
@@ -48,7 +43,7 @@ public:
     // Data structure to send to FhSim
     class TCPThruster {
         public:
-            double ForceSurge = 0.0;
+            double ForceSurge = 500.0;
             double ForceSway = 0.0;
             double ForceHeave = 0.0;
             double ForceYaw = 0.0;

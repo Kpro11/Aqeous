@@ -152,12 +152,10 @@ void TcpRov::tcpSend() {
 }
 
 void TcpRov::setValues(quint64 north, quint64 east, quint64 down, quint64 psi) {
-    /*
-    nextN = north;
-    nextE = east;
-    nextD = down;
-    nextPSY = psi;
-    */
+    nextData.ForceSurge = static_cast<double>(north);
+    nextData.ForceSway = static_cast<double>(east);
+    nextData.ForceHeave = static_cast<double>(down);
+    nextData.ForceYaw = static_cast<double>(psi);
 }
 
 // this function is an extension of TcpRov::tcpConnect and was made because "connect" is a reserved word for QT. But this function does not inherit from QT.
