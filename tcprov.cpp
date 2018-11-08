@@ -15,7 +15,7 @@ TcpRov::TcpRov(QObject *parent) : QObject(parent)
 
 }
 
-void TcpRov::readTcpData() {
+void TcpRov::tcpRead() {
     qDebug() << "Reading data";
 
     char recvbuf[DEFAULT_BUFLEN];
@@ -42,15 +42,16 @@ void TcpRov::readTcpData() {
 
     qDebug() << "Finnished reading data";
 
-    // after we recive data then send the next data.
-    // this happens currently approximatly once every 0.1 seconds
+    // continue the loop
     tcpSend();
 }
 
 void TcpRov::tcpConnect() {
     qDebug() << "Conecting...";
 
+    //
     // The following code was mostly supplied by sintef, but modified sligthly on our part.
+    //
 
     // Initialize Winsock
     int iResult; //variable to check for errors
@@ -102,13 +103,14 @@ void TcpRov::tcpConnect() {
     qDebug() << "finnished connecting";
 
     // start the reading and sending loop
-    readTcpData();
+    tcpRead();
 }
 
 void TcpRov::tcpSend() {
 
     qDebug("writing data");
 
+    // check how long the connection to the simulator has run for.
     runTime = (iRead + 1) * timeStep;
     qDebug () << "Sending time: " << runTime;
 
@@ -127,13 +129,13 @@ void TcpRov::tcpSend() {
     msg_buf.clear();
 
     // Need to reserve space
-    //msg_buf.reserve(sizeof(runTime) + sizeof(nextData));
+    // msg_buf.reserve(sizeof(runTime) + sizeof(nextData));
     msg_buf.reserve(sizeof(nextData));
 
     // the simulator expects the first number to be the time it has run, but in their referance implementation they do not send this number
-    // adding runTime just changes the rotation of the rov, so i guess that code is not in  the current simulator
-
-    //msg_buf.append((const char*)&runTime, sizeof(runTime));
+    // adding runTime just changes the rotation of the rov, so i guess that code is not in the current simulator but maybe in the next
+    // if that is the case, uncomment the next line and the msg_buf line
+    // msg_buf.append((const char*)&runTime, sizeof(runTime));
     msg_buf.append((const char*)&nextData.ForceSurge, sizeof(nextData.ForceSurge));
     msg_buf.append((const char*)&nextData.ForceSway, sizeof(nextData.ForceSway));
     msg_buf.append((const char*)&nextData.ForceHeave, sizeof(nextData.ForceHeave));
@@ -146,15 +148,14 @@ void TcpRov::tcpSend() {
         qDebug() << "Send failed with WSA error: " << WSAGetLastError();
         return;
     }
+
     qDebug() << "Bytes sent: " << iResult;
 
     //reset nextData values
     resetValues();
 
-
-
     // Continue the loop
-    readTcpData();
+    tcpRead();
 }
 
 void TcpRov::setValues(quint64 north, quint64 east, quint64 down, quint64 psi) {

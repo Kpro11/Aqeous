@@ -56,7 +56,7 @@ signals:
 
 public slots:
     void tcpConnect();
-    void readTcpData();
+    void tcpRead();
     void tcpSend();
     void setValues(quint64, quint64, quint64, quint64);
     void resetValues();
