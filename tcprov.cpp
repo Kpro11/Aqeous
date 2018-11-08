@@ -18,17 +18,11 @@
 
 TcpRov::TcpRov(QObject *parent) : QObject(parent)
 {
-    timer = new QTimer(parent);
-    connect(timer, SIGNAL(timeout()), this, SLOT(tcpRead()));
+    //most of the initialization is done in main.cpp
 }
 
 // This function reads the data from the socket.
 void TcpRov::tcpRead() {
-
-    if (ConnectSocket == INVALID_SOCKET) {
-        timer->stop();
-        return;
-    }
 
     qDebug() << "Reading data";
 
@@ -42,14 +36,15 @@ void TcpRov::tcpRead() {
     if (iResult > 0)
         qDebug() << "Bytes received: " << iResult;
     else if (iResult == 0) {
-        timer->stop();
+        timerStopReadStartConnect();
         qDebug() << "Connection closed";
         return;
     } else {
         qDebug() << "recv failed with error: " << WSAGetLastError();
-        timer->stop();
+        timerStopReadStartConnect();
         return;
     }
+
     memcpy(&readData.PosN, &recvbuf[0], 8);
     memcpy(&readData.PosE, &recvbuf[0 + 8 * 1], 8);
     memcpy(&readData.PosD, &recvbuf[0 + 8 * 2], 8);
@@ -79,6 +74,7 @@ void TcpRov::tcpConnect() {
     iResult = WSAStartup(MAKEWORD(2,2), &wsaData);
     if (iResult != 0) {
         qDebug() << "WSAStartup failed: " << iResult;
+        return;
     }
 
     struct addrinfo *result = NULL,
@@ -95,6 +91,7 @@ void TcpRov::tcpConnect() {
     if (iResult != 0) {
         qDebug() << "getaddrinfo failed: " << iResult;
         WSACleanup();
+        return;
     }
 
     // Attempt to connect to the first address returned by the call to getaddrinfo
@@ -107,6 +104,7 @@ void TcpRov::tcpConnect() {
         qDebug() << "Error at socket(): " << WSAGetLastError();
         freeaddrinfo(result);
         WSACleanup();
+        return;
     }
 
     // call to function outside of qt scope
@@ -115,14 +113,14 @@ void TcpRov::tcpConnect() {
     if (ConnectSocket == INVALID_SOCKET) {
         qDebug() << "Unable to connect to server!";
         WSACleanup();
+        return;
     }
 
     // Should really try the next address returned by getaddrinfo if the connect call failed
     // But for this simple example we just free the resources returned by getaddrinfo and print an error message
     freeaddrinfo(result);
 
-    // start tcpRead timer
-    timer->start(timeStep * 1000);
+    timerStopConnectStartRead();
 
     qDebug() << "finnished connecting";
 }
@@ -130,7 +128,7 @@ void TcpRov::tcpConnect() {
 // this function send data to the socket
 void TcpRov::tcpSend() {
 
-    qDebug("writing data");
+    qDebug() << "writing data";
 
     // check how long the connection to the simulator has run for.
     runTime = (iRead + 1) * timeStep;
@@ -168,7 +166,7 @@ void TcpRov::tcpSend() {
     if (iResult == SOCKET_ERROR)
     {
         qDebug() << "Send failed with WSA error: " << WSAGetLastError();
-        timer->stop();
+        timerStopReadStartConnect();
         return;
     }
 
@@ -176,6 +174,25 @@ void TcpRov::tcpSend() {
 
     //reset nextData values
     resetValues();
+}
+
+void TcpRov::timerStopReadStartConnect() {
+    qDebug() << "Stopping the tcpReadTimer, starting the tcpConnectTimer";
+    // stop the timer that launches the tcpRead function because of server disconect.
+    tcpReadTimer->stop();
+    // starting to listen for a new connection every 3 seconds
+    tcpConnectTimer->start(3000);
+
+}
+
+void TcpRov::timerStopConnectStartRead() {
+    qDebug() << "Stopping the tcpConnectTimer, starting the tcpReadTimer";
+
+    // stop the timer that listens for a new connection
+    tcpConnectTimer->stop();
+
+    // start to launch the read functions every timeStep
+    tcpReadTimer->start(timeStep * 1000);
 }
 
 // this function sets the values that will be sent to the socket

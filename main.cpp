@@ -55,9 +55,33 @@ int main(int argc, char *argv[])
     // qDebug() << qList.length();
     // qDebug() << "Width: " << width;
 
-    // starting tcp communication
-    TcpRov *com = new TcpRov();
-    QObject::connect(&w2, SIGNAL(connectToROV()), com, SLOT(tcpConnect()));
+    //
+    // starting tcp communication init
+    //
+
+    TcpRov *tcpRov = new TcpRov();
+
+    // connecting button
+    // QObject::connect(&w2, SIGNAL(connectToROV()), tcpRov, SLOT(tcpConnect()));
+
+    // Create, connect and start tcp timers
+    // This is done in main.cpp because Qtimer spawn threads and does not easily expose communication between those.
+    // this caused a bug where the timer would not stop. So we now do it here instead.
+    QTimer *tcpReadTimer = new QTimer(tcpRov);
+    QTimer *tcpConnectTimer = new QTimer(tcpRov);
+
+    QObject::connect(tcpReadTimer, SIGNAL(timeout()), tcpRov, SLOT(tcpRead()));
+
+    tcpRov->tcpReadTimer = tcpReadTimer;
+    tcpRov->tcpConnectTimer = tcpConnectTimer;
+
+    QObject::connect(tcpConnectTimer, SIGNAL(timeout()), tcpRov, SLOT(tcpConnect()));
+
+    tcpRov->timerStopReadStartConnect();
+
+    //
+    // End tcp init
+    //
 
     return a.exec();
 }
