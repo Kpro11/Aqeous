@@ -5,6 +5,18 @@
 #include <QObject>
 #include <winsock2.h>
 
+#define DEFAULT_BUFLEN 1024
+
+// Data structure to receive from FhSim
+class TCPVessel {
+    public:
+        double PosN = 0.0;
+        double PosE = 0.0;
+        double PosD = 0.0;
+        double PosPsi = 0.0;
+};
+
+
 class TcpRov : public QObject
 {
     Q_OBJECT
@@ -27,6 +39,11 @@ public:
 
     SOCKET ConnectSocket = INVALID_SOCKET;
 
+    int iRead = 0;                          // how many times have we read data?
+    double runTime;                         // how long has the tcp connection lasted
+
+    TCPVessel VesselState;					// Data structure to receive from FhSim
+
 
 signals:
 
@@ -38,5 +55,7 @@ public slots:
 };
 
 void winsockConnect(SOCKET *, addrinfo *);
+
+
 
 #endif // TCPROV_H
