@@ -59,6 +59,7 @@ public slots:
     void readTcpData();
     void tcpSend();
     void setValues(quint64, quint64, quint64, quint64);
+    void resetValues();
 };
 
 void winsockConnect(SOCKET *, addrinfo *);

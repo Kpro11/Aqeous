@@ -112,6 +112,8 @@ void TcpRov::tcpSend() {
     runTime = (iRead + 1) * timeStep;
     qDebug () << "Sending time: " << runTime;
 
+    // increment the counter of how many times we have read.
+    iRead++;
 
     // The reference variables that sintef provided:
     // protip: scroll out in the simulator to see the ship
@@ -146,7 +148,11 @@ void TcpRov::tcpSend() {
     }
     qDebug() << "Bytes sent: " << iResult;
 
-    iRead++;
+    //reset nextData values
+    resetValues();
+
+
+
     // Continue the loop
     readTcpData();
 }
@@ -156,6 +162,14 @@ void TcpRov::setValues(quint64 north, quint64 east, quint64 down, quint64 psi) {
     nextData.ForceSway = static_cast<double>(east);
     nextData.ForceHeave = static_cast<double>(down);
     nextData.ForceYaw = static_cast<double>(psi);
+}
+
+// this function resets all the nextData variables to zero. This is done such that we don't double send data.
+void TcpRov::resetValues() {
+    nextData.ForceSurge = 0;
+    nextData.ForceSway = 0;
+    nextData.ForceHeave = 0;
+    nextData.ForceYaw = 0;
 }
 
 // this function is an extension of TcpRov::tcpConnect and was made because "connect" is a reserved word for QT. But this function does not inherit from QT.
