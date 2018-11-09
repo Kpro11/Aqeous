@@ -4,7 +4,7 @@
 #
 #-------------------------------------------------
 
-QT       += core gui widgets multimedia multimediawidgets
+QT       += core gui widgets multimedia multimediawidgets network
 
 QT += avwidgets
 
@@ -16,28 +16,73 @@ TEMPLATE = app
 # depend on your compiler). Please consult the documentation of the
 # deprecated API in order to know how to port your code away from it.
 DEFINES += QT_DEPRECATED_WARNINGS
+DEFINES += WIN32_LEAN_AND_MEAN
 
 # You can also make your code fail to compile if you use deprecated APIs.
 # In order to do so, uncomment the following line.
 # You can also select to disable deprecated APIs only up to a certain version of Qt.
 #DEFINES += QT_DISABLE_DEPRECATED_BEFORE=0x060000    # disables all the APIs deprecated before Qt 6.0.0
 
-CONFIG += c++11
+#CONFIG += c++11
+CONFIG += c++14
+
+win32 {
+
+## Link to Xinput
+message(Using Win32)
+
+contains(QT_ARCH, i386) {
+ BIT_BUILD = x86
+}else{
+ BIT_BUILD = x64
+}
+
+message(Bit build: $$BIT_BUILD)
+
+# Find the lib path
+XinputPath = $$(WindowsSdkDir)\\Lib\\$$(WindowsSdkLibVersion)\\um\\$$BIT_BUILD
+exists($$XinputPath) {
+    message(Found that Lib path: $$XinputPath)
+    LIBS += -L$$XinputPath \
+            -lxinput \
+            -lXinput9_1_0
+    message(THE LIBS ARE: $$LIBS)
+}else{
+    message(Missing XinputPath: $$XinputPath)
+}
+
+
+XinputIncludePath = $$(WindowsSdkDir)\\Include\\$$(WindowsSDKLibVersion)\\um
+# Find the include path
+exists($$XinputIncludePath) {
+    message(Found Xinput Include: $$XinputIncludePath)
+    INCLUDEPATH += $$XinputIncludePath
+}else{
+    message(Missing XInputIncludePath: $$XinputIncludePath)
+}
+
+}
 
 SOURCES += \
         main.cpp \
         mainwindow.cpp \
     secondarywindow.cpp \
+    gamepadserver.cpp \
+    gamepadstate.cpp \
     thrustergroup.cpp \
     powerstatus.cpp \
-    controltester.cpp
+    controltester.cpp \
+    tcprov.cpp
 
 HEADERS += \
         mainwindow.h \
     secondarywindow.h \
     thrustergroup.h \
     powerstatus.h \
-    controltester.h
+    controltester.h \
+    tcprov.h \
+    gamepadserver.h \
+    gamepadstate.h
 
 FORMS += \
         mainwindow.ui \

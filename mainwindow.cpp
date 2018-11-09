@@ -6,8 +6,10 @@
 #include <QMessageBox>
 #include <QUrl>
 #include <QVBoxLayout>
-
+#include <QDebug>
+#include <Windows.h>
 using namespace QtAV;
+
 
 MainWindow::MainWindow(QWidget *parent) :
     QMainWindow(parent),
@@ -34,6 +36,10 @@ MainWindow::MainWindow(QWidget *parent) :
 
     ui->depth_counter->display(valueI);
 
+    connect(&GamepadServer::instance(), SIGNAL(stateUpdate(GamepadState, int)),
+            this, SLOT(catchGamepadState(GamepadState, int)));
+
+    this->setWindowTitle(tr("Gamepad Server v0.1"));
 }
 
 MainWindow::~MainWindow()
@@ -42,6 +48,75 @@ MainWindow::~MainWindow()
 }
 
 
+void MainWindow::catchGamepadState(const GamepadState & gps, const int & playerId) {
+    //ui->depth_counter->display(value);
+    /*
+    qDebug() << "Player " << playerId << ": ";
+
+    qDebug() << "Left Trigger: " << gps.m_lTrigger <<
+                "\tRight Trigger: " << gps.m_rTrigger;
+    qDebug() << "Left Thumb :: X Axis: " << gps.m_lThumb.xAxis <<
+                "\t Y Axis: " << gps.m_lThumb.yAxis;
+    qDebug() << "Right Thumb :: Y Axis: " << gps.m_rThumb.xAxis <<
+                "\t Y Axis: " << gps.m_rThumb.yAxis;
+    */
+
+    double north = gps.m_lThumb.yAxis;
+    double east = gps.m_lThumb.xAxis;
+    double down = gps.m_rThumb.yAxis;
+    double psi = gps.m_rThumb.xAxis;
+
+    if (north != 0 || east != 0 || down != 0 || psi != 0) {
+        qDebug() << "Sending this data to tcp: " << north << east << down << psi;
+        tcpRov->setValues(north, east, down, psi);
+    }
+
+    /*
+    if (gps.m_pad_a) {
+        qDebug() << "A Pressed.";
+    }
+    if (gps.m_pad_b) {
+        qDebug() << "B Pressed.";
+    }
+    if (gps.m_pad_x) {
+        qDebug() << "X Pressed.";
+    }
+    if (gps.m_pad_y) {
+        qDebug() << "Y Pressed.";
+    }
+    if (gps.m_pad_up) {
+        qDebug() << "Up Pressed.";
+    }
+    if (gps.m_pad_down) {
+        qDebug() << "Down Pressed.";
+    }
+    if (gps.m_pad_left) {
+        qDebug() << "Left Pressed.";
+    }
+    if (gps.m_pad_right) {
+        qDebug() << "Right Pressed.";
+    }
+    if (gps.m_lShoulder) {
+        qDebug() << "Left Shoulder Pressed.";
+    }
+    if (gps.m_rShoulder) {
+        qDebug() << "Right Shoulder Pressed.";
+    }
+    if (gps.m_lThumb.pressed) {
+        qDebug() << "Left Thumb Pressed.";
+    }
+    if (gps.m_rThumb.pressed) {
+        qDebug() << "Right Thumb Pressed.";
+    }
+    if (gps.m_pad_start) {
+        qDebug() << "Start Pressed.";
+    }
+    if (gps.m_pad_back) {
+        qDebug() << "Back Pressed.";
+    }
+    */
+
+}
 
 void MainWindow::on_depth_slider_valueChanged(int value)
 {

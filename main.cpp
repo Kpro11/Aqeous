@@ -4,13 +4,14 @@
 #include "qdebug.h"
 #include "QScreen"
 #include <QtAVWidgets>
+#include <tcprov.h>
 
 int main(int argc, char *argv[])
 {
 
     QtAV::Widgets::registerRenderers();
     QApplication a(argc, argv);
-    
+
     // 2 windows code taken from https://stackoverflow.com/questions/34551046/create-two-windows
     MainWindow w1;
     SecondaryWindow w2;
@@ -54,6 +55,20 @@ int main(int argc, char *argv[])
     // qDebug() << qList.length();
     // qDebug() << "Width: " << width;
 
+    //
+    // starting tcp communication init
+    //
+
+    TcpRov *tcpRov = new TcpRov();
+    w1.tcpRov = tcpRov;
+
+
+    // connecting button
+    QObject::connect(&w2, SIGNAL(connectToROV()), tcpRov, SLOT(tcpConnect()));
+
+    //
+    // End tcp init
+    //
 
     return a.exec();
 }
