@@ -60,6 +60,8 @@ int main(int argc, char *argv[])
     //
 
     TcpRov *tcpRov = new TcpRov();
+    w1.tcpRov = tcpRov;
+
 
     // connecting button
     QObject::connect(&w2, SIGNAL(connectToROV()), tcpRov, SLOT(tcpConnect()));

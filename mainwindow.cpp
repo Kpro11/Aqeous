@@ -35,12 +35,11 @@ MainWindow::MainWindow(QWidget *parent) :
     valueI = ui->depth_slider->value();
 
     ui->depth_counter->display(valueI);
+
     connect(&GamepadServer::instance(), SIGNAL(stateUpdate(GamepadState, int)),
             this, SLOT(catchGamepadState(GamepadState, int)));
 
     this->setWindowTitle(tr("Gamepad Server v0.1"));
-
-    tcprov;
 }
 
 MainWindow::~MainWindow()
@@ -51,8 +50,7 @@ MainWindow::~MainWindow()
 
 void MainWindow::catchGamepadState(const GamepadState & gps, const int & playerId) {
     //ui->depth_counter->display(value);
-
-    Sleep(1000);
+    /*
     qDebug() << "Player " << playerId << ": ";
 
     qDebug() << "Left Trigger: " << gps.m_lTrigger <<
@@ -61,13 +59,17 @@ void MainWindow::catchGamepadState(const GamepadState & gps, const int & playerI
                 "\t Y Axis: " << gps.m_lThumb.yAxis;
     qDebug() << "Right Thumb :: Y Axis: " << gps.m_rThumb.xAxis <<
                 "\t Y Axis: " << gps.m_rThumb.yAxis;
+    */
 
-    quint64 north = gps.m_lThumb.yAxis;
-    quint64 east = gps.m_lThumb.xAxis;
-    quint64 down = gps.m_rThumb.yAxis;
-    quint64 psi = gps.m_rThumb.xAxis;
+    double north = gps.m_lThumb.yAxis;
+    double east = gps.m_lThumb.xAxis;
+    double down = gps.m_rThumb.yAxis;
+    double psi = gps.m_rThumb.xAxis;
 
-    tcprov.setValues(north, east, down, psi);
+    if (north != 0 || east != 0 || down != 0 || psi != 0) {
+        qDebug() << "Sending this data to tcp: " << north << east << down << psi;
+        tcpRov->setValues(north, east, down, psi);
+    }
 
     /*
     if (gps.m_pad_a) {
