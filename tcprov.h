@@ -59,7 +59,7 @@ public slots:
     void tcpConnect();
     void tcpRead();
     void tcpSend();
-    void setValues(quint64, quint64, quint64, quint64);
+    void setValues(double, double, double, double);
     void resetValues();
     void startTcpReadTimer();
     void stopTcpReadTimer();

@@ -191,11 +191,11 @@ void TcpRov::stopTcpReadTimer() {
 }
 
 // this function sets the values that will be sent to the socket
-void TcpRov::setValues(quint64 north, quint64 east, quint64 down, quint64 psi) {
-    nextData.ForceSurge = static_cast<double>(north);
-    nextData.ForceSway = static_cast<double>(east);
-    nextData.ForceHeave = static_cast<double>(down);
-    nextData.ForceYaw = static_cast<double>(psi);
+void TcpRov::setValues(double north, double east, double down, double psi) {
+    nextData.ForceSurge = north;
+    nextData.ForceSway = east;
+    nextData.ForceHeave = down;
+    nextData.ForceYaw = psi;
 }
 
 // this function resets all the nextData variables to zero. This is done such that we don't double send data.
