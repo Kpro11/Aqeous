@@ -54,6 +54,7 @@ public:
     TCPThruster nextData;               // Data to send to FhSim
 
 signals:
+    void updateROVValues(double, double, double, double);
 
 public slots:
     void tcpConnect();

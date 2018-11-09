@@ -120,6 +120,5 @@ void MainWindow::catchGamepadState(const GamepadState & gps, const int & playerI
 
 void MainWindow::on_depth_slider_valueChanged(int value)
 {
-
     ui->depth_counter->display(value);
 }

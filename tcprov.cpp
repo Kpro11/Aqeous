@@ -57,6 +57,9 @@ void TcpRov::tcpRead() {
     qDebug() << "readData.PosD: " << readData.PosD << " m";
     qDebug() << "readData.PosPsi: " << readData.PosPsi << " rad";
 
+    // send data to ui
+    emit updateROVValues(readData.PosN, readData.PosE, readData.PosD, readData.PosPsi);
+
     qDebug() << "Finnished reading data";
 
     // send next data

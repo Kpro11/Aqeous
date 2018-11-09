@@ -48,3 +48,11 @@ void SecondaryWindow::on_connectROV_clicked()
     // emits signal so that we can connect to the ROV using tcp
     emit connectToROV();
 }
+
+void SecondaryWindow::updateROVValues(double n, double e, double d, double psi) {
+    qDebug() << "setting new values: " << n << e << d << psi;
+    ui->north->display(n);
+    ui->east->display(e);
+    ui->down->display(d);
+    ui->psi->display(psi);
+}
