@@ -34,7 +34,7 @@
      <number>8</number>
     </property>
     <item row="0" column="0">
-     <layout class="QGridLayout" name="gridLayout" rowstretch="3,1" columnstretch="6,2">
+     <layout class="QGridLayout" name="gridLayout" rowstretch="3,0" columnstretch="6,0">
       <property name="leftMargin">
        <number>5</number>
       </property>
@@ -50,7 +50,7 @@
       <item row="0" column="0">
        <widget class="QTabWidget" name="tabWidget">
         <property name="currentIndex">
-         <number>0</number>
+         <number>1</number>
         </property>
         <widget class="QWidget" name="tab">
          <attribute name="title">
@@ -68,7 +68,48 @@
          </attribute>
          <layout class="QVBoxLayout" name="verticalLayout_3">
           <item>
-           <layout class="QHBoxLayout" name="horizontalLayout_10"/>
+           <layout class="QGridLayout" name="gridLayout_3">
+            <item row="0" column="1">
+             <widget class="QLabel" name="label">
+              <property name="text">
+               <string>East</string>
+              </property>
+             </widget>
+            </item>
+            <item row="0" column="0">
+             <widget class="QLabel" name="label_2">
+              <property name="text">
+               <string>North</string>
+              </property>
+             </widget>
+            </item>
+            <item row="0" column="2">
+             <widget class="QLabel" name="label_3">
+              <property name="text">
+               <string>Down</string>
+              </property>
+             </widget>
+            </item>
+            <item row="1" column="1">
+             <widget class="QLCDNumber" name="lcdNumber_2"/>
+            </item>
+            <item row="1" column="0">
+             <widget class="QLCDNumber" name="lcdNumber"/>
+            </item>
+            <item row="0" column="3">
+             <widget class="QLabel" name="label_4">
+              <property name="text">
+               <string>PSI</string>
+              </property>
+             </widget>
+            </item>
+            <item row="1" column="2">
+             <widget class="QLCDNumber" name="lcdNumber_3"/>
+            </item>
+            <item row="1" column="3">
+             <widget class="QLCDNumber" name="lcdNumber_4"/>
+            </item>
+           </layout>
           </item>
          </layout>
         </widget>
@@ -98,6 +139,9 @@
          <layout class="QHBoxLayout" name="powerstat_col"/>
         </item>
        </layout>
+      </item>
+      <item row="1" column="1">
+       <layout class="QHBoxLayout" name="ctester_col"/>
       </item>
       <item row="1" column="0">
        <layout class="QHBoxLayout" name="horizontalLayout">
@@ -145,9 +189,6 @@
          <layout class="QHBoxLayout" name="horizontalLayout_8"/>
         </item>
        </layout>
-      </item>
-      <item row="1" column="1">
-       <layout class="QHBoxLayout" name="ctester_col"/>
       </item>
      </layout>
     </item>
