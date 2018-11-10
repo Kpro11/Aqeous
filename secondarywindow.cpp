@@ -31,7 +31,7 @@ void SecondaryWindow::on_openSimulator_clicked()
 
     // the commands are prepended by a "start" because "start" will spawn a new process so this program doesnt halt.
     // Runs the simulator:
-    system("start C:/_work/FhSim/sfhdev/FhSimPlayPen_vs14_amd64/bin/tcp/runvisRtVisROV.bat && exit");
+    system("start C:/_work/FhSim/sfhdev/FhSimPlayPen_vs14_amd64/bin/tcp/runrtvisROV6DOF.bat && exit");
     // Runs the python program that sends commands to the simulator. Program replaces a physical controller. This is required when not using a physical controller
     //system("start python C:/_work/FhSim/sfhdev/FhSimPlayPen_vs14_amd64/bin/tcp/tcp_rov_forces.py && exit");
 
