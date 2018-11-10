@@ -47,15 +47,16 @@ void TcpRov::tcpRead() {
         return;
     }
 
-    memcpy(&readData.PosN, &recvbuf[0], 8);
-    memcpy(&readData.PosE, &recvbuf[0 + 8 * 1], 8);
-    memcpy(&readData.PosD, &recvbuf[0 + 8 * 2], 8);
-    memcpy(&readData.PosPsi, &recvbuf[0 + 8 * 3], 8);
+    memcpy(&readData.north, &recvbuf[0], 8);
+    memcpy(&readData.east, &recvbuf[0 + 8 * 1], 8);
+    memcpy(&readData.down, &recvbuf[0 + 8 * 2], 8);
+    memcpy(&readData.roll, &recvbuf[0 + 8 * 3], 8);
+    memcpy(&readData.pitch, &recvbuf[0 + 8 * 4], 8);
+    memcpy(&readData.yaw, &recvbuf[0 + 8 * 5], 8);
 
-    qDebug() << "readData.PosN: " << readData.PosN << " m";
-    qDebug() << "readData.PosE: " << readData.PosE << " m";
-    qDebug() << "readData.PosD: " << readData.PosD << " m";
-    qDebug() << "readData.PosPsi: " << readData.PosPsi << " rad";
+    qDebug() << "Data from simulator/backend:";
+    qDebug() << "North:\t" << readData.north << " m\t" << "East:\t" << readData.east << " m\t" << "Down:\t" << readData.down << " m";
+    qDebug() << "Roll:\t" << readData.roll << " rad\t" << "Pitch:\t" << readData.pitch << " rad\t" << readData.yaw << " rad";
 
     qDebug() << "Finnished reading data";
 
@@ -158,10 +159,16 @@ void TcpRov::tcpSend() {
     // adding runTime just changes the rotation of the rov, so i guess that code is not in the current simulator but maybe in the next
     // if that is the case, uncomment the next line and the msg_buf line
     // msg_buf.append((const char*)&runTime, sizeof(runTime));
-    msg_buf.append((const char*)&nextData.ForceSurge, sizeof(nextData.ForceSurge));
-    msg_buf.append((const char*)&nextData.ForceSway, sizeof(nextData.ForceSway));
-    msg_buf.append((const char*)&nextData.ForceHeave, sizeof(nextData.ForceHeave));
-    msg_buf.append((const char*)&nextData.ForceYaw, sizeof(nextData.ForceYaw));
+    msg_buf.append((const char*)&nextData.surge, sizeof(nextData.surge));
+    msg_buf.append((const char*)&nextData.sway, sizeof(nextData.sway));
+    msg_buf.append((const char*)&nextData.heave, sizeof(nextData.heave));
+    msg_buf.append((const char*)&nextData.roll, sizeof(nextData.roll));
+    msg_buf.append((const char*)&nextData.pitch, sizeof(nextData.pitch));
+    msg_buf.append((const char*)&nextData.yaw, sizeof(nextData.yaw));
+    /* unncomment this when we recive the new simulator
+    msg_buf.append((const char*)&nextData.autoDepth, sizeof(nextData.autoDepth));
+    msg_buf.append((const char*)&nextData.autoHeading, sizeof(nextData.autoHeading));
+    */
 
 
     int iResult = send(ConnectSocket, &msg_buf[0], msg_buf.size(), 0);
@@ -175,7 +182,7 @@ void TcpRov::tcpSend() {
     qDebug() << "Bytes sent: " << iResult;
 
     //reset nextData values
-    resetValues();
+    resetValuesButNotFlagValues();
 }
 
 void TcpRov::startTcpReadTimer() {
@@ -190,20 +197,73 @@ void TcpRov::stopTcpReadTimer() {
     tcpReadTimer->stop();
 }
 
-// this function sets the values that will be sent to the socket
-void TcpRov::setValues(double north, double east, double down, double psi) {
-    nextData.ForceSurge = north;
-    nextData.ForceSway = east;
-    nextData.ForceHeave = down;
-    nextData.ForceYaw = psi;
+// [old but working] this function sets the values that will be sent to the socket
+void TcpRov::setValues(double north, double east, double down, double yaw) {
+    nextData.surge = north;
+    nextData.sway = east;
+    nextData.heave = down;
+    nextData.yaw = yaw;
+}
+
+
+// [current] this function sets all variables except autoDepth and autoHeading
+void TcpRov::setValues(double north, double east, double down, double roll, double pitch, double yaw) {
+    nextData.surge = north;
+    nextData.sway = east;
+    nextData.heave = down;
+    nextData.roll = roll;
+    nextData.pitch = pitch;
+    nextData.yaw = yaw;
+}
+
+// [future] this function will set all variables
+void TcpRov::setValues(double north, double east, double down, double roll, double pitch, double yaw, double autoDepth, double autoHeading) {
+    nextData.surge = north;
+    nextData.sway = east;
+    nextData.heave = down;
+    nextData.roll = roll;
+    nextData.pitch = pitch;
+    nextData.yaw = yaw;
+    /* uncomment this when we recive the next version of the simulator
+    nextData.autoDepth = autoDepth;
+    nextData.autoHeading = autoHeading;
+    */
 }
 
 // this function resets all the nextData variables to zero. This is done such that we don't double send data.
-void TcpRov::resetValues() {
-    nextData.ForceSurge = 0;
-    nextData.ForceSway = 0;
-    nextData.ForceHeave = 0;
-    nextData.ForceYaw = 0;
+void TcpRov::resetAllValues() {
+    nextData.surge = 0;
+    nextData.sway = 0;
+    nextData.heave = 0;
+    nextData.roll = 0;
+    nextData.pitch = 0;
+    nextData.yaw = 0;
+    /*
+    nextData.autoDepth = 0;
+    nextData.autoHeading = 0;
+    */
+}
+
+// This function reset all values execpt flags and if a flag is 1 then it will not reset the corresponding value
+void TcpRov::resetValuesButNotFlagValues() {
+    /* Uncomment next version of simulator
+    if (nextData.autoDepth == 0) {
+        nextData.heave = 0;
+    }
+    if (nextData.autoHeading == 0) {
+        nextData.yaw = 0;
+    }
+    */
+
+    // Delete this when uncommenting the lines above
+    nextData.heave = 0;
+    nextData.yaw = 0;
+
+    // Do not delete this
+    nextData.surge = 0;
+    nextData.sway = 0;
+    nextData.roll = 0;
+    nextData.pitch = 0;
 }
 
 // this function is an extension of TcpRov::tcpConnect and was made because "connect" is a reserved word for QT. But this function does not inherit from QT.
