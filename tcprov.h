@@ -35,19 +35,26 @@ public:
     // Data structure to receive from FhSim
     class TCPVessel {
         public:
-            double PosN = 0.0;
-            double PosE = 0.0;
-            double PosD = 0.0;
-            double PosPsi = 0.0;
+            double north = 0.0;
+            double east = 0.0;
+            double down = 0.0;
+            double roll = 0.0;
+            double pitch = 0.0;
+            double yaw = 0.0;
     };
 
     // Data structure to send to FhSim
     class TCPThruster {
         public:
-            double ForceSurge = 500.0;
-            double ForceSway = 0.0;
-            double ForceHeave = 0.0;
-            double ForceYaw = 0.0;
+            double surge= 500.0;
+            double sway = 0.0;
+            double heave = 0.0; // reference depth when AutoDepth == 1
+            double roll = 0.0;  // not implemented in simulator at the moment
+            double pitch = 0.0; // not implemented in simulator at the moment
+            double yaw = 0.0;   // reference heading when AutoHeading = 1
+            // uncomment when new simulator supports it
+            // double autoDepth = 0.0;     // boolean dooble :) 0 for off or 1 for on
+            // double autoHeading = 0.0;   // 0 for off, 1 for on
     };
 
     TCPVessel readData;					// Data to receive from FhSim
@@ -61,7 +68,10 @@ public slots:
     void tcpRead();
     void tcpSend();
     void setValues(double, double, double, double);
-    void resetValues();
+    void setValues(double, double, double, double, double, double);
+    void setValues(double, double, double, double, double, double, double, double);
+    void resetAllValues();
+    void resetValuesButNotFlagValues();
     void startTcpReadTimer();
     void stopTcpReadTimer();
 };
