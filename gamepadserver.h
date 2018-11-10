@@ -20,19 +20,24 @@ public:
     // Gamepad update period
     const int UPDATE_PERIOD_MS = 15;
 
+    static constexpr double deadzoneX = 0.15;
+    static constexpr double deadzoneY = 0.15;
+    static const int maxJoystickValue = 32767;
+    static const int maxTriggerValue = 255;
+
+
 signals:
     void stateUpdate(const GamepadState & gps, const int & player);
 
 protected slots:
     void readState();
 
+
 private:
     GamepadServer();
 
     static GamepadServer * s_instance;
 
-    double deadzoneX = 0.15;
-    double deadzoneY = 0.15;
 };
 
 #endif // GAMEPADSERVER_H
