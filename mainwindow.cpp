@@ -8,43 +8,45 @@
 #include <QVBoxLayout>
 #include <QDebug>
 #include <Windows.h>
-using namespace QtAV;
+#include <QSlider>
+#include <QLabel>
 
 
 MainWindow::MainWindow(QWidget *parent) :
-    QMainWindow(parent),
-    ui(new Ui::MainWindow)
+    QMainWindow(parent)
 {
-    ui->setupUi(this);
 
     // setup the QtAV player
-    m_player = new AVPlayer(ui->QtAVWindow);
+    m_player = new QtAV::AVPlayer( this );
+    m_vo = new QtAV::VideoOutput( this );
 
-    m_vo = new VideoOutput(ui->QtAVWindow);
+    // check if we can create the video renderer
     if (!m_vo->widget()) {
        QMessageBox::warning(0, QString::fromLatin1("QtAV error"), tr("Can not create video renderer"));
        return;
     }
+
     m_player->setRenderer(m_vo);
-    ui->QtAVWindow->addWidget(m_vo->widget());
+
+    // assign the qtav player to a widget
+    videoPlayer = m_vo->widget();
+
+    // set the central widget to be the video player
+    // old way: ui->QtAVWindow->addWidget(m_vo->widget());
+    setCentralWidget(videoPlayer);
+
     // change the following url to whatever
     // QtAV support a ton of different formats, so use whatever floats your boat.
     m_player->play("udp://224.0.0.1:9999");
 
-    // depth:
-    valueI = ui->depth_slider->value();
-
-    ui->depth_counter->display(valueI);
 
     connect(&GamepadServer::instance(), SIGNAL(stateUpdate(GamepadState, int)),
             this, SLOT(catchGamepadState(GamepadState, int)));
 
-    this->setWindowTitle(tr("Gamepad Server v0.1"));
 }
 
 MainWindow::~MainWindow()
 {
-    delete ui;
 }
 
 
@@ -116,9 +118,4 @@ void MainWindow::catchGamepadState(const GamepadState & gps, const int & playerI
     }
     */
 
-}
-
-void MainWindow::on_depth_slider_valueChanged(int value)
-{
-    ui->depth_counter->display(value);
 }
