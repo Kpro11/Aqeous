@@ -4,7 +4,7 @@
 #
 #-------------------------------------------------
 
-QT       += core gui multimedia multimediawidgets
+QT       += core gui widgets multimedia multimediawidgets
 
 
 TARGET = RovyMcRovFace
