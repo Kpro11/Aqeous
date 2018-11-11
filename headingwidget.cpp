@@ -90,6 +90,38 @@ void HeadingWidget::setupUI(QWidget * _videoPlayer, int * _windowWidth, int * _w
         labels << newLabel;
     }
 
+    updateLabels();
+//This function will update the current heading / yaw view by setting new positions on all labels
+void HeadingWidget::updateLabels() {
+    // asumes that yaw is in degrees
+    qDebug() << "updating yaw";
+
+    // find out how many pixels there are available per label
+    int pixelsPerSlot = frameWidth / 12;
+
+    // iterate trough every label
+    for (int i = 0; i < labels.size(); i++) {
+
+        int point = labels[i]->value;
+
+        // finds the distance in this 360 degree circle
+        int distance = distanceFromPointToYaw(point, yaw);
+
+        // label should only show if it is in range
+        if (abs(distance) <= 90) {
+            // normalize
+            int positionInRow = (distance + 90)/15;
+            // set position
+            labels[i]->label->setGeometry(positionInRow * pixelsPerSlot, 0, 30, 30);
+
+
+        } else {
+            // hide the label
+            labels[i]->label->setGeometry(0,0,0,0);
+        }
+    }
+}
+
 // calculates true distance between two points in a 360 degrees circle
 int distanceFromPointToYaw(int point, int yaw) {
 

@@ -24,6 +24,7 @@ public:
 
 public slots:
     void updateYaw(double);
+    void updateLabels();
 private:
     QWidget * videoPlayer;
 
