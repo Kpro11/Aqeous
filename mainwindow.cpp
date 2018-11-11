@@ -10,7 +10,7 @@
 #include <Windows.h>
 #include <QSlider>
 #include <QLabel>
-
+#include "headingwidget.h"
 
 MainWindow::MainWindow(QWidget *parent) :
     QMainWindow(parent)
@@ -46,11 +46,11 @@ MainWindow::MainWindow(QWidget *parent) :
 
 // function that sets up the rest of ui that relies on screen dimensions, this function should be run after screen dimensions has been set.
 void MainWindow::setupUI() {
-    // add slider for testing
-    QSlider * slider = new QSlider(Qt::Horizontal, this);
-    slider->setGeometry(30,80,windowWidth - 60, 40);
-}
 
+    // header widget
+    headingWidget = new HeadingWidget ( videoPlayer, & windowWidth, & windowHeight);
+
+}
 MainWindow::~MainWindow()
 {
 }

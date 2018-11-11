@@ -6,6 +6,7 @@
 #include "gamepadserver.h"
 #include "tcprov.h"
 #include <QObject>
+#include "headingwidget.h"
 
 class MainWindow : public QMainWindow
 {
@@ -15,8 +16,11 @@ public:
     explicit MainWindow(QWidget *parent = 0);
     ~MainWindow();
     TcpRov *tcpRov;
-    int windowHeight;
+    QWidget * videoPlayer;
+    HeadingWidget * headingWidget;
+
     int windowWidth;
+    int windowHeight;
 
     void setupUI();
 
@@ -25,8 +29,6 @@ private slots:
     void catchGamepadState(const GamepadState & gps, const int & playerId);
 
 private:
-    QWidget * videoPlayer;
-
     QtAV::VideoOutput *m_vo;
     QtAV::AVPlayer *m_player;
 };
