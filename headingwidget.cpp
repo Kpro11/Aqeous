@@ -182,7 +182,7 @@ double distanceFromPointToYaw(double point, double yaw) {
 }
 
 void HeadingWidget::testUpdate() {
-    yaw = 360 * sin(testTime * 3.141 / ( 360 * 4)) + 1;
+    yaw = abs(360 * sin(testTime * 3.141 / ( 360 * 4)) + 1);
     testTime += 1;
     updateLabels();
 }
