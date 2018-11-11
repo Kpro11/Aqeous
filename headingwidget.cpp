@@ -95,13 +95,12 @@ void HeadingWidget::setupUI(QWidget * _videoPlayer, int * _windowWidth, int * _w
 
     testTimer = new QTimer(this);
     connect(testTimer, SIGNAL(timeout()), this, SLOT(testUpdate()));
-    testTimer->start(1000);
+    testTimer->start(30);
 }
 
 //This function will update the current heading / yaw view by setting new positions on all labels
 void HeadingWidget::updateLabels() {
     // asumes that yaw is in degrees
-    qDebug() << "updating yaw";
 
     // find out how many pixels there are available per label
     int pixelsPerSlot = frameWidth / 12;
@@ -112,14 +111,18 @@ void HeadingWidget::updateLabels() {
         int point = labels[i]->value;
 
         // finds the distance in this 360 degree circle
-        int distance = distanceFromPointToYaw(point, yaw);
+        double distance = distanceFromPointToYaw(point, yaw);
 
         // label should only show if it is in range
         if (abs(distance) <= 90) {
+
             // normalize
-            int positionInRow = (distance + 90)/15;
+            double positionInRow = (distance + 90) / 15;
+
             // set position
             labels[i]->label->setGeometry(positionInRow * pixelsPerSlot, 0, 30, 30);
+
+
 
 
         } else {
@@ -130,7 +133,7 @@ void HeadingWidget::updateLabels() {
 }
 
 // calculates true distance between two points in a 360 degrees circle
-int distanceFromPointToYaw(int point, int yaw) {
+double distanceFromPointToYaw(double point, double yaw) {
 
     // To find the distance between two points in a "circle" you have to do more than just
     // calculate the difference. You also have to take into account that the values 0 and 360 are neighbors.
@@ -146,19 +149,19 @@ int distanceFromPointToYaw(int point, int yaw) {
     // clockwise distance = 50
 
     // the normal distance between yaw and point
-    int distanceBetweenYawAndPoint = abs(yaw - point);
+    double distanceBetweenYawAndPoint = abs(yaw - point);
 
     // calculate variables to help traverse (counter-)clockwise
-    int yawDistanceToZero = yaw;
-    int yawDistanceToMax = 360 - yaw;
+    double yawDistanceToZero = yaw;
+    double yawDistanceToMax = 360 - yaw;
 
-    int pointDistanceToZero = point;
-    int pointDistanceToMax = 360 - point;
+    double pointDistanceToZero = point;
+    double pointDistanceToMax = 360 - point;
 
     // distance from point to max (360) + from min (0) to yaw point
-    int distanceAbove = pointDistanceToMax + yawDistanceToZero;
+    double distanceAbove = pointDistanceToMax + yawDistanceToZero;
     // distance from point to min(0) + from max(360) to yaw point.
-    int distanceBelow = pointDistanceToZero + yawDistanceToMax;
+    double distanceBelow = pointDistanceToZero + yawDistanceToMax;
 
     // we now know what the true distance is.
 
@@ -179,16 +182,18 @@ int distanceFromPointToYaw(int point, int yaw) {
 }
 
 void HeadingWidget::testUpdate() {
-    yaw =   360 * sin(testTime * 3.141 / 180) + 1;
-    qDebug() << "yaw: " << yaw << testTime;
+    yaw = 360 * sin(testTime * 3.141 / ( 360 * 4)) + 1;
     testTime += 1;
     updateLabels();
 }
 
 void HeadingWidget::updateYaw(double _yaw) {
-    // this must be converted to degrees:
-    yaw = _yaw;
-    currentYaw->setText(QString::number(_yaw));
+    // yaw must be converted to degrees first
+
+    // uncomment when yaw is fixed in the simulator
+    //yaw = _yaw;
+
+    currentYaw->setText(QString::number(yaw));
 
     // todo add conversion from rad to degrees here
 }

@@ -49,6 +49,6 @@ private:
     QString whiteText = " QLabel { color: white;  } ";   // stylesheet for white text
 };
 
-int distanceFromPointToYaw(int, int);
+double distanceFromPointToYaw(double, double);
 
 #endif // HEADINGWIDGET_H
