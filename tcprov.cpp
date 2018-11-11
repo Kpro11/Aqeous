@@ -221,7 +221,7 @@ void TcpRov::setValues(double north, double east, double down, double roll, doub
 }
 
 // [future] this function will set all variables
-void TcpRov::setValues(double north, double east, double down, double roll, double pitch, double yaw, double autoDepth, double autoHeading) {
+void TcpRov::setValues(double north, double east, double down, double roll, double pitch, double yaw, double toggleAutoDepth, double toggleAutoHeading) {
     nextData.surge = north;
     nextData.sway = east;
     nextData.heave = down;
@@ -232,6 +232,22 @@ void TcpRov::setValues(double north, double east, double down, double roll, doub
     nextData.autoDepth = autoDepth;
     nextData.autoHeading = autoHeading;
     */
+
+    if(toggleAutoDepth) {
+         nextData.autoDepth = (nextData.autoDepth == 0 ? 1 : 0);
+    }
+    if (toggleAutoHeading) {
+        nextData.autoHeading = (nextData.autoHeading == 0 ? 1 : 0);
+    }
+
+}
+
+void TcpRov::toggleAutoDepth() {
+    nextData.autoDepth = (nextData.autoDepth == 0 ? 1 : 0);
+}
+
+void TcpRov::toggleAutoHeading() {
+    nextData.autoHeading = (nextData.autoHeading == 0 ? 1 : 0);
 }
 
 // this function resets all the nextData variables to zero. This is done such that we don't double send data.

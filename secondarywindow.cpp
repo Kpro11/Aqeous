@@ -17,6 +17,11 @@ SecondaryWindow::SecondaryWindow(QWidget *parent) :
     ui->powerstat_col->addWidget(pstatus_col);
     ui->ctester_col->addWidget(control_tester);
 
+    QPixmap pixmapTarget = QPixmap(":/images/hitramap.png");
+    int w = ui->map->width() * 2.2;
+    int h = ui->map->height() * 1.5;
+    pixmapTarget = pixmapTarget.scaled(w, h, Qt::IgnoreAspectRatio, Qt::SmoothTransformation);
+    ui->map->setPixmap(pixmapTarget);
 
 }
 

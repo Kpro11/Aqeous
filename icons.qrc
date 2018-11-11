@@ -3,5 +3,6 @@
         <file>images/greenrect.png</file>
         <file>images/transrect.png</file>
         <file>images/redrect.png</file>
+        <file>images/hitramap.png</file>
     </qresource>
 </RCC>
