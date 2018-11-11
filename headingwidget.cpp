@@ -90,6 +90,53 @@ void HeadingWidget::setupUI(QWidget * _videoPlayer, int * _windowWidth, int * _w
         labels << newLabel;
     }
 
+// calculates true distance between two points in a 360 degrees circle
+int distanceFromPointToYaw(int point, int yaw) {
+
+    // To find the distance between two points in a "circle" you have to do more than just
+    // calculate the difference. You also have to take into account that the values 0 and 360 are neighbors.
+    // We therefor calculate three values here: Normal distance, distance counter-clockwise and
+    // distance clockwise. The lowest of these variables are the true distance.
+
+    // in this code we calculate (counter-)clockwise withouth checking if yaw was reached,
+    // this is to keep the math simple
+
+    // For example: A yaw at 330 and a point at 20 are only 50 degrees away from eachother
+    // normal distance = 310
+    // counter-clockwise distance = 360+320 = 680
+    // clockwise distance = 50
+
+    // the normal distance between yaw and point
+    int distanceBetweenYawAndPoint = abs(yaw - point);
+
+    // calculate variables to help traverse (counter-)clockwise
+    int yawDistanceToZero = yaw;
+    int yawDistanceToMax = 360 - yaw;
+
+    int pointDistanceToZero = point;
+    int pointDistanceToMax = 360 - point;
+
+    // distance from point to max (360) + from min (0) to yaw point
+    int distanceAbove = pointDistanceToMax + yawDistanceToZero;
+    // distance from point to min(0) + from max(360) to yaw point.
+    int distanceBelow = pointDistanceToZero + yawDistanceToMax;
+
+    // we now know what the true distance is.
+
+    // find the lowest value and return
+    if(distanceAbove < distanceBelow && distanceAbove < distanceBetweenYawAndPoint) {
+        // since the value was above we return negative
+        return -1 * distanceAbove;
+    } else if (distanceBelow < distanceAbove && distanceBelow < distanceBetweenYawAndPoint) {
+        return distanceBelow;
+    } else { // distanceBetweenYawAndPoint was lowest
+        // we calculate it again because it will produce the rigth "fortegn"
+        return point - yaw;
+    }
+
+    // The code belov returns the true distance
+    // Choose the value that was lowest. This is the correct value
+    // return std::min(std::min(distanceAbove, distanceBelow), distanceBetweenYawAndPoint);
 }
 
 
