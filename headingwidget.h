@@ -10,6 +10,8 @@ public:
     HeadingWidget(QWidget *, int *, int *);
     double yaw = 0.0;
 
+public slots:
+    void updateYaw(double);
 private:
     QWidget * videoPlayer;
 

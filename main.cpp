@@ -5,6 +5,7 @@
 #include "QScreen"
 #include <QtAVWidgets>
 #include <tcprov.h>
+#include <headingwidget.h>
 
 int main(int argc, char *argv[])
 {
@@ -84,6 +85,10 @@ int main(int argc, char *argv[])
 
     // connect rov values with ui and tcpRov
     QObject::connect(tcpRov, SIGNAL(updateROVValues(double, double, double, double, double, double)), &w2, SLOT(updateROVValues(double, double, double, double, double, double)) );
+
+    HeadingWidget * hw = w1.headingWidget;
+    // conect rov values to headingWidget
+    QObject::connect(tcpRov, qOverload<double>(&TcpRov::updateYaw), hw, &HeadingWidget::updateYaw);
 
     //
     // End tcp init

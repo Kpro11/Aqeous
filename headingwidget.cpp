@@ -21,12 +21,12 @@ HeadingWidget::HeadingWidget(QWidget * _videoPlayer, int * _windowWidth, int * _
 
 
 
-    QLabel * lbl = new QLabel( "Test1", frame );
-    lbl->setStyleSheet(whiteText);
-    lbl->setGeometry(0,0, 100, 40);
-    QLabel * lbl2 = new QLabel( "Test2", frame );
-    lbl2->setStyleSheet(whiteText);
-    lbl2->setGeometry(100,0, 100, 40);
+void HeadingWidget::updateYaw(double _yaw) {
+    // this must be converted to degrees:
+    yaw = _yaw;
+    currentYaw->setText(QString::number(_yaw));
+
+    // todo add conversion from rad to degrees here
 }
 
 
