@@ -19,6 +19,9 @@ public:
     double timeStep = 0.1;					// Communication interval
     double recNum = 4;						// Number of messages (8-byte double precision numbers) to receive
     double senNum = 4;						// Number of messages (8-byte double precision numbers) to send
+    static constexpr double maxThrusterHorizontal = 400;
+    static constexpr double maxThrusterVertical = 200;
+    static constexpr double maxThrusterHeading = 10; //FIND RIGHT VALUE
 
     WSADATA wsaData;                        // initalize Winsock
 
@@ -31,6 +34,8 @@ public:
     double runTime;                         // how long has the tcp connection lasted
 
     std::string msg_buf;
+
+
 
     // Data structure to receive from FhSim
     class TCPVessel {
@@ -53,8 +58,8 @@ public:
             double pitch = 0.0; // not implemented in simulator at the moment
             double yaw = 0.0;   // reference heading when AutoHeading = 1
             // uncomment when new simulator supports it
-            // double autoDepth = 0.0;     // boolean dooble :) 0 for off or 1 for on
-            // double autoHeading = 0.0;   // 0 for off, 1 for on
+             double autoDepth = 0.0;     // boolean dooble :) 0 for off or 1 for on
+             double autoHeading = 0.0;   // 0 for off, 1 for on
     };
 
     TCPVessel readData;					// Data to receive from FhSim
@@ -73,7 +78,13 @@ public slots:
     void resetValuesButNotFlagValues();
     void startTcpReadTimer();
     void stopTcpReadTimer();
+    void toggleAutoDepth();
+    void toggleAutoHeading();
+
 };
+
+
+
 
 void winsockConnect(SOCKET *, addrinfo *);
 

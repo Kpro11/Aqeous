@@ -71,6 +71,7 @@ namespace GamepadServerLocal {
         setButton(gps.m_rShoulder, btn, XINPUT_GAMEPAD_RIGHT_SHOULDER);
     }
 
+
     void setButton(bool & gamePadButtonState, const uint32_t & btn, const uint32_t & expectedValue) {
         if ((btn & expectedValue) == expectedValue) {
             gamePadButtonState = true;
@@ -80,17 +81,21 @@ namespace GamepadServerLocal {
     }
 
     void updateAnalogs(GamepadState & gps, const XINPUT_GAMEPAD & xStatePad) {
-        gps.m_lTrigger = xStatePad.bLeftTrigger;
-        gps.m_rTrigger = xStatePad.bRightTrigger;
+        gps.m_lTrigger = xStatePad.bLeftTrigger/GamepadServer::maxTriggerValue;
+        gps.m_rTrigger = xStatePad.bRightTrigger/GamepadServer::maxTriggerValue;
+        gps.m_lThumb.xAxis = xStatePad.sThumbLX/GamepadServer::maxJoystickValue;
+        gps.m_lThumb.yAxis = xStatePad.sThumbLY/GamepadServer::maxJoystickValue;
+        gps.m_rThumb.xAxis = xStatePad.sThumbRX/GamepadServer::maxJoystickValue;
+        gps.m_rThumb.yAxis = xStatePad.sThumbRY/GamepadServer::maxJoystickValue;
 
-        double deadzoneX = 0.15*32767;
-        double deadzoneY = 0.15*32767;
+        double deadzoneX = 0.15;
+        double deadzoneY = 0.15;
 
         // Factoring in deadzone
-        gps.m_lThumb.xAxis = (abs(xStatePad.sThumbLX) < deadzoneX ? 0 : xStatePad.sThumbLX);
-        gps.m_lThumb.yAxis = (abs(xStatePad.sThumbLY) < deadzoneY ? 0 : xStatePad.sThumbLY);
-        gps.m_rThumb.xAxis = (abs(xStatePad.sThumbRX) < deadzoneX ? 0 : xStatePad.sThumbRX);
-        gps.m_rThumb.yAxis = (abs(xStatePad.sThumbRY) < deadzoneY ? 0 : xStatePad.sThumbRY);
+        gps.m_lThumb.xAxis = (abs(xStatePad.sThumbLX) < deadzoneX ? 0 : gps.m_lThumb.xAxis);
+        gps.m_lThumb.yAxis = (abs(xStatePad.sThumbLY) < deadzoneY ? 0 : gps.m_lThumb.yAxis);
+        gps.m_rThumb.xAxis = (abs(xStatePad.sThumbRX) < deadzoneX ? 0 : gps.m_rThumb.xAxis);
+        gps.m_rThumb.yAxis = (abs(xStatePad.sThumbRY) < deadzoneY ? 0 : gps.m_rThumb.yAxis);
     }
 
 }

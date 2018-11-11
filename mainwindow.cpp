@@ -8,6 +8,7 @@
 #include <QVBoxLayout>
 #include <QDebug>
 #include <Windows.h>
+#include <tcprov.h>
 using namespace QtAV;
 
 
@@ -61,20 +62,42 @@ void MainWindow::catchGamepadState(const GamepadState & gps, const int & playerI
                 "\t Y Axis: " << gps.m_rThumb.yAxis;
     */
 
-    double north = gps.m_lThumb.yAxis;
-    double east = gps.m_lThumb.xAxis;
-    double down = gps.m_rThumb.yAxis;
-    double psi = gps.m_rThumb.xAxis;
+    double north = (TcpRov::maxThrusterHorizontal*gps.m_lThumb.yAxis);
+    double east = (TcpRov::maxThrusterHorizontal*gps.m_lThumb.xAxis);
+    double down = (TcpRov::maxThrusterVertical*(gps.m_rTrigger - gps.m_lTrigger));
+    double psi = (TcpRov::maxThrusterHeading*gps.m_rThumb.xAxis); //TODO: Find right normalisation value
 
-    if (north != 0 || east != 0 || down != 0 || psi != 0) {
-        qDebug() << "Sending this data to tcp: " << north << east << down << psi;
-        tcpRov->setValues(north, east, down, psi);
-    }
 
-    /*
+
+
+
+
+    static bool lastKeyStateA = 0;
+    static bool lastKeyStateB = 0;
+
+    double toggleAutoDepth = 0;
+    double toggleAutoHeading = 0;
+
+
     if (gps.m_pad_a) {
-        qDebug() << "A Pressed.";
-    }
+        if (!lastKeyStateA) {    
+            toggleAutoDepth = 1;
+         } lastKeyStateA = 1;
+    } else {
+        lastKeyStateA = 0;
+}
+
+    if (gps.m_pad_b) {
+        if (!lastKeyStateB) {
+            toggleAutoHeading = 1;
+         } lastKeyStateB = 1;
+    } else {
+        lastKeyStateB = 0;
+}
+
+    tcpRov->setValues(north, east, down, 0, 0, psi, toggleAutoDepth, toggleAutoHeading);
+    qDebug() << "Sending this data to tcp: " << north << east << down << psi << tcpRov->nextData.autoDepth << tcpRov->nextData.autoHeading;
+/*
     if (gps.m_pad_b) {
         qDebug() << "B Pressed.";
     }
