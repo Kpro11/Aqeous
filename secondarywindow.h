@@ -39,7 +39,7 @@ public slots:
 
     void on_connectROV_clicked();
 
-    void updateROVValues(double, double, double, double);
+    void updateROVValues(double, double, double, double, double, double);
 
 private:
     Ui::SecondaryWindow *ui;

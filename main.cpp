@@ -66,7 +66,7 @@ int main(int argc, char *argv[])
     // connecting button
     QObject::connect(&w2, SIGNAL(connectToROV()), tcpRov, SLOT(tcpConnect()));
 
-    QObject::connect(tcpRov, SIGNAL(updateROVValues(double, double, double, double)), &w2, SLOT(updateROVValues(double, double, double, double)) );
+    QObject::connect(tcpRov, SIGNAL(updateROVValues(double, double, double, double, double, double)), &w2, SLOT(updateROVValues(double, double, double, double, double, double)) );
 
     //
     // End tcp init

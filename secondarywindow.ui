@@ -69,12 +69,32 @@
          <layout class="QVBoxLayout" name="verticalLayout_3">
           <item>
            <layout class="QGridLayout" name="ROVVars">
+            <item row="0" column="3">
+             <widget class="QLabel" name="label_4">
+              <property name="text">
+               <string>Roll</string>
+              </property>
+             </widget>
+            </item>
+            <item row="1" column="3">
+             <widget class="QLCDNumber" name="roll"/>
+            </item>
+            <item row="0" column="4">
+             <widget class="QLabel" name="label_5">
+              <property name="text">
+               <string>Pitch</string>
+              </property>
+             </widget>
+            </item>
             <item row="0" column="1">
              <widget class="QLabel" name="label">
               <property name="text">
                <string>East</string>
               </property>
              </widget>
+            </item>
+            <item row="1" column="1">
+             <widget class="QLCDNumber" name="east"/>
             </item>
             <item row="0" column="0">
              <widget class="QLabel" name="label_2">
@@ -90,24 +110,24 @@
               </property>
              </widget>
             </item>
-            <item row="1" column="1">
-             <widget class="QLCDNumber" name="east"/>
-            </item>
             <item row="1" column="0">
              <widget class="QLCDNumber" name="north"/>
-            </item>
-            <item row="0" column="3">
-             <widget class="QLabel" name="label_4">
-              <property name="text">
-               <string>PSI</string>
-              </property>
-             </widget>
             </item>
             <item row="1" column="2">
              <widget class="QLCDNumber" name="down"/>
             </item>
-            <item row="1" column="3">
-             <widget class="QLCDNumber" name="psi"/>
+            <item row="0" column="5">
+             <widget class="QLabel" name="label_6">
+              <property name="text">
+               <string>Yaw</string>
+              </property>
+             </widget>
+            </item>
+            <item row="1" column="4">
+             <widget class="QLCDNumber" name="pitch"/>
+            </item>
+            <item row="1" column="5">
+             <widget class="QLCDNumber" name="yaw"/>
             </item>
            </layout>
           </item>

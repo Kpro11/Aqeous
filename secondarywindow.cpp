@@ -49,10 +49,11 @@ void SecondaryWindow::on_connectROV_clicked()
     emit connectToROV();
 }
 
-void SecondaryWindow::updateROVValues(double n, double e, double d, double psi) {
-    qDebug() << "setting new values: " << n << e << d << psi;
-    ui->north->display(n);
-    ui->east->display(e);
-    ui->down->display(d);
-    ui->psi->display(psi);
+void SecondaryWindow::updateROVValues(double _north, double _east, double _down, double _roll, double _pitch, double _yaw) {
+    ui->north->display(_north);
+    ui->east->display(_east);
+    ui->down->display(_down);
+    ui->roll->display(_roll);
+    ui->pitch->display(_pitch);
+    ui->yaw->display(_yaw);
 }
