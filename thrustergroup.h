@@ -2,6 +2,8 @@
 #define THRUSTERGROUP_H
 
 #include <QDialog>
+#include "stdlib.h"
+using namespace std;
 
 namespace Ui {
 class ThrusterGroup;
@@ -16,6 +18,10 @@ public:
     ~ThrusterGroup();
 
 
+
+
+
+private slots:
 
 
 

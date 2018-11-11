@@ -5,6 +5,9 @@
 #include "thrustergroup.h"
 #include "powerstatus.h"
 #include "controltester.h"
+#include "stdlib.h"
+#include <QLabel>
+using namespace std;
 
 namespace Ui {
 class SecondaryWindow;
@@ -17,20 +20,27 @@ class SecondaryWindow : public QMainWindow
 public:
     explicit SecondaryWindow(QWidget *parent = nullptr);
     ~SecondaryWindow();
+    int PowerOutput;
+    bool fPower;
+    bool sPower;
+    QPixmap red;
+    QString textVal;
 
-    /*Power status value initialization*/
-    bool fkv;
-    bool skv;
 
 
-    /*Initializing Thruster power ouput values*/
-    int t1;
-    int t2;
-    int t3;
-    int t4;
-    int t5;
-    int t6;
 
+private slots:
+    void changeStatusRed();
+    void changeStatusYellow();
+    void changeStatusGreen();
+    void on_ed1_textEdited(const QString &arg1);
+    QPixmap changeOnStatus();
+    QPixmap changeOffStatus();
+
+
+    void on_fPowStatus_toggled(bool checked);
+
+    void on_sPowStatus_toggled(bool checked);
 
 private:
     Ui::SecondaryWindow *ui;

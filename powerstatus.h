@@ -2,6 +2,8 @@
 #define POWERSTATUS_H
 
 #include <QDialog>
+#include "stdlib.h"
+using namespace std;
 
 namespace Ui {
 class PowerStatus;

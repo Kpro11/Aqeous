@@ -12,3 +12,5 @@ ThrusterGroup::~ThrusterGroup()
 {
     delete ui;
 }
+
+

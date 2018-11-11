@@ -3,5 +3,12 @@
         <file>images/greenrect.png</file>
         <file>images/transrect.png</file>
         <file>images/redrect.png</file>
+        <file>images/yellowrect.png</file>
+        <file>images/aq logo_1.png</file>
+        <file>images/RED.png</file>
+        <file>images/AQ_ICON.png</file>
+        <file>images/YELLOW.png</file>
+        <file>images/GREEN.png</file>
+        <file>images/AQ_ICON_1.png</file>
     </qresource>
 </RCC>

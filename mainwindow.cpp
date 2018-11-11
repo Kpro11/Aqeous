@@ -1,6 +1,8 @@
 #include "mainwindow.h"
 #include "ui_mainwindow.h"
 #include "qdebug.h"
+#include "stdlib.h"
+using namespace std;
 
 MainWindow::MainWindow(QWidget *parent) :
     QMainWindow(parent),
@@ -48,11 +50,13 @@ MainWindow::~MainWindow()
 
 
 
-
+double callback(double val){
+    return 2*val;
+}
 
 
 void MainWindow::on_depth_slider_valueChanged(int value)
 {
 
-    ui->depth_counter->display(value);
+    ui->depth_counter->display(callback(value));
 }

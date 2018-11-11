@@ -2,6 +2,8 @@
 #define CONTROLTESTER_H
 
 #include <QDialog>
+#include "stdlib.h"
+using namespace std;
 
 
 namespace Ui {
