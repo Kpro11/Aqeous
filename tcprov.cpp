@@ -230,6 +230,10 @@ void TcpRov::setValues(double north, double east, double down, double roll, doub
     */
 }
 
+void TcpRov::toggleAutoDepth() {
+    //TODO: Complete after asking Kim
+}
+
 // this function resets all the nextData variables to zero. This is done such that we don't double send data.
 void TcpRov::resetAllValues() {
     nextData.surge = 0;

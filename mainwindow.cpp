@@ -67,23 +67,20 @@ void MainWindow::catchGamepadState(const GamepadState & gps, const int & playerI
     double down = (TcpRov::maxThrusterVertical*(gps.m_rTrigger - gps.m_lTrigger));
     double psi = (TcpRov::maxThrusterHeading*gps.m_rThumb.xAxis); //TODO: Find right normalisation value
 
-    if (north != 0 || east != 0 || down != 0 || psi != 0) {
-        qDebug() << "Sending this data to tcp: " << north << east << down << psi;
-        tcpRov->setValues(north, east, down, psi);
-    }
+
+    qDebug() << "Sending this data to tcp: " << north << east << down << psi;
+    tcpRov->setValues(north, east, down, psi);
+
 
     static bool lastKeyStateA = 0;
 
 
     if (gps.m_pad_a) {
         if (!lastKeyStateA) {
-            qDebug() << "A Pressed";
+            tcpRov->toggleAutoDepth();
          } lastKeyStateA = 1;
     } else {
-        if (lastKeyStateA) {
-            qDebug() << "A Released";
-        } lastKeyStateA = 0;
-
+        lastKeyStateA = 0;
 }
 /*
     if (gps.m_pad_b) {

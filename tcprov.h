@@ -78,6 +78,7 @@ public slots:
     void resetValuesButNotFlagValues();
     void startTcpReadTimer();
     void stopTcpReadTimer();
+    void toggleAutoDepth();
 
 };
 
