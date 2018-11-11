@@ -15,6 +15,8 @@ public:
     explicit MainWindow(QWidget *parent = 0);
     ~MainWindow();
     TcpRov *tcpRov;
+    int windowHeight;
+    int windowWidth;
 
 private slots:
     //void on_depth_slider_valueChanged(int value);
