@@ -2,12 +2,13 @@
 #define HEADINGWIDGET_H
 
 #include <QWidget>
-#include <QSlider>
+#include <QFrame>
 
 class HeadingWidget
 {
 public:
     HeadingWidget(QWidget *, int *, int *);
+    double yaw = 0.0;
 
 private:
     QWidget * videoPlayer;
@@ -15,7 +16,8 @@ private:
     int * windowWidth;
     int * windowHeight;
 
-    QSlider * slider;
+    QFrame * frame; // main frame that contains entire widget
+    QString whiteText = " QLabel { color: white; } ";   // stylesheet for white text
 };
 
 #endif // HEADINGWIDGET_H
