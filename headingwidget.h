@@ -5,6 +5,7 @@
 #include <QFrame>
 #include <QLabel>
 #include <QList>
+#include <QTimer>
 
 class HeadingLabel {
 public:
@@ -19,13 +20,18 @@ class HeadingWidget : public QWidget
 public:
     HeadingWidget(QWidget *parent = nullptr);
     double yaw = 0.0;
+    int testTime = 0;
 
     void setupUI(QWidget * _videoPlayer, int * _windowWidth, int * _windowHeight);
 
 public slots:
     void updateYaw(double);
     void updateLabels();
+    void testUpdate();
+
 private:
+    QTimer * testTimer;
+
     QWidget * videoPlayer;
 
     int * windowWidth;

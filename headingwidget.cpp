@@ -2,6 +2,7 @@
 #include <QDebug>
 #include "QHBoxLayout"
 #include <QLabel>
+#include <math.h>
 
 HeadingWidget::HeadingWidget(QWidget *parent) : QWidget(parent)
 {
@@ -79,7 +80,7 @@ void HeadingWidget::setupUI(QWidget * _videoPlayer, int * _windowWidth, int * _w
             newLabel->label = new QLabel(newLabel->letter, frame);
         } else {
             newLabel->label = new QLabel(QString::number(newLabel->value), frame);
-}
+        }
 
         newLabel->label->setStyleSheet(stylesheet);
 
@@ -91,6 +92,12 @@ void HeadingWidget::setupUI(QWidget * _videoPlayer, int * _windowWidth, int * _w
     }
 
     updateLabels();
+
+    testTimer = new QTimer(this);
+    connect(testTimer, SIGNAL(timeout()), this, SLOT(testUpdate()));
+    testTimer->start(1000);
+}
+
 //This function will update the current heading / yaw view by setting new positions on all labels
 void HeadingWidget::updateLabels() {
     // asumes that yaw is in degrees
@@ -171,6 +178,12 @@ int distanceFromPointToYaw(int point, int yaw) {
     // return std::min(std::min(distanceAbove, distanceBelow), distanceBetweenYawAndPoint);
 }
 
+void HeadingWidget::testUpdate() {
+    yaw =   360 * sin(testTime * 3.141 / 180) + 1;
+    qDebug() << "yaw: " << yaw << testTime;
+    testTime += 1;
+    updateLabels();
+}
 
 void HeadingWidget::updateYaw(double _yaw) {
     // this must be converted to degrees:
