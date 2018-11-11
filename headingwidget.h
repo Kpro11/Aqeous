@@ -3,6 +3,15 @@
 
 #include <QWidget>
 #include <QFrame>
+#include <QLabel>
+#include <QList>
+
+class HeadingLabel {
+public:
+    QLabel *label;
+    int value;
+    QChar letter;
+};
 
 class HeadingWidget : public QWidget
 {
@@ -12,6 +21,7 @@ public:
     double yaw = 0.0;
 
     void setupUI(QWidget * _videoPlayer, int * _windowWidth, int * _windowHeight);
+
 public slots:
     void updateYaw(double);
 private:
@@ -20,8 +30,16 @@ private:
     int * windowWidth;
     int * windowHeight;
 
+    int frameWidth;
+    int frameHeight;
+
+    QLabel *currentYaw;
+
     QFrame * frame; // main frame that contains entire widget
-    QString whiteText = " QLabel { color: white; } ";   // stylesheet for white text
+
+    QList<HeadingLabel *> labels;
+
+    QString whiteText = " QLabel { color: white;  } ";   // stylesheet for white text
 };
 
 #endif // HEADINGWIDGET_H
