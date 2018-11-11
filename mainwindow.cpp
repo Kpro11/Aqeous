@@ -48,9 +48,11 @@ MainWindow::MainWindow(QWidget *parent) :
 void MainWindow::setupUI() {
 
     // header widget
-    headingWidget = new HeadingWidget ( videoPlayer, & windowWidth, & windowHeight);
+    headingWidget = new HeadingWidget ( this );
+    headingWidget->setupUI(videoPlayer, & windowWidth, & windowHeight);
 
 }
+
 MainWindow::~MainWindow()
 {
 }

@@ -4,12 +4,14 @@
 #include <QWidget>
 #include <QFrame>
 
-class HeadingWidget
+class HeadingWidget : public QWidget
 {
+    Q_OBJECT
 public:
-    HeadingWidget(QWidget *, int *, int *);
+    HeadingWidget(QWidget *parent = nullptr);
     double yaw = 0.0;
 
+    void setupUI(QWidget * _videoPlayer, int * _windowWidth, int * _windowHeight);
 public slots:
     void updateYaw(double);
 private:

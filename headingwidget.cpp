@@ -3,8 +3,12 @@
 #include "QHBoxLayout"
 #include <QLabel>
 
-HeadingWidget::HeadingWidget(QWidget * _videoPlayer, int * _windowWidth, int * _windowHeight)
+HeadingWidget::HeadingWidget(QWidget *parent) : QWidget(parent)
 {
+
+}
+
+void HeadingWidget::setupUI(QWidget * _videoPlayer, int * _windowWidth, int * _windowHeight) {
     videoPlayer = _videoPlayer;
     windowWidth = _windowWidth;
     windowHeight = _windowHeight;
@@ -18,6 +22,7 @@ HeadingWidget::HeadingWidget(QWidget * _videoPlayer, int * _windowWidth, int * _
     // add a border to the bottom
     frame->setStyleSheet( "QFrame#headingWidget { border: 3px solid white; border-top: 0; border-left: 0; border-right: 0; }" );
 
+}
 
 
 
