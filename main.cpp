@@ -62,6 +62,9 @@ int main(int argc, char *argv[])
         w2.move(width,0);
     }
 
+    // run mainwindow's setupUI function that sets up the rest of ui that relies on screen dimensions
+    w1.setupUI();
+
     w1.show();
     w2.show();
 

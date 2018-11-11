@@ -18,6 +18,8 @@ public:
     int windowHeight;
     int windowWidth;
 
+    void setupUI();
+
 private slots:
     //void on_depth_slider_valueChanged(int value);
     void catchGamepadState(const GamepadState & gps, const int & playerId);
