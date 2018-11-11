@@ -85,7 +85,6 @@ HEADERS += \
     gamepadstate.h
 
 FORMS += \
-        mainwindow.ui \
     secondarywindow.ui \
     thrustergroup.ui \
     powerstatus.ui \
