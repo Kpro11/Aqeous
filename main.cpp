@@ -90,6 +90,10 @@ int main(int argc, char *argv[])
     // conect rov values to headingWidget
     QObject::connect(tcpRov, qOverload<double>(&TcpRov::updateYaw), hw, &HeadingWidget::updateYaw);
 
+    // connect depth value to depthWidget
+    DepthWidget * dw = w1.depthWidget;
+    QObject::connect(tcpRov, qOverload<double>(&TcpRov::updateDepth), dw, &DepthWidget::updateDepth);
+
     //
     // End tcp init
     //

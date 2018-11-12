@@ -82,3 +82,9 @@ void DepthWidget::updateLabels() {
         labels[i]->label->setGeometry(0, y, 40, 40);
     }
 }
+
+void DepthWidget::updateDepth(double _depth) {
+    depth = _depth;
+    currentDepth->setText(QString::number(_depth));
+    updateLabels();
+}

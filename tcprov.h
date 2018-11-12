@@ -68,6 +68,7 @@ public:
 signals:
     void updateROVValues(double, double, double, double, double, double);
     void updateYaw(double);
+    void updateDepth(double);
 
 public slots:
     void tcpConnect();
