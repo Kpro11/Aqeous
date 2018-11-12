@@ -28,6 +28,7 @@ public slots:
     void updateYaw(double);
     void updateLabels();
     void testUpdate();
+    void updateAutoHeading(double _autoDepth, double _autoHeading);
 
 private:
     QTimer * testTimer;
@@ -47,6 +48,14 @@ private:
     QList<HeadingLabel *> labels;
 
     QString whiteText = " QLabel { color: white;  } ";   // stylesheet for white text
+
+    QString charStyle = " QLabel { color: white; text-size: 35px; } ";
+    QString numStyle = " QLabel { color: grey; text-size: 20px; } ";
+
+    QString greenText = " QLabel { color: green;  } ";   // stylesheet for white text
+    QString greenCharStyle = " QLabel { color: green ; text-size: 35px; } ";
+    QString greenNumStyle = " QLabel { color: dark-green; text-size: 20px; } ";
+
 };
 
 double distanceFromPointToYaw(double, double);

@@ -58,8 +58,8 @@ public:
             double pitch = 0.0; // not implemented in simulator at the moment
             double yaw = 0.0;   // reference heading when AutoHeading = 1
             // uncomment when new simulator supports it
-             double autoDepth = 0.0;     // boolean dooble :) 0 for off or 1 for on
-             double autoHeading = 0.0;   // 0 for off, 1 for on
+            double autoDepth = 0.0;     // boolean dooble :) 0 for off or 1 for on
+            double autoHeading = 0.0;   // 0 for off, 1 for on
     };
 
     TCPVessel readData;					// Data to receive from FhSim
@@ -69,6 +69,7 @@ signals:
     void updateROVValues(double, double, double, double, double, double);
     void updateYaw(double);
     void updateDepth(double);
+    void updateFlags(double, double);
 
 public slots:
     void tcpConnect();

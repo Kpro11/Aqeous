@@ -49,8 +49,7 @@ void HeadingWidget::setupUI(QWidget * _videoPlayer, int * _windowWidth, int * _w
     // Create all the labels we need with appropiate styling
     for (int i = 0; i < 360; i += 15) {
         QString stylesheet = "";
-        QString charStyle = " QLabel { color: white; text-size: 35px; } ";
-        QString numStyle = " QLabel { color: grey; text-size: 20px; } ";
+
 
         HeadingLabel *newLabel = new HeadingLabel();
         newLabel->value = i;
@@ -197,5 +196,18 @@ void HeadingWidget::updateYaw(double _yaw) {
 
     // todo add conversion from rad to degrees here
 }
+// we ignore _autoDepth
+void HeadingWidget::updateAutoHeading(double _autoDepth, double _autoHeading) {
+    QString currentYawStyleSheet = "QLabel { ";
+    currentYawStyleSheet += "color: black; ";
+    currentYawStyleSheet += "font-size: 30px; ";
 
+    if (_autoHeading >= 1) {
+        currentYawStyleSheet += "background-color: yellow; ";
+    } else {
+         currentYawStyleSheet += "background-color: white; ";
+    }
+    currentYawStyleSheet += "}";
+    currentYaw->setStyleSheet(currentYawStyleSheet);
+}
 

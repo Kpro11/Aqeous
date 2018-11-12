@@ -229,26 +229,26 @@ void TcpRov::setValues(double north, double east, double down, double roll, doub
     nextData.roll = roll;
     nextData.pitch = pitch;
     nextData.yaw = yaw;
-    /* uncomment this when we recive the next version of the simulator
-    nextData.autoDepth = autoDepth;
-    nextData.autoHeading = autoHeading;
-    */
 
     if(toggleAutoDepth) {
          nextData.autoDepth = (nextData.autoDepth == 0 ? 1 : 0);
+         emit updateFlags(nextData.autoDepth, nextData.autoHeading);
     }
     if (toggleAutoHeading) {
         nextData.autoHeading = (nextData.autoHeading == 0 ? 1 : 0);
+        emit updateFlags(nextData.autoDepth, nextData.autoHeading);
     }
 
 }
 
 void TcpRov::toggleAutoDepth() {
     nextData.autoDepth = (nextData.autoDepth == 0 ? 1 : 0);
+    emit updateFlags(nextData.autoDepth, nextData.autoHeading);
 }
 
 void TcpRov::toggleAutoHeading() {
     nextData.autoHeading = (nextData.autoHeading == 0 ? 1 : 0);
+    emit updateFlags(nextData.autoDepth, nextData.autoHeading);
 }
 
 // this function resets all the nextData variables to zero. This is done such that we don't double send data.
