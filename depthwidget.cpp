@@ -12,7 +12,7 @@ void DepthWidget::setupUI(QWidget * _videoPlayer, int * _windowWidth, int * _win
 
     int frameStartX = 80;
     int frameStartY = 300;
-    frameWidth = 40;
+    frameWidth = 60;
     frameHeight = *windowHeight - frameStartY * 1.5;
 
     // create frame that acts as a container for this heading widget;
@@ -46,13 +46,15 @@ void DepthWidget::setupUI(QWidget * _videoPlayer, int * _windowWidth, int * _win
     // Create all the labels we need with appropiate styling
     // 200 labels because tether on ROV is max 200m
     for (int i = 0; i < 200; i++) {
-        QString bigNumStyle = " QLabel { color: white; text-size: 35px; } ";
-        QString numStyle = " QLabel { color: grey; text-size: 20px; } ";
+        QString bigNumStyle = " QLabel { color: white; font-size: 23px; } ";
+        QString numStyle = " QLabel { color: grey; font-size: 17px; } ";
 
         DepthLabel *newLabel = new DepthLabel();
         newLabel->value = i;
 
-        newLabel->label = new QLabel(QString::number(newLabel->value) + "m", frame);
+        newLabel->label = new QLabel(QString::number(newLabel->value), frame);
+
+        newLabel->label->setAlignment(Qt::AlignRight | Qt::AlignVCenter);
 
         // Make every 5m stand out
         if (i % 5 == 0) {
@@ -66,5 +68,17 @@ void DepthWidget::setupUI(QWidget * _videoPlayer, int * _windowWidth, int * _win
 
         // add label to list of all labels
         labels << newLabel;
+    }
+    updateLabels();
+}
+
+// update the current depth by setting new position on all labels
+void DepthWidget::updateLabels() {
+    //iterate trough all the labels
+    for (int i = 0; i < labels.size(); i++) {
+        int baseStep = 40 * 1.2;
+        int middle = frameHeight / 2 - 20;
+        int y = i * baseStep + middle - depth * baseStep;
+        labels[i]->label->setGeometry(0, y, 40, 40);
     }
 }

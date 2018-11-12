@@ -40,6 +40,7 @@ private:
 signals:
 
 public slots:
+    void updateLabels();
 };
 
 #endif // DEPTHWIDGET_H
