@@ -42,6 +42,7 @@ signals:
 public slots:
     void updateLabels();
     void updateDepth(double _depth);
+    void updateFlags(double, double);
 };
 
 #endif // DEPTHWIDGET_H

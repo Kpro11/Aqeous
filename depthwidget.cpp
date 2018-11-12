@@ -88,3 +88,17 @@ void DepthWidget::updateDepth(double _depth) {
     currentDepth->setText(QString::number(_depth));
     updateLabels();
 }
+
+void DepthWidget::updateFlags(double _autoDepth, double _autoHeading) {
+    QString currentDepthStyleSheet = "QLabel { ";
+    currentDepthStyleSheet += "color: black; ";
+    currentDepthStyleSheet += "font-size: 30px; ";
+
+    if (_autoDepth >= 1) {
+        currentDepthStyleSheet += "background-color: yellow; ";
+    } else {
+         currentDepthStyleSheet += "background-color: white; ";
+    }
+    currentDepthStyleSheet += "}";
+    currentDepth->setStyleSheet(currentDepthStyleSheet);
+}
