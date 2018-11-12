@@ -8,7 +8,6 @@ class DepthLabel {
     public:
         QLabel *label;
         int value;
-        QChar letter;
 };
 
 
@@ -18,7 +17,7 @@ class DepthWidget : public QWidget
 public:
     explicit DepthWidget(QWidget *parent = nullptr);
     void setupUI(QWidget * _videoPlayer, int * _windowWidth, int * _windowHeight);
-    double depth;
+    double depth = 0.0;
 
 private:
     QWidget * videoPlayer;
@@ -37,7 +36,6 @@ private:
     QList<DepthLabel *> labels;
 
     QString whiteText = " QLabel { color: white;  } ";   // stylesheet for white text
-
 
 signals:
 

@@ -11,6 +11,7 @@
 #include <QSlider>
 #include <QLabel>
 #include "headingwidget.h"
+#include "depthwidget.h"
 #include <tcprov.h>
 using namespace QtAV;
 
@@ -56,7 +57,7 @@ void MainWindow::setupUI() {
 
     // Fancy Depth Slider Widget
     depthWidget = new DepthWidget ( this );
-    headingWidget->setupUI(videoPlayer, & windowWidth, & windowHeight);
+    depthWidget->setupUI(videoPlayer, & windowWidth, & windowHeight);
 
 }
 
