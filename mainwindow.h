@@ -7,6 +7,7 @@
 #include "tcprov.h"
 #include <QObject>
 #include "headingwidget.h"
+#include "depthwidget.h"
 
 class MainWindow : public QMainWindow
 {
@@ -18,6 +19,8 @@ public:
     TcpRov *tcpRov;
     QWidget * videoPlayer;
     HeadingWidget * headingWidget;
+    DepthWidget * depthWidget;
+
 
     int windowWidth;
     int windowHeight;
