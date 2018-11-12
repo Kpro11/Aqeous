@@ -7,6 +7,7 @@
 #include <windows.h>
 #include <winsock2.h>
 #include <ws2tcpip.h>
+#include <iostream>
 
 #pragma comment(lib, "Ws2_32.lib")
 
@@ -26,12 +27,10 @@ TcpRov::TcpRov(QObject *parent) : QObject(parent)
 // This function reads the data from the socket.
 void TcpRov::tcpRead() {
 
-    qDebug() << "Reading data";
-
     int iResult;
 
     char recvbuf[DEFAULT_BUFLEN];
-    int recvbuflen = 8 * recNum;
+    int recvbuflen = 12 * recNum;
 
     iResult = recv(ConnectSocket, recvbuf, recvbuflen, 0);
 
@@ -54,16 +53,14 @@ void TcpRov::tcpRead() {
     memcpy(&readData.pitch, &recvbuf[0 + 8 * 4], 8);
     memcpy(&readData.yaw, &recvbuf[0 + 8 * 5], 8);
 
-    qDebug() << "Data from simulator/backend:";
-    qDebug() << "North:\t" << readData.north << " m\t" << "East:\t" << readData.east << " m\t" << "Down:\t" << readData.down << " m";
-    qDebug() << "Roll:\t" << readData.roll << " rad\t" << "Pitch:\t" << readData.pitch << " rad\t" << readData.yaw << " rad";
+    readData.yaw = readData.yaw * 180 / PI;
+
+    qDebug() << "North:\t" << readData.north << " m\t" << "East:\t" << readData.east << " m\t" << "Down:\t" << readData.down << " m" << "Roll:\t" << readData.roll << " rad\t" << "Pitch:\t" << readData.pitch << " rad\t" << "yaw:\t" << readData.yaw << " rad";
 
     // send data to ui
     emit updateROVValues(readData.north, readData.east, readData.down, readData.roll, readData.pitch, readData.yaw);
     emit updateYaw(readData.yaw);
     emit updateDepth(readData.down);
-
-    qDebug() << "Finnished reading data";
 
     // send next data
     tcpSend();
@@ -71,8 +68,6 @@ void TcpRov::tcpRead() {
 
 // this function connects to FhSim/backend and start the read-write loop
 void TcpRov::tcpConnect() {
-    qDebug() << "Conecting...";
-
     //
     // The following code was mostly supplied by sintef, but modified sligthly on our part.
     //
@@ -136,11 +131,10 @@ void TcpRov::tcpConnect() {
 // this function send data to the socket
 void TcpRov::tcpSend() {
 
-    qDebug() << "writing data";
 
     // check how long the connection to the simulator has run for.
     runTime = (iRead + 1) * timeStep;
-    qDebug () << "Sending time: " << runTime;
+    //qDebug () << "Sending time: " << runTime;
 
     // increment the counter of how many times we have read.
     iRead++;
@@ -170,20 +164,21 @@ void TcpRov::tcpSend() {
     msg_buf.append((const char*)&nextData.roll, sizeof(nextData.roll));
     msg_buf.append((const char*)&nextData.pitch, sizeof(nextData.pitch));
     msg_buf.append((const char*)&nextData.yaw, sizeof(nextData.yaw));
-    /* unncomment this when we recive the new simulator
+    //unncomment this when we recive the new simulator
     msg_buf.append((const char*)&nextData.autoDepth, sizeof(nextData.autoDepth));
     msg_buf.append((const char*)&nextData.autoHeading, sizeof(nextData.autoHeading));
-    */
 
+    qDebug() << nextData.autoDepth << nextData.autoHeading;
 
     int iResult = send(ConnectSocket, &msg_buf[0], msg_buf.size(), 0);
+    qDebug() << "Buffer size: " << msg_buf.size();
+    std::cout << msg_buf;
     if (iResult == SOCKET_ERROR)
     {
         qDebug() << "Send failed with WSA error: " << WSAGetLastError();
         stopTcpReadTimer();
         return;
     }
-
     qDebug() << "Bytes sent: " << iResult;
 
     //reset nextData values
@@ -192,13 +187,13 @@ void TcpRov::tcpSend() {
 
 void TcpRov::startTcpReadTimer() {
 
-    qDebug() << "Starting the tcpReadTimer";
+    // qDebug() << "Starting the tcpReadTimer";
     // start to launch the read functions every timeStep
     tcpReadTimer->start(timeStep * 1000);
 }
 
 void TcpRov::stopTcpReadTimer() {
-    qDebug() << "Stopping the tcpReadTimer";
+    // qDebug() << "Stopping the tcpReadTimer";
     tcpReadTimer->stop();
 }
 
@@ -207,7 +202,7 @@ void TcpRov::setValues(double north, double east, double down, double yaw) {
     nextData.surge = north;
     nextData.sway = east;
     nextData.heave = down;
-    nextData.yaw = yaw;
+    nextData.yaw = (yaw * 3.14159265359/ 180);
 }
 
 
@@ -218,7 +213,7 @@ void TcpRov::setValues(double north, double east, double down, double roll, doub
     nextData.heave = down;
     nextData.roll = roll;
     nextData.pitch = pitch;
-    nextData.yaw = yaw;
+    nextData.yaw = (yaw * 3.14159265359/ 180);
 }
 
 // [future] this function will set all variables
@@ -228,7 +223,8 @@ void TcpRov::setValues(double north, double east, double down, double roll, doub
     nextData.heave = down;
     nextData.roll = roll;
     nextData.pitch = pitch;
-    nextData.yaw = yaw;
+
+    nextData.yaw = (yaw * 3.14159265359/ 180);
 
     if(toggleAutoDepth) {
          nextData.autoDepth = (nextData.autoDepth == 0 ? 1 : 0);
@@ -287,6 +283,7 @@ void TcpRov::resetValuesButNotFlagValues() {
     nextData.pitch = 0;
 }
 
+
 // this function is an extension of TcpRov::tcpConnect and was made because "connect" is a reserved word for QT. But this function does not inherit from QT.
 void winsockConnect(SOCKET *_ConnectSocket, addrinfo *ptr) {
     // Connect to server.
@@ -296,3 +293,5 @@ void winsockConnect(SOCKET *_ConnectSocket, addrinfo *ptr) {
         *_ConnectSocket = INVALID_SOCKET;
     }
 }
+
+

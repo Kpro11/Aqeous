@@ -6,6 +6,7 @@
 #include <QTimer>
 
 #define DEFAULT_BUFLEN 1024
+#define PI 3.14159265359
 
 class TcpRov : public QObject
 {
@@ -34,6 +35,7 @@ public:
     double runTime;                         // how long has the tcp connection lasted
 
     std::string msg_buf;
+
 
 
 

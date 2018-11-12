@@ -92,9 +92,9 @@ void HeadingWidget::setupUI(QWidget * _videoPlayer, int * _windowWidth, int * _w
 
     updateLabels();
 
-    testTimer = new QTimer(this);
-    connect(testTimer, SIGNAL(timeout()), this, SLOT(testUpdate()));
-    testTimer->start(30);
+    //testTimer = new QTimer(this);
+    //connect(testTimer, SIGNAL(timeout()), this, SLOT(testUpdate()));
+    //testTimer->start(30);
 }
 
 //This function will update the current heading / yaw view by setting new positions on all labels
@@ -181,10 +181,13 @@ double distanceFromPointToYaw(double point, double yaw) {
 }
 
 void HeadingWidget::testUpdate() {
+    /*
     yaw = abs(360 * sin(testTime * 3.141 / ( 360 * 4)) + 1);
     testTime += 1;
     updateLabels();
+    */
 }
+
 
 void HeadingWidget::updateYaw(double _yaw) {
     // yaw must be converted to degrees first
@@ -196,6 +199,7 @@ void HeadingWidget::updateYaw(double _yaw) {
 
     // todo add conversion from rad to degrees here
 }
+
 // we ignore _autoDepth
 void HeadingWidget::updateAutoHeading(double _autoDepth, double _autoHeading) {
     QString currentYawStyleSheet = "QLabel { ";
