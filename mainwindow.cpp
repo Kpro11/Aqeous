@@ -9,6 +9,7 @@
 #include <QDebug>
 #include <Windows.h>
 #include <tcprov.h>
+
 using namespace QtAV;
 
 
@@ -80,7 +81,8 @@ void MainWindow::catchGamepadState(const GamepadState & gps, const int & playerI
         if (!lastKeyStateB) {
             if (tcpRov->autoHeading == 0) {
                 tcpRov->autoHeading = 1;
-                tcpRov->referenceHeading = tcpRov->readData.yaw;
+                double pi = 3.14; // Should be defined somewhere in the project
+                tcpRov->referenceHeading = tcpRov->readData.yaw*pi/180;
             } else {
                 tcpRov->autoHeading = 0;
             }
@@ -93,17 +95,20 @@ void MainWindow::catchGamepadState(const GamepadState & gps, const int & playerI
     double north = (TcpRov::maxThrusterHorizontal*gps.m_lThumb.yAxis);
     double east = (TcpRov::maxThrusterHorizontal*gps.m_lThumb.xAxis);
 
-    double down;
+    double down = (gps.m_rTrigger - gps.m_lTrigger);
     if (tcpRov->autoDepth == 0) {
-        down = (TcpRov::maxThrusterVertical*(gps.m_rTrigger - gps.m_lTrigger));
+        down = (TcpRov::maxThrusterVertical*down);
     } else {
-        down = tcpRov->referenceDepth;
+        double adjustment = (down > 0 ? 1 : 0); // 0 or 1
+        down = tcpRov->referenceDepth + adjustment*tcpRov->depthAdjustment;
     }
-    double psi;
+
+    double psi = gps.m_rThumb.xAxis;
     if (tcpRov->autoHeading == 0) {
-        psi = (TcpRov::maxThrusterHeading*gps.m_rThumb.xAxis); //TODO: Find right normalisation value
+        psi = (TcpRov::maxThrusterHeading*psi); //TODO: Find right normalisation value
     } else {
-        psi = tcpRov->referenceHeading;
+        double adjustment = (psi > 0 ? 1 : 0); // 0 or 1
+        psi = tcpRov->referenceHeading + adjustment*tcpRov->headingAdjustment;
     }
 
     tcpRov->setValues(north, east, down, 0, 0, psi, tcpRov->autoDepth, tcpRov->autoHeading);
