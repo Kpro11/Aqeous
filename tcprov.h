@@ -22,6 +22,10 @@ public:
     static constexpr double maxThrusterHorizontal = 400;
     static constexpr double maxThrusterVertical = 200;
     static constexpr double maxThrusterHeading = 10; //FIND RIGHT VALUE
+    double autoDepth = 0;
+    double autoHeading = 0;
+    double referenceDepth = 0;
+    double referenceHeading = 0;
 
     WSADATA wsaData;                        // initalize Winsock
 
@@ -58,8 +62,8 @@ public:
             double pitch = 0.0; // not implemented in simulator at the moment
             double yaw = 0.0;   // reference heading when AutoHeading = 1
             // uncomment when new simulator supports it
-             double autoDepth = 0.0;     // boolean dooble :) 0 for off or 1 for on
-             double autoHeading = 0.0;   // 0 for off, 1 for on
+            double autoDepth = 0.0;     // boolean dooble :) 0 for off or 1 for on
+            double autoHeading = 0.0;   // 0 for off, 1 for on
     };
 
     TCPVessel readData;					// Data to receive from FhSim
