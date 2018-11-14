@@ -82,6 +82,7 @@ void MainWindow::catchGamepadState(const GamepadState & gps, const int & playerI
 
     static bool lastKeyStateA = 0;
     static bool lastKeyStateB = 0;
+    static bool lastKeyStateX = 0;
 
     if (gps.m_pad_a) {
         if (!lastKeyStateA) {
@@ -120,15 +121,24 @@ void MainWindow::catchGamepadState(const GamepadState & gps, const int & playerI
         tcpRov->biasSway = std::min(tcpRov->biasSway+1, TcpRov::maxThrusterHorizontal);;
     }
     if (gps.m_pad_left) {
-        tcpRov->biasSway = std::max(tcpRov->biasSurge-1, -TcpRov::maxThrusterHorizontal);;
+        tcpRov->biasSway = std::max(tcpRov->biasSway-1, -TcpRov::maxThrusterHorizontal);;
     }
     if (gps.m_rShoulder) {
         tcpRov->biasHeave = std::min(tcpRov->biasHeave+1, TcpRov::maxThrusterVertical);;
     }
     if (gps.m_lShoulder) {
-        tcpRov->biasHeave = std::max(tcpRov->biasHeave-1, TcpRov::maxThrusterVertical);;
+        tcpRov->biasHeave = std::max(tcpRov->biasHeave-1, -TcpRov::maxThrusterVertical);;
     }
 
+    if (gps.m_pad_x) {
+        if (!lastKeyStateX) {
+           tcpRov->biasSurge=0;
+           tcpRov->biasSway=0;
+           tcpRov->biasHeave=0;
+         } lastKeyStateX = 1;
+    } else {
+        lastKeyStateX = 0;
+    }
 
 
     double north = tcpRov->biasSurge + (TcpRov::maxThrusterHorizontal*gps.m_lThumb.yAxis);
