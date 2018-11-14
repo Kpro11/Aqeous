@@ -74,7 +74,8 @@ SOURCES += \
     controltester.cpp \
     tcprov.cpp \
     headingwidget.cpp \
-    depthwidget.cpp
+    depthwidget.cpp \
+    converter.cpp
 
 HEADERS += \
         mainwindow.h \
@@ -86,7 +87,8 @@ HEADERS += \
     gamepadserver.h \
     gamepadstate.h \
     headingwidget.h \
-    depthwidget.h
+    depthwidget.h \
+    converter.h
 
 FORMS += \
     secondarywindow.ui \
