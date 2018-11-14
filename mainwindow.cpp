@@ -82,6 +82,7 @@ void MainWindow::catchGamepadState(const GamepadState & gps, const int & playerI
 
     static bool lastKeyStateA = 0;
     static bool lastKeyStateB = 0;
+    static bool lastKeyStateX = 0;
 
     if (gps.m_pad_a) {
         if (!lastKeyStateA) {
@@ -110,24 +111,54 @@ void MainWindow::catchGamepadState(const GamepadState & gps, const int & playerI
         lastKeyStateB = 0;
     }
 
+    if (gps.m_pad_up) {
+        tcpRov->biasSurge = std::min(tcpRov->biasSurge+1, TcpRov::maxThrusterHorizontal);
+    }
+    if (gps.m_pad_down) {
+        tcpRov->biasSurge = std::max(tcpRov->biasSurge-1, -TcpRov::maxThrusterHorizontal);;
+    }
+    if (gps.m_pad_right) {
+        tcpRov->biasSway = std::min(tcpRov->biasSway+1, TcpRov::maxThrusterHorizontal);;
+    }
+    if (gps.m_pad_left) {
+        tcpRov->biasSway = std::max(tcpRov->biasSway-1, -TcpRov::maxThrusterHorizontal);;
+    }
+    if (gps.m_rShoulder) {
+        tcpRov->biasHeave = std::min(tcpRov->biasHeave+1, TcpRov::maxThrusterVertical);;
+    }
+    if (gps.m_lShoulder) {
+        tcpRov->biasHeave = std::max(tcpRov->biasHeave-1, -TcpRov::maxThrusterVertical);;
+    }
 
-    double north = (TcpRov::maxThrusterHorizontal*gps.m_lThumb.yAxis);
-    double east = (TcpRov::maxThrusterHorizontal*gps.m_lThumb.xAxis);
+    if (gps.m_pad_x) {
+        if (!lastKeyStateX) {
+           tcpRov->biasSurge=0;
+           tcpRov->biasSway=0;
+           tcpRov->biasHeave=0;
+         } lastKeyStateX = 1;
+    } else {
+        lastKeyStateX = 0;
+    }
+
+
+    double north = tcpRov->biasSurge + (TcpRov::maxThrusterHorizontal*gps.m_lThumb.yAxis);
+    double east = tcpRov->biasSway + (TcpRov::maxThrusterHorizontal*gps.m_lThumb.xAxis);
 
     double down = (gps.m_rTrigger - gps.m_lTrigger);
-    if (tcpRov->autoDepth == 0) {
-        down = (TcpRov::maxThrusterVertical*down);
-    } else {
+    if (tcpRov->autoDepth) {
         double adjustment = (down > 0 ? 1 : 0); // 0 or 1
         down = tcpRov->referenceDepth + adjustment*tcpRov->depthAdjustment;
+    } else {
+        down = tcpRov->biasHeave + (TcpRov::maxThrusterVertical*down);
     }
 
     double psi = gps.m_rThumb.xAxis;
-    if (tcpRov->autoHeading == 0) {
-        psi = (TcpRov::maxThrusterHeading*psi); //TODO: Find right normalisation value
-    } else {
+
+    if (tcpRov->autoHeading) {
         double adjustment = (psi > 0 ? 1 : 0); // 0 or 1
         psi = tcpRov->referenceHeading + adjustment*tcpRov->headingAdjustment;
+    } else {
+        psi = (TcpRov::maxThrusterHeading*psi); //TODO: Find right normalisation value
     }
 
     tcpRov->setValues(north, east, down, 0, 0, psi, tcpRov->autoDepth, tcpRov->autoHeading);

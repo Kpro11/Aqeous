@@ -31,6 +31,10 @@ public:
     double referenceHeading = 0;
     double headingAdjustment = 0.1;
 
+    double biasSurge = 0;
+    double biasSway = 0;
+    double biasHeave = 0;
+
 
     WSADATA wsaData;                        // initalize Winsock
 
