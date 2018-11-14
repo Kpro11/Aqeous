@@ -46,14 +46,17 @@ private:
     QString whiteText = " QLabel { color: white;  } ";   // stylesheet for white text
     QString bigNumStyle = " QLabel { color: white; font-size: 23px; } ";
     QString numStyle = " QLabel { color: white; font-size: 17px; } ";
+    QString depthStyleSheet = "QLabel { color: white; font-size: 30px; }";
 
 signals:
 
 public slots:
     void updateLabels();
     void updateDepth(double _depth);
-    void updateFlags(double, double);
+    void updateAutoDepth(double _autoDepth);
+    void updateDepthReference(double _depthRef);
     void setPosition(QLabel * _lbl, Position * _lblPos);
+    QString formatDepth(double _depth);
 };
 
 #endif // DEPTHWIDGET_H

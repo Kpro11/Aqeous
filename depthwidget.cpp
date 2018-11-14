@@ -36,12 +36,40 @@ void DepthWidget::setupUI(QWidget * _videoPlayer, int * _windowWidth, int * _win
     currentDepthPos->y = frameStartY + frameHeight / 2 - currentDepthPos->height / 2;  // position to vertically center the widget
     setPosition(currentDepth, currentDepthPos);
 
-    QString currentDepthStyleSheet = "QLabel { ";
-    currentDepthStyleSheet += "color: white; ";
-    currentDepthStyleSheet += "font-size: 30px; ";
-    currentDepthStyleSheet += "}";
 
-    currentDepth->setStyleSheet(currentDepthStyleSheet);
+
+    currentDepth->setStyleSheet(depthStyleSheet);
+
+    depthReference = new QLabel( "0.0", videoPlayer );
+    depthReference->setAlignment(Qt::AlignCenter | Qt::AlignVCenter);
+    depthReference->setStyleSheet(depthStyleSheet);
+    depthReferencePos = new Position();
+
+    depthReferencePos->width = currentDepthPos->width;
+    depthReferencePos->height = currentDepthPos->height;
+    depthReferencePos->x = currentDepthPos->x + 10;
+    depthReferencePos->y = currentDepthPos->y;
+    setPosition(depthReference, depthReferencePos);
+
+    depthReferenceLock = new QLabel("0.0", videoPlayer );
+    depthReferenceLock->setStyleSheet(depthStyleSheet);
+    depthReferenceLock->setAlignment(Qt::AlignRight | Qt::AlignVCenter);
+    depthReferenceLockPos = new Position();
+
+    depthReferenceLockPos->x= depthReferencePos->x - depthReferencePos->width / 2.3;
+    depthReferenceLockPos->y = depthReferencePos->y - depthReferencePos->height / 1.4;
+    depthReferenceLockPos->width = depthReferencePos->width;
+    depthReferenceLockPos->height = depthReferencePos->height;
+    setPosition(depthReferenceLock, depthReferenceLockPos);
+
+    QPixmap pixmapTarget = QPixmap(":/images/lock-icon.png");
+    pixmapTarget = pixmapTarget.scaled(depthReferencePos->height / 2.2, depthReferencePos->height / 2.2);
+    depthReferenceLock->setPixmap(pixmapTarget);
+
+
+    // hide reference depth and lock icon
+    depthReference->hide();
+    depthReferenceLock->hide();
 
     // Create all the labels we need with appropiate styling
     // 200 labels because tether on ROV is max 200m
@@ -87,20 +115,37 @@ void DepthWidget::updateLabels() {
 
 void DepthWidget::updateDepth(double _depth) {
     depth = _depth;
-    currentDepth->setText(QString::number(_depth));
+    currentDepth->setText(formatDepth(depth));
     updateLabels();
 }
 
-void DepthWidget::updateFlags(double _autoDepth, double _autoHeading) {
-    QString currentDepthStyleSheet = "QLabel { ";
-    currentDepthStyleSheet += "color: black; ";
-    currentDepthStyleSheet += "font-size: 30px; ";
+// This function will output a string with exactly one decimal
+QString DepthWidget::formatDepth(double _depth) {
+    QString output = "";
+    // round of decimal to 1 place
+    double rounded = ceil(_depth * 10) / 10;
 
-    if (_autoDepth >= 1) {
-        currentDepthStyleSheet += "color: yellow; ";
-    } else {
-         currentDepthStyleSheet += "color: white; ";
+    output = QString::number(rounded);
+
+    // add decimal if not there
+    if (floor(rounded) == rounded) {
+        output += ".0";
     }
-    currentDepthStyleSheet += "}";
-    currentDepth->setStyleSheet(currentDepthStyleSheet);
+
+    return output;
+}
+
+void DepthWidget::updateDepthReference(double _depthRef) {
+    depthRef = _depthRef;
+    depthReference->setText(formatDepth(depthRef));
+}
+
+void DepthWidget::updateAutoDepth(double _autoDepth) {
+    if (_autoDepth <= 0) {
+        depthReference->hide();
+        depthReferenceLock->hide();
+    } else {
+        depthReference->show();
+        depthReferenceLock->show();
+    }
 }

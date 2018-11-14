@@ -95,8 +95,8 @@ int main(int argc, char *argv[])
 
     DepthWidget * dw = w1.depthWidget;
     QObject::connect(tcpRov, qOverload<double>(&TcpRov::updateDepth), dw, &DepthWidget::updateDepth);
-    QObject::connect(tcpRov, qOverload<double,double>(&TcpRov::updateFlags), dw, &DepthWidget::updateFlags);
-
+    QObject::connect(&w1, qOverload<double>(&MainWindow::updateAutoDepth), dw, &DepthWidget::updateAutoDepth);
+    QObject::connect(&w1, qOverload<double>(&MainWindow::updateDepthReference), dw, &DepthWidget::updateDepthReference);
 
     //
     // End tcp init
