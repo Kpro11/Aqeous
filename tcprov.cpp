@@ -58,6 +58,10 @@ void TcpRov::tcpRead() {
     qDebug() << "North:\t" << readData.north << " m\t" << "East:\t" << readData.east << " m\t" << "Down:\t" << readData.down << " m";
     qDebug() << "Roll:\t" << readData.roll << " rad\t" << "Pitch:\t" << readData.pitch << " rad\t" << readData.yaw << " rad";
 
+    // send data to ui
+    emit updateROVValues(readData.north, readData.east, readData.down, readData.roll, readData.pitch, readData.yaw);
+    emit updateYaw(readData.yaw);
+
     qDebug() << "Finnished reading data";
 
     // send next data

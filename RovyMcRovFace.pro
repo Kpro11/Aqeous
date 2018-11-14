@@ -72,7 +72,8 @@ SOURCES += \
     thrustergroup.cpp \
     powerstatus.cpp \
     controltester.cpp \
-    tcprov.cpp
+    tcprov.cpp \
+    headingwidget.cpp
 
 HEADERS += \
         mainwindow.h \
@@ -82,10 +83,10 @@ HEADERS += \
     controltester.h \
     tcprov.h \
     gamepadserver.h \
-    gamepadstate.h
+    gamepadstate.h \
+    headingwidget.h
 
 FORMS += \
-        mainwindow.ui \
     secondarywindow.ui \
     thrustergroup.ui \
     powerstatus.ui \

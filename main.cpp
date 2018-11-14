@@ -5,6 +5,7 @@
 #include "QScreen"
 #include <QtAVWidgets>
 #include <tcprov.h>
+#include <headingwidget.h>
 
 int main(int argc, char *argv[])
 {
@@ -27,27 +28,43 @@ int main(int argc, char *argv[])
         qDebug() << "Screen " << i << " " << qList[i]->geometry();
     }
 
+    // Get screen geometry of main window
+    QRect screenGeometryMainWindow = qList[0]->geometry();
+
     if (qList.length() >= 2) {
         //Both windows are made fullscreen && w1 => primarydisplay && w2 => secondary display
         w1.setWindowFlags(Qt::FramelessWindowHint);
         w1.showFullScreen();
+
+        // update mainwindow variables to keep track of own dimensions
+        w1.windowHeight = screenGeometryMainWindow.height();
+        w1.windowWidth = screenGeometryMainWindow.width();
+
         w2.move(qList[1]->geometry().x(), 0);
         // If we want the window to always stay on top we can use Qt::WindowStaysOnTopHint
         w2.setWindowFlags(Qt::FramelessWindowHint);
         w2.showFullScreen();
+
+        // Should we add the posibility of secondary window keeping track of own variables?
     } else {
         //There is only one screen - put the windows side by side on the same screen
-        QRect  screenGeometry = qList[0]->geometry();
-        int height = screenGeometry.height();
-        int width = screenGeometry.width();
+        int height = screenGeometryMainWindow.height() / 2;
+        int width = screenGeometryMainWindow.width() / 2;
 
-        w1.resize(width/2,height/2);
-        w2.resize(width/2,height/2);
+        // update mainwindow variables to keep track of own dimensions
+        w1.windowHeight = height;
+        w1.windowWidth = width;
+
+        w1.resize(width, height);
+        w2.resize(width, height);
 
         //Moves the windows so they are centered and positioned correctly
         w1.move(0,0);
-        w2.move(width/2,0);
+        w2.move(width,0);
     }
+
+    // run mainwindow's setupUI function that sets up the rest of ui that relies on screen dimensions
+    w1.setupUI();
 
     w1.show();
     w2.show();
@@ -65,6 +82,13 @@ int main(int argc, char *argv[])
 
     // connecting button
     QObject::connect(&w2, SIGNAL(connectToROV()), tcpRov, SLOT(tcpConnect()));
+
+    // connect rov values with ui and tcpRov
+    QObject::connect(tcpRov, SIGNAL(updateROVValues(double, double, double, double, double, double)), &w2, SLOT(updateROVValues(double, double, double, double, double, double)) );
+
+    HeadingWidget * hw = w1.headingWidget;
+    // conect rov values to headingWidget
+    QObject::connect(tcpRov, qOverload<double>(&TcpRov::updateYaw), hw, &HeadingWidget::updateYaw);
 
     //
     // End tcp init

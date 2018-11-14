@@ -34,10 +34,12 @@ public:
 signals:
     void connectToROV();
 
-private slots:
+public slots:
     void on_openSimulator_clicked();
 
     void on_connectROV_clicked();
+
+    void updateROVValues(double, double, double, double, double, double);
 
 private:
     Ui::SecondaryWindow *ui;

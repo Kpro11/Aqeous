@@ -53,3 +53,12 @@ void SecondaryWindow::on_connectROV_clicked()
     // emits signal so that we can connect to the ROV using tcp
     emit connectToROV();
 }
+
+void SecondaryWindow::updateROVValues(double _north, double _east, double _down, double _roll, double _pitch, double _yaw) {
+    ui->north->display(_north);
+    ui->east->display(_east);
+    ui->down->display(_down);
+    ui->roll->display(_roll);
+    ui->pitch->display(_pitch);
+    ui->yaw->display(_yaw);
+}
