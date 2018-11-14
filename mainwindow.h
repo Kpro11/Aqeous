@@ -30,6 +30,8 @@ public:
 signals:
     void updateDepthReference(double _depth);
     void updateYawReference(double _yaw);
+    void updateAutoHeading(double _autoHeading);
+    void updateAutoDepth(double _autoDepth);
 
 private slots:
     //void on_depth_slider_valueChanged(int value);
