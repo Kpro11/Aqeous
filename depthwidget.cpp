@@ -28,12 +28,13 @@ void DepthWidget::setupUI(QWidget * _videoPlayer, int * _windowWidth, int * _win
     // Add a label to show current depth
     currentDepth = new QLabel( QString::number(depth) , videoPlayer );
     currentDepth->setAlignment(Qt::AlignLeft | Qt::AlignVCenter);
+    currentDepthPos = new Position();
 
-    int currentDepthWidth = 200;
-    int currentDepthHeight = 60;
-    int currentDepthX = frameStartX + frameWidth + currentDepthWidth / 6 ; //position to horizontally center the widget
-    int currentDepthY = frameStartY + frameHeight / 2 - currentDepthHeight / 2;  // position to vertically center the widget
-    currentDepth->setGeometry(currentDepthX, currentDepthY, currentDepthWidth, currentDepthHeight);
+    currentDepthPos->width = 200;
+    currentDepthPos->height = 60;
+    currentDepthPos->x = frameStartX + frameWidth + currentDepthPos->width / 6 ; //position to horizontally center the widget
+    currentDepthPos->y = frameStartY + frameHeight / 2 - currentDepthPos->height / 2;  // position to vertically center the widget
+    setPosition(currentDepth, currentDepthPos);
 
     QString currentDepthStyleSheet = "QLabel { ";
     currentDepthStyleSheet += "color: white; ";
@@ -67,6 +68,10 @@ void DepthWidget::setupUI(QWidget * _videoPlayer, int * _windowWidth, int * _win
         labels << newLabel;
     }
     updateLabels();
+}
+
+void DepthWidget::setPosition(QLabel * _lbl, Position * _lblPos) {
+    _lbl->setGeometry(_lblPos->x, _lblPos->y, _lblPos->width, _lblPos->height);
 }
 
 // update the current depth by setting new position on all labels

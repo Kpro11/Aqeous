@@ -88,7 +88,8 @@ HEADERS += \
     gamepadstate.h \
     headingwidget.h \
     depthwidget.h \
-    converter.h
+    converter.h \
+    position.h
 
 FORMS += \
     secondarywindow.ui \

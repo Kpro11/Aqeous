@@ -7,19 +7,13 @@
 #include <QList>
 #include <QTimer>
 
+#include "position.h"
+
 class HeadingLabel {
 public:
     QLabel *label;
     int value;
     QChar letter;
-};
-
-class Position {
-public:
-    int x;
-    int y;
-    int width;
-    int height;
 };
 
 class HeadingWidget : public QWidget
