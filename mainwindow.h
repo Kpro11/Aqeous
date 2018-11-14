@@ -27,6 +27,9 @@ public:
 
     void setupUI();
 
+signals:
+    void updateDepthReference(double _depth);
+    void updateYawReference(double _yaw);
 
 private slots:
     //void on_depth_slider_valueChanged(int value);

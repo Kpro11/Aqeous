@@ -89,8 +89,10 @@ void MainWindow::catchGamepadState(const GamepadState & gps, const int & playerI
             if (tcpRov->autoDepth == 0) {
                 tcpRov->autoDepth = 1;
                 tcpRov->referenceDepth = tcpRov->readData.down;
+                emit updateAutoDepth(1);
             } else {
                 tcpRov->autoDepth = 0;
+                emit updateAutoDepth(0);
             }
          } lastKeyStateA = 1;
     } else {
@@ -103,8 +105,10 @@ void MainWindow::catchGamepadState(const GamepadState & gps, const int & playerI
                 tcpRov->autoHeading = 1;
                 double pi = 3.14; // Should be defined somewhere in the project
                 tcpRov->referenceHeading = tcpRov->readData.yaw*pi/180;
+                emit updateAutoHeading(1);
             } else {
                 tcpRov->autoHeading = 0;
+                emit updateAutoHeading(0);
             }
          } lastKeyStateB = 1;
     } else {
@@ -148,8 +152,10 @@ void MainWindow::catchGamepadState(const GamepadState & gps, const int & playerI
     if (tcpRov->autoDepth) {
         double adjustment = (down > 0 ? 1 : 0); // 0 or 1
         down = tcpRov->referenceDepth + adjustment*tcpRov->depthAdjustment;
+        emit updateDepthReference(down);
     } else {
         down = tcpRov->biasHeave + (TcpRov::maxThrusterVertical*down);
+
     }
 
     double psi = gps.m_rThumb.xAxis;
@@ -157,6 +163,7 @@ void MainWindow::catchGamepadState(const GamepadState & gps, const int & playerI
     if (tcpRov->autoHeading) {
         double adjustment = (psi > 0 ? 1 : 0); // 0 or 1
         psi = tcpRov->referenceHeading + adjustment*tcpRov->headingAdjustment;
+        emit updateYawReference(psi);
     } else {
         psi = (TcpRov::maxThrusterHeading*psi); //TODO: Find right normalisation value
     }

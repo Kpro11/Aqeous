@@ -224,7 +224,7 @@ void HeadingWidget::updateYaw(double _yaw) {
     // todo add conversion from rad to degrees here
 }
 
-
+// This function will output a string with exactly one decimal
 QString HeadingWidget::formatYaw(double _yaw) {
     QString output = "";
     // round of decimal to 1 place
@@ -240,6 +240,9 @@ QString HeadingWidget::formatYaw(double _yaw) {
     return output;
 }
 
+void HeadingWidget::updateYawReference(double _yaw) {
+    yawReference->setText(formatYaw(_yaw));
+}
 
 // we ignore _autoDepth
 void HeadingWidget::updateAutoHeading(double _autoDepth, double _autoHeading) {
