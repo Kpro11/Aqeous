@@ -148,6 +148,11 @@ void TcpRov::tcpSend() {
     nextData.ForceYaw = 0.1 * sin(runTime*3.14159265/6.0);
     */
 
+    nextData.yaw *= 500;
+    qDebug() << "Sending this data to tcp " << nextData.surge << nextData.sway << nextData.heave << nextData.roll << nextData.pitch << nextData.yaw << nextData.autoDepth << nextData.autoHeading;
+
+
+
     msg_buf.clear();
 
     // Need to reserve space
@@ -165,6 +170,7 @@ void TcpRov::tcpSend() {
     msg_buf.append((const char*)&nextData.pitch, sizeof(nextData.pitch));
     msg_buf.append((const char*)&nextData.yaw, sizeof(nextData.yaw));
     //unncomment this when we recive the new simulator
+
     msg_buf.append((const char*)&nextData.autoDepth, sizeof(nextData.autoDepth));
     msg_buf.append((const char*)&nextData.autoHeading, sizeof(nextData.autoHeading));
 

@@ -39,9 +39,8 @@ void HeadingWidget::setupUI(QWidget * _videoPlayer, int * _windowWidth, int * _w
     currentYaw->setGeometry(currentYawX, currentYawY, currentYawWidth, currentYawHeight);
 
     QString currentYawStyleSheet = "QLabel { ";
-    currentYawStyleSheet += "color: black; ";
+    currentYawStyleSheet += "color: white; ";
     currentYawStyleSheet += "font-size: 30px; ";
-    currentYawStyleSheet += "background-color: white; ";
     currentYawStyleSheet += "}";
 
     currentYaw->setStyleSheet(currentYawStyleSheet);
@@ -207,9 +206,9 @@ void HeadingWidget::updateAutoHeading(double _autoDepth, double _autoHeading) {
     currentYawStyleSheet += "font-size: 30px; ";
 
     if (_autoHeading >= 1) {
-        currentYawStyleSheet += "background-color: yellow; ";
+        currentYawStyleSheet += "color: yellow; ";
     } else {
-         currentYawStyleSheet += "background-color: white; ";
+         currentYawStyleSheet += "color: white; ";
     }
     currentYawStyleSheet += "}";
     currentYaw->setStyleSheet(currentYawStyleSheet);

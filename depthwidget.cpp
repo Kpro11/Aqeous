@@ -31,14 +31,13 @@ void DepthWidget::setupUI(QWidget * _videoPlayer, int * _windowWidth, int * _win
 
     int currentDepthWidth = 200;
     int currentDepthHeight = 60;
-    int currentDepthX = frameStartX + frameWidth + currentDepthWidth / 8; //position to horizontally center the widget
+    int currentDepthX = frameStartX + frameWidth + currentDepthWidth / 16; //position to horizontally center the widget
     int currentDepthY = frameStartY + frameHeight / 2 - currentDepthHeight / 2;  // position to vertically center the widget
     currentDepth->setGeometry(currentDepthX, currentDepthY, currentDepthWidth, currentDepthHeight);
 
     QString currentDepthStyleSheet = "QLabel { ";
-    currentDepthStyleSheet += "color: black; ";
+    currentDepthStyleSheet += "color: white; ";
     currentDepthStyleSheet += "font-size: 30px; ";
-    currentDepthStyleSheet += "background-color: white; ";
     currentDepthStyleSheet += "}";
 
     currentDepth->setStyleSheet(currentDepthStyleSheet);
@@ -95,9 +94,9 @@ void DepthWidget::updateFlags(double _autoDepth, double _autoHeading) {
     currentDepthStyleSheet += "font-size: 30px; ";
 
     if (_autoDepth >= 1) {
-        currentDepthStyleSheet += "background-color: yellow; ";
+        currentDepthStyleSheet += "color: yellow; ";
     } else {
-         currentDepthStyleSheet += "background-color: white; ";
+         currentDepthStyleSheet += "color: white; ";
     }
     currentDepthStyleSheet += "}";
     currentDepth->setStyleSheet(currentDepthStyleSheet);
