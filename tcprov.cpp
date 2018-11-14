@@ -8,6 +8,7 @@
 #include <winsock2.h>
 #include <ws2tcpip.h>
 #include <iostream>
+#include "converter.h"
 
 #pragma comment(lib, "Ws2_32.lib")
 
@@ -53,9 +54,10 @@ void TcpRov::tcpRead() {
     memcpy(&readData.pitch, &recvbuf[0 + 8 * 4], 8);
     memcpy(&readData.yaw, &recvbuf[0 + 8 * 5], 8);
 
-    readData.yaw = readData.yaw * 180 / PI;
+    // convert yaw from rad to degrees
+    readData.yaw = Converter::radToDeg(readData.yaw);
 
-    qDebug() << "North:\t" << readData.north << " m\t" << "East:\t" << readData.east << " m\t" << "Down:\t" << readData.down << " m" << "Roll:\t" << readData.roll << " rad\t" << "Pitch:\t" << readData.pitch << " rad\t" << "yaw:\t" << readData.yaw << " rad";
+    qDebug() << "Sending this data:\t" <<  "North:\t" << readData.north << " m\t" << "East:\t" << readData.east << " m\t" << "Down:\t" << readData.down << " m" << "Roll:\t" << readData.roll << " rad\t" << "Pitch:\t" << readData.pitch << " rad\t" << "yaw:\t" << readData.yaw << " deg";
 
     // send data to ui
     emit updateROVValues(readData.north, readData.east, readData.down, readData.roll, readData.pitch, readData.yaw);
@@ -141,6 +143,7 @@ void TcpRov::tcpSend() {
 
     // The reference variables that sintef provided:
     // protip: scroll out in the simulator to see the ship
+
     /*
     nextData.ForceSurge = -30.0 + 0.5 * sin(runTime*3.14159265/6.0);
     nextData.ForceSway = 0;
@@ -149,8 +152,6 @@ void TcpRov::tcpSend() {
     */
 
     qDebug() << "Sending this data to tcp " << nextData.surge << nextData.sway << nextData.heave << nextData.roll << nextData.pitch << nextData.yaw << nextData.autoDepth << nextData.autoHeading;
-
-
 
     msg_buf.clear();
 
@@ -205,7 +206,7 @@ void TcpRov::setValues(double north, double east, double down, double yaw) {
     nextData.surge = north;
     nextData.sway = east;
     nextData.heave = down;
-    nextData.yaw = (yaw * 3.14159265359/ 180);
+    nextData.yaw = yaw;
 }
 
 
@@ -216,7 +217,7 @@ void TcpRov::setValues(double north, double east, double down, double roll, doub
     nextData.heave = down;
     nextData.roll = roll;
     nextData.pitch = pitch;
-    nextData.yaw = (yaw * 3.14159265359/ 180);
+    nextData.yaw = yaw;
 }
 
 // [future] this function will set all variables
@@ -229,7 +230,6 @@ void TcpRov::setValues(double north, double east, double down, double roll, doub
     nextData.yaw = yaw;
     nextData.autoDepth = autoDepth;
     nextData.autoHeading = autoHeading;
-
 }
 
 void TcpRov::toggleAutoDepth() {

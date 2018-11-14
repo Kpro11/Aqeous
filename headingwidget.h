@@ -49,10 +49,10 @@ private:
 
     QString whiteText = " QLabel { color: white;  } ";   // stylesheet for white text
 
-    QString charStyle = " QLabel { color: white; text-size: 35px; } ";
-    QString numStyle = " QLabel { color: grey; text-size: 20px; } ";
+    QString charStyle = " QLabel { color: white; font-size: 23px; } ";
+    QString numStyle = " QLabel { color: white; font-size: 17px; } ";
 
-    QString greenText = " QLabel { color: green;  } ";   // stylesheet for white text
+    QString greenText = " QLabel { color: green;  } ";   // stylesheet for green text
     QString greenCharStyle = " QLabel { color: green ; text-size: 35px; } ";
     QString greenNumStyle = " QLabel { color: dark-green; text-size: 20px; } ";
 

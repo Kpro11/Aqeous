@@ -191,9 +191,7 @@ void HeadingWidget::testUpdate() {
 void HeadingWidget::updateYaw(double _yaw) {
     // yaw must be converted to degrees first
 
-    // uncomment when yaw is fixed in the simulator
-    //yaw = _yaw;
-
+    yaw = _yaw ;
     currentYaw->setText(QString::number(yaw));
 
     // todo add conversion from rad to degrees here

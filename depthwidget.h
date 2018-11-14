@@ -36,6 +36,8 @@ private:
     QList<DepthLabel *> labels;
 
     QString whiteText = " QLabel { color: white;  } ";   // stylesheet for white text
+    QString bigNumStyle = " QLabel { color: white; font-size: 23px; } ";
+    QString numStyle = " QLabel { color: white; font-size: 17px; } ";
 
 signals:
 
