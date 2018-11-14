@@ -112,6 +112,8 @@ void MainWindow::catchGamepadState(const GamepadState & gps, const int & playerI
     }
 
     tcpRov->setValues(north, east, down, 0, 0, psi, tcpRov->autoDepth, tcpRov->autoHeading);
+
+    qDebug() << "Receiving this data from tcp: " << tcpRov->readData.down << tcpRov->readData.yaw;
     qDebug() << "Sending this data to tcp: " << north << east << down << psi << tcpRov->nextData.autoDepth << tcpRov->nextData.autoHeading;
 /*
     if (gps.m_pad_b) {
