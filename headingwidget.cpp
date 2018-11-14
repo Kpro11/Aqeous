@@ -32,25 +32,45 @@ void HeadingWidget::setupUI(QWidget * _videoPlayer, int * _windowWidth, int * _w
 
     // Add a label to show current heading / yaw
     currentYaw = new QLabel( QString::number(yaw) , videoPlayer );
-    currentYaw->setAlignment(Qt::AlignCenter);
+    currentYaw->setAlignment(Qt::AlignCenter | Qt::AlignVCenter);
+    currentYaw->setStyleSheet(yawStyleSheet);
+    currentYawPos = new Position();
 
-    int currentYawWidth = 200;
-    int currentYawHeight = frameHeight * 1.5;
-    int currentYawX = frameStartX + (frameWidth / 2) - currentYawWidth / 2; //position to horizontally center the widget
-    int currentYawY = frameStartY + frameHeight + frameHeight / 2;  // position to vertically center the widget
-    currentYaw->setGeometry(currentYawX, currentYawY, currentYawWidth, currentYawHeight);
+    currentYawPos->width = 200;
+    currentYawPos->height = frameHeight * 1.5;
+    currentYawPos->x = frameStartX + (frameWidth / 2) - currentYawPos->width / 2; //position to horizontally center the widget
+    currentYawPos->y = frameStartY + frameHeight + frameHeight / 2;  // position to vertically center the widget
+    setGeometry(currentYaw, currentYawPos);
 
-    QString currentYawStyleSheet = "QLabel { ";
-    currentYawStyleSheet += "color: white; ";
-    currentYawStyleSheet += "font-size: 30px; ";
-    currentYawStyleSheet += "}";
+    yawReference = new QLabel( "0", videoPlayer );
+    yawReference->setAlignment(Qt::AlignCenter | Qt::AlignVCenter);
+    yawReference->setStyleSheet(yawStyleSheet);
+    yawReferencePos = new Position();
 
-    currentYaw->setStyleSheet(currentYawStyleSheet);
+    yawReferencePos->width = currentYawPos->width;
+    yawReferencePos->height = currentYawPos->height;
+    yawReferencePos->x = currentYawPos->x;
+    yawReferencePos->y = currentYawPos->y + currentYawPos->height;
+    setGeometry(yawReference, yawReferencePos);
+
+    yawReferenceLock = new QLabel("0", videoPlayer );
+    yawReferenceLock->setStyleSheet(yawStyleSheet);
+    yawReferenceLock->setAlignment(Qt::AlignRight | Qt::AlignVCenter);
+    yawReferenceLockPos = new Position();
+
+    yawReferenceLockPos->x= yawReferencePos->x - yawReferencePos->width / 1.5;
+    yawReferenceLockPos->y = yawReferencePos->y;
+    yawReferenceLockPos->width = yawReferencePos->width;
+    yawReferenceLockPos->height = yawReferencePos->height;
+    setGeometry(yawReferenceLock, yawReferenceLockPos);
+
+    QPixmap pixmapTarget = QPixmap(":/images/lock-icon.png");
+    pixmapTarget = pixmapTarget.scaled(yawReferencePos->height / 2.2, yawReferencePos->height / 2.2);
+    yawReferenceLock->setPixmap(pixmapTarget);
 
     // Create all the labels we need with appropiate styling
     for (int i = 0; i < 360; i += 15) {
         QString stylesheet = "";
-
 
         HeadingLabel *newLabel = new HeadingLabel();
         newLabel->value = i;
@@ -98,6 +118,14 @@ void HeadingWidget::setupUI(QWidget * _videoPlayer, int * _windowWidth, int * _w
     //testTimer->start(30);
 }
 
+void HeadingWidget::updateLockPosition() {
+    QString yRef = QString::number(yawRef);
+}
+
+void HeadingWidget::setGeometry(QLabel * _lbl, Position * _lblPos) {
+    _lbl->setGeometry(_lblPos->x, _lblPos->y, _lblPos->width, _lblPos->height);
+}
+
 //This function will update the current heading / yaw view by setting new positions on all labels
 void HeadingWidget::updateLabels() {
     // asumes that yaw is in degrees
@@ -141,7 +169,7 @@ double distanceFromPointToYaw(double point, double _yaw) {
     // counter-clockwise distance = 360+320 = 680
     // clockwise distance = 50
     int yaw = static_cast<int>(abs(_yaw)) % 360;
-    qDebug() << yaw;
+
     // the normal distance between yaw and point
     double distanceBetweenYawAndPoint = abs(yaw - point);
 
@@ -188,11 +216,30 @@ void HeadingWidget::updateYaw(double _yaw) {
     // yaw must be converted to degrees first
 
     yaw = abs(_yaw);
-    currentYaw->setText(QString::number(yaw));
+
+
+    currentYaw->setText(formatYaw(yaw));
     updateLabels();
 
     // todo add conversion from rad to degrees here
 }
+
+
+QString HeadingWidget::formatYaw(double _yaw) {
+    QString output = "";
+    // round of decimal to 1 place
+    double rounded = ceil(_yaw * 10) / 10;
+
+    output = QString::number(rounded);
+
+    // add decimal if not there
+    if (floor(rounded) == rounded) {
+        output += ".0";
+    }
+
+    return output;
+}
+
 
 // we ignore _autoDepth
 void HeadingWidget::updateAutoHeading(double _autoDepth, double _autoHeading) {

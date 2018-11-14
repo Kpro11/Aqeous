@@ -14,12 +14,21 @@ public:
     QChar letter;
 };
 
+class Position {
+public:
+    int x;
+    int y;
+    int width;
+    int height;
+};
+
 class HeadingWidget : public QWidget
 {
     Q_OBJECT
 public:
     HeadingWidget(QWidget *parent = nullptr);
     double yaw = 0.0;
+    double yawRef = 0.0;
     int testTime = 0;
 
     void setupUI(QWidget * _videoPlayer, int * _windowWidth, int * _windowHeight);
@@ -29,6 +38,9 @@ public slots:
     void updateLabels();
     void testUpdate();
     void updateAutoHeading(double _autoDepth, double _autoHeading);
+    void updateLockPosition();
+    void setGeometry(QLabel * _lbl, Position * _lblPos);
+    QString formatYaw(double _yaw);
 
 private:
     QTimer * testTimer;
@@ -41,7 +53,17 @@ private:
     int frameWidth;
     int frameHeight;
 
+    QString yawStyleSheet = "QLabel { color: white; font-size: 30px; }";
+
     QLabel *currentYaw;
+    Position *currentYawPos;
+
+    QLabel *yawReference;
+    Position *yawReferencePos;
+
+    QLabel *yawReferenceLock;
+    Position *yawReferenceLockPos;
+
 
     QFrame * frame; // main frame that contains entire widget
 
