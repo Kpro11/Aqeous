@@ -8,45 +8,62 @@
 #include <QVBoxLayout>
 #include <QDebug>
 #include <Windows.h>
+#include <QSlider>
+#include <QLabel>
+#include "headingwidget.h"
+#include "depthwidget.h"
 #include <tcprov.h>
 
 using namespace QtAV;
 
 
 MainWindow::MainWindow(QWidget *parent) :
-    QMainWindow(parent),
-    ui(new Ui::MainWindow)
+    QMainWindow(parent)
 {
-    ui->setupUi(this);
 
     // setup the QtAV player
-    m_player = new AVPlayer(ui->QtAVWindow);
+    m_player = new QtAV::AVPlayer( this );
+    m_vo = new QtAV::VideoOutput( this );
 
-    m_vo = new VideoOutput(ui->QtAVWindow);
+    // check if we can create the video renderer
     if (!m_vo->widget()) {
        QMessageBox::warning(0, QString::fromLatin1("QtAV error"), tr("Can not create video renderer"));
        return;
     }
+
     m_player->setRenderer(m_vo);
-    ui->QtAVWindow->addWidget(m_vo->widget());
+
+    // assign the qtav player to a widget
+    videoPlayer = m_vo->widget();
+
+    // set the central widget to be the video player
+    // old way: ui->QtAVWindow->addWidget(m_vo->widget());
+    setCentralWidget(videoPlayer);
+
     // change the following url to whatever
     // QtAV support a ton of different formats, so use whatever floats your boat.
     m_player->play("udp://224.0.0.1:9999");
 
-    // depth:
-    valueI = ui->depth_slider->value();
-
-    ui->depth_counter->display(valueI);
-
     connect(&GamepadServer::instance(), SIGNAL(stateUpdate(GamepadState, int)),
             this, SLOT(catchGamepadState(GamepadState, int)));
 
-    this->setWindowTitle(tr("Gamepad Server v0.1"));
+}
+
+// function that sets up the rest of ui that relies on screen dimensions, this function should be run after screen dimensions has been set.
+void MainWindow::setupUI() {
+
+    // Fancy Heading Slider Widget
+    headingWidget = new HeadingWidget ( this );
+    headingWidget->setupUI(videoPlayer, & windowWidth, & windowHeight);
+
+    // Fancy Depth Slider Widget
+    depthWidget = new DepthWidget ( this );
+    depthWidget->setupUI(videoPlayer, & windowWidth, & windowHeight);
+
 }
 
 MainWindow::~MainWindow()
 {
-    delete ui;
 }
 
 
@@ -75,6 +92,8 @@ void MainWindow::catchGamepadState(const GamepadState & gps, const int & playerI
                 tcpRov->autoDepth = 0;
             }
          } lastKeyStateA = 1;
+    } else {
+        lastKeyStateA = 0;
     }
 
     if (gps.m_pad_b) {
@@ -113,8 +132,7 @@ void MainWindow::catchGamepadState(const GamepadState & gps, const int & playerI
 
     tcpRov->setValues(north, east, down, 0, 0, psi, tcpRov->autoDepth, tcpRov->autoHeading);
 
-    qDebug() << "Receiving this data from tcp: " << tcpRov->readData.down << tcpRov->readData.yaw;
-    qDebug() << "Sending this data to tcp: " << north << east << down << psi << tcpRov->nextData.autoDepth << tcpRov->nextData.autoHeading;
+
 /*
     if (gps.m_pad_b) {
         qDebug() << "B Pressed.";
@@ -157,10 +175,4 @@ void MainWindow::catchGamepadState(const GamepadState & gps, const int & playerI
     }
     */
 
-}
-
-void MainWindow::on_depth_slider_valueChanged(int value)
-{
-
-    ui->depth_counter->display(value);
 }

@@ -6,6 +6,7 @@
 #include <QTimer>
 
 #define DEFAULT_BUFLEN 1024
+#define PI 3.14159265359
 
 class TcpRov : public QObject
 {
@@ -45,6 +46,7 @@ public:
 
 
 
+
     // Data structure to receive from FhSim
     class TCPVessel {
         public:
@@ -74,6 +76,10 @@ public:
     TCPThruster nextData;               // Data to send to FhSim
 
 signals:
+    void updateROVValues(double, double, double, double, double, double);
+    void updateYaw(double);
+    void updateDepth(double);
+    void updateFlags(double, double);
 
 public slots:
     void tcpConnect();
