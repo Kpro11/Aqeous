@@ -153,6 +153,7 @@ void MainWindow::catchGamepadState(const GamepadState & gps, const int & playerI
     }
 
     double psi = gps.m_rThumb.xAxis;
+
     if (tcpRov->autoHeading) {
         double adjustment = (psi > 0 ? 1 : 0); // 0 or 1
         psi = tcpRov->referenceHeading + adjustment*tcpRov->headingAdjustment;

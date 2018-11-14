@@ -81,21 +81,21 @@ namespace GamepadServerLocal {
     }
 
     void updateAnalogs(GamepadState & gps, const XINPUT_GAMEPAD & xStatePad) {
-        gps.m_lTrigger = xStatePad.bLeftTrigger/GamepadServer::maxTriggerValue;
-        gps.m_rTrigger = xStatePad.bRightTrigger/GamepadServer::maxTriggerValue;
-        gps.m_lThumb.xAxis = xStatePad.sThumbLX/GamepadServer::maxJoystickValue;
-        gps.m_lThumb.yAxis = xStatePad.sThumbLY/GamepadServer::maxJoystickValue;
-        gps.m_rThumb.xAxis = xStatePad.sThumbRX/GamepadServer::maxJoystickValue;
-        gps.m_rThumb.yAxis = xStatePad.sThumbRY/GamepadServer::maxJoystickValue;
+        gps.m_lTrigger = (double) xStatePad.bLeftTrigger/GamepadServer::maxTriggerValue;
+        gps.m_rTrigger = (double) xStatePad.bRightTrigger/GamepadServer::maxTriggerValue;
+        gps.m_lThumb.xAxis = (double) xStatePad.sThumbLX/GamepadServer::maxJoystickValue;
+        gps.m_lThumb.yAxis = (double) xStatePad.sThumbLY/GamepadServer::maxJoystickValue;
+        gps.m_rThumb.xAxis = (double) xStatePad.sThumbRX/GamepadServer::maxJoystickValue;
+        gps.m_rThumb.yAxis = (double) xStatePad.sThumbRY/GamepadServer::maxJoystickValue;
 
-        double deadzoneX = 0.15;
-        double deadzoneY = 0.15;
+        double deadzoneX = 0.25;
+        double deadzoneY = 0.25;
 
         // Factoring in deadzone
-        gps.m_lThumb.xAxis = (abs(xStatePad.sThumbLX) < deadzoneX ? 0 : gps.m_lThumb.xAxis);
-        gps.m_lThumb.yAxis = (abs(xStatePad.sThumbLY) < deadzoneY ? 0 : gps.m_lThumb.yAxis);
-        gps.m_rThumb.xAxis = (abs(xStatePad.sThumbRX) < deadzoneX ? 0 : gps.m_rThumb.xAxis);
-        gps.m_rThumb.yAxis = (abs(xStatePad.sThumbRY) < deadzoneY ? 0 : gps.m_rThumb.yAxis);
+        gps.m_lThumb.xAxis = (abs(gps.m_lThumb.xAxis) < deadzoneX ? 0 : gps.m_lThumb.xAxis);
+        gps.m_lThumb.yAxis = (abs(gps.m_lThumb.yAxis) < deadzoneY ? 0 : gps.m_lThumb.yAxis);
+        gps.m_rThumb.xAxis = (abs(gps.m_rThumb.xAxis) < deadzoneX ? 0 : gps.m_rThumb.xAxis);
+        gps.m_rThumb.yAxis = (abs(gps.m_rThumb.yAxis) < deadzoneY ? 0 : gps.m_rThumb.yAxis);
     }
 
 }

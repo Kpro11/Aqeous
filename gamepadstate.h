@@ -13,8 +13,8 @@ public:
 
     // Joystick Definition
     struct JoyStick {
-        int16_t xAxis = 0;
-        int16_t yAxis = 0;
+        double xAxis = 0;
+        double yAxis = 0;
         bool pressed=false;
     };
 
@@ -32,8 +32,8 @@ public:
     bool m_lShoulder = false;
 
     // Trigger Buttons
-    uint8_t m_rTrigger = 0;
-    uint8_t m_lTrigger = 0;
+    double m_rTrigger = 0;
+    double m_lTrigger = 0;
 
     // Directional Buttons
     bool m_pad_up = false;
