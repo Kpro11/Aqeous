@@ -169,8 +169,6 @@ void TcpRov::tcpSend() {
     msg_buf.append((const char*)&nextData.roll, sizeof(nextData.roll));
     msg_buf.append((const char*)&nextData.pitch, sizeof(nextData.pitch));
     msg_buf.append((const char*)&nextData.yaw, sizeof(nextData.yaw));
-    //unncomment this when we recive the new simulator
-
     msg_buf.append((const char*)&nextData.autoDepth, sizeof(nextData.autoDepth));
     msg_buf.append((const char*)&nextData.autoHeading, sizeof(nextData.autoHeading));
 
@@ -223,23 +221,15 @@ void TcpRov::setValues(double north, double east, double down, double roll, doub
 }
 
 // [future] this function will set all variables
-void TcpRov::setValues(double north, double east, double down, double roll, double pitch, double yaw, double toggleAutoDepth, double toggleAutoHeading) {
+void TcpRov::setValues(double north, double east, double down, double roll, double pitch, double yaw, double autoDepth, double autoHeading) {
     nextData.surge = north;
     nextData.sway = east;
     nextData.heave = down;
     nextData.roll = roll;
     nextData.pitch = pitch;
     nextData.yaw = yaw;
-
-    if(toggleAutoDepth) {
-         nextData.autoDepth = (nextData.autoDepth == 0 ? 1 : 0);
-         emit updateFlags(nextData.autoDepth, nextData.autoHeading);
-    }
-    if (toggleAutoHeading) {
-        nextData.autoHeading = (nextData.autoHeading == 0 ? 1 : 0);
-        emit updateFlags(nextData.autoDepth, nextData.autoHeading);
-    }
-
+    nextData.autoDepth = autoDepth;
+    nextData.autoHeading = autoHeading;
 }
 
 void TcpRov::toggleAutoDepth() {

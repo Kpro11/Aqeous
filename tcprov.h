@@ -24,6 +24,14 @@ public:
     static constexpr double maxThrusterVertical = 200;
     static constexpr double maxThrusterHeading = 10; //FIND RIGHT VALUE
 
+    double autoDepth = 0;
+    double autoHeading = 0;
+    double referenceDepth = 0;
+    double depthAdjustment = 0.1;
+    double referenceHeading = 0;
+    double headingAdjustment = 0.1;
+
+
     WSADATA wsaData;                        // initalize Winsock
 
     std::string IPString = "127.0.0.1";		// IP address of FhSim TCP server
