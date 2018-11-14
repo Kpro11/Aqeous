@@ -3,6 +3,7 @@
 #include "QHBoxLayout"
 #include <QLabel>
 #include <math.h>
+#include "converter.h"
 
 HeadingWidget::HeadingWidget(QWidget *parent) : QWidget(parent)
 {
@@ -40,7 +41,7 @@ void HeadingWidget::setupUI(QWidget * _videoPlayer, int * _windowWidth, int * _w
     currentYawPos->height = frameHeight * 1.5;
     currentYawPos->x = frameStartX + (frameWidth / 2) - currentYawPos->width / 2; //position to horizontally center the widget
     currentYawPos->y = frameStartY + frameHeight + frameHeight / 2;  // position to vertically center the widget
-    setGeometry(currentYaw, currentYawPos);
+    setPosition(currentYaw, currentYawPos);
 
     yawReference = new QLabel( "0", videoPlayer );
     yawReference->setAlignment(Qt::AlignCenter | Qt::AlignVCenter);
@@ -51,22 +52,28 @@ void HeadingWidget::setupUI(QWidget * _videoPlayer, int * _windowWidth, int * _w
     yawReferencePos->height = currentYawPos->height;
     yawReferencePos->x = currentYawPos->x;
     yawReferencePos->y = currentYawPos->y + currentYawPos->height;
-    setGeometry(yawReference, yawReferencePos);
+    setPosition(yawReference, yawReferencePos);
 
     yawReferenceLock = new QLabel("0", videoPlayer );
     yawReferenceLock->setStyleSheet(yawStyleSheet);
     yawReferenceLock->setAlignment(Qt::AlignRight | Qt::AlignVCenter);
     yawReferenceLockPos = new Position();
 
-    yawReferenceLockPos->x= yawReferencePos->x - yawReferencePos->width / 1.5;
+    yawReferenceLockPos->x= yawReferencePos->x - yawReferencePos->width / 1.4;
     yawReferenceLockPos->y = yawReferencePos->y;
     yawReferenceLockPos->width = yawReferencePos->width;
     yawReferenceLockPos->height = yawReferencePos->height;
-    setGeometry(yawReferenceLock, yawReferenceLockPos);
+    setPosition(yawReferenceLock, yawReferenceLockPos);
 
     QPixmap pixmapTarget = QPixmap(":/images/lock-icon.png");
     pixmapTarget = pixmapTarget.scaled(yawReferencePos->height / 2.2, yawReferencePos->height / 2.2);
     yawReferenceLock->setPixmap(pixmapTarget);
+
+    // Hide the reference labels untill we want them
+    yawReference->hide();
+    yawReferenceLock->hide();
+
+
 
     // Create all the labels we need with appropiate styling
     for (int i = 0; i < 360; i += 15) {
@@ -122,7 +129,7 @@ void HeadingWidget::updateLockPosition() {
     QString yRef = QString::number(yawRef);
 }
 
-void HeadingWidget::setGeometry(QLabel * _lbl, Position * _lblPos) {
+void HeadingWidget::setPosition(QLabel * _lbl, Position * _lblPos) {
     _lbl->setGeometry(_lblPos->x, _lblPos->y, _lblPos->width, _lblPos->height);
 }
 
@@ -241,21 +248,15 @@ QString HeadingWidget::formatYaw(double _yaw) {
 }
 
 void HeadingWidget::updateYawReference(double _yaw) {
-    yawReference->setText(formatYaw(_yaw));
+    yawReference->setText(formatYaw(Converter::radToDeg(_yaw)));
 }
 
-// we ignore _autoDepth
-void HeadingWidget::updateAutoHeading(double _autoDepth, double _autoHeading) {
-    QString currentYawStyleSheet = "QLabel { ";
-    currentYawStyleSheet += "color: black; ";
-    currentYawStyleSheet += "font-size: 30px; ";
-
-    if (_autoHeading >= 1) {
-        currentYawStyleSheet += "color: yellow; ";
+void HeadingWidget::updateAutoHeading(double _autoHeading) {
+    if (_autoHeading <= 0) {
+        yawReference->hide();
+        yawReferenceLock->hide();
     } else {
-         currentYawStyleSheet += "color: white; ";
+        yawReference->show();
+        yawReferenceLock->show();
     }
-    currentYawStyleSheet += "}";
-    currentYaw->setStyleSheet(currentYawStyleSheet);
 }
-

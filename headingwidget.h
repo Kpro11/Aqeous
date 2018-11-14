@@ -37,9 +37,9 @@ public slots:
     void updateYaw(double);
     void updateLabels();
     void testUpdate();
-    void updateAutoHeading(double _autoDepth, double _autoHeading);
+    void updateAutoHeading(double _autoHeading);
     void updateLockPosition();
-    void setGeometry(QLabel * _lbl, Position * _lblPos);
+    void setPosition(QLabel * _lbl, Position * _lblPos);
     QString formatYaw(double _yaw);
     void updateYawReference(double _yaw);
 
