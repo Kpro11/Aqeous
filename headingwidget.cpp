@@ -39,9 +39,8 @@ void HeadingWidget::setupUI(QWidget * _videoPlayer, int * _windowWidth, int * _w
     currentYaw->setGeometry(currentYawX, currentYawY, currentYawWidth, currentYawHeight);
 
     QString currentYawStyleSheet = "QLabel { ";
-    currentYawStyleSheet += "color: black; ";
+    currentYawStyleSheet += "color: white; ";
     currentYawStyleSheet += "font-size: 30px; ";
-    currentYawStyleSheet += "background-color: white; ";
     currentYawStyleSheet += "}";
 
     currentYaw->setStyleSheet(currentYawStyleSheet);
@@ -49,8 +48,7 @@ void HeadingWidget::setupUI(QWidget * _videoPlayer, int * _windowWidth, int * _w
     // Create all the labels we need with appropiate styling
     for (int i = 0; i < 360; i += 15) {
         QString stylesheet = "";
-        QString charStyle = " QLabel { color: white; text-size: 35px; } ";
-        QString numStyle = " QLabel { color: grey; text-size: 20px; } ";
+
 
         HeadingLabel *newLabel = new HeadingLabel();
         newLabel->value = i;
@@ -93,9 +91,9 @@ void HeadingWidget::setupUI(QWidget * _videoPlayer, int * _windowWidth, int * _w
 
     updateLabels();
 
-    testTimer = new QTimer(this);
-    connect(testTimer, SIGNAL(timeout()), this, SLOT(testUpdate()));
-    testTimer->start(30);
+    //testTimer = new QTimer(this);
+    //connect(testTimer, SIGNAL(timeout()), this, SLOT(testUpdate()));
+    //testTimer->start(30);
 }
 
 //This function will update the current heading / yaw view by setting new positions on all labels
@@ -182,20 +180,35 @@ double distanceFromPointToYaw(double point, double yaw) {
 }
 
 void HeadingWidget::testUpdate() {
+    /*
     yaw = abs(360 * sin(testTime * 3.141 / ( 360 * 4)) + 1);
     testTime += 1;
     updateLabels();
+    */
 }
+
 
 void HeadingWidget::updateYaw(double _yaw) {
     // yaw must be converted to degrees first
 
-    // uncomment when yaw is fixed in the simulator
-    //yaw = _yaw;
-
+    yaw = _yaw ;
     currentYaw->setText(QString::number(yaw));
 
     // todo add conversion from rad to degrees here
 }
 
+// we ignore _autoDepth
+void HeadingWidget::updateAutoHeading(double _autoDepth, double _autoHeading) {
+    QString currentYawStyleSheet = "QLabel { ";
+    currentYawStyleSheet += "color: black; ";
+    currentYawStyleSheet += "font-size: 30px; ";
+
+    if (_autoHeading >= 1) {
+        currentYawStyleSheet += "color: yellow; ";
+    } else {
+         currentYawStyleSheet += "color: white; ";
+    }
+    currentYawStyleSheet += "}";
+    currentYaw->setStyleSheet(currentYawStyleSheet);
+}
 

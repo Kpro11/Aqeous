@@ -36,12 +36,15 @@ private:
     QList<DepthLabel *> labels;
 
     QString whiteText = " QLabel { color: white;  } ";   // stylesheet for white text
+    QString bigNumStyle = " QLabel { color: white; font-size: 23px; } ";
+    QString numStyle = " QLabel { color: white; font-size: 17px; } ";
 
 signals:
 
 public slots:
     void updateLabels();
     void updateDepth(double _depth);
+    void updateFlags(double, double);
 };
 
 #endif // DEPTHWIDGET_H

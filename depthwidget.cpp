@@ -31,14 +31,13 @@ void DepthWidget::setupUI(QWidget * _videoPlayer, int * _windowWidth, int * _win
 
     int currentDepthWidth = 200;
     int currentDepthHeight = 60;
-    int currentDepthX = frameStartX + frameWidth + currentDepthWidth / 8; //position to horizontally center the widget
+    int currentDepthX = frameStartX + frameWidth - currentDepthWidth / 4 ; //position to horizontally center the widget
     int currentDepthY = frameStartY + frameHeight / 2 - currentDepthHeight / 2;  // position to vertically center the widget
     currentDepth->setGeometry(currentDepthX, currentDepthY, currentDepthWidth, currentDepthHeight);
 
     QString currentDepthStyleSheet = "QLabel { ";
-    currentDepthStyleSheet += "color: black; ";
+    currentDepthStyleSheet += "color: white; ";
     currentDepthStyleSheet += "font-size: 30px; ";
-    currentDepthStyleSheet += "background-color: white; ";
     currentDepthStyleSheet += "}";
 
     currentDepth->setStyleSheet(currentDepthStyleSheet);
@@ -46,8 +45,6 @@ void DepthWidget::setupUI(QWidget * _videoPlayer, int * _windowWidth, int * _win
     // Create all the labels we need with appropiate styling
     // 200 labels because tether on ROV is max 200m
     for (int i = 0; i < 200; i++) {
-        QString bigNumStyle = " QLabel { color: white; font-size: 23px; } ";
-        QString numStyle = " QLabel { color: grey; font-size: 17px; } ";
 
         DepthLabel *newLabel = new DepthLabel();
         newLabel->value = i;
@@ -87,4 +84,18 @@ void DepthWidget::updateDepth(double _depth) {
     depth = _depth;
     currentDepth->setText(QString::number(_depth));
     updateLabels();
+}
+
+void DepthWidget::updateFlags(double _autoDepth, double _autoHeading) {
+    QString currentDepthStyleSheet = "QLabel { ";
+    currentDepthStyleSheet += "color: black; ";
+    currentDepthStyleSheet += "font-size: 30px; ";
+
+    if (_autoDepth >= 1) {
+        currentDepthStyleSheet += "color: yellow; ";
+    } else {
+         currentDepthStyleSheet += "color: white; ";
+    }
+    currentDepthStyleSheet += "}";
+    currentDepth->setStyleSheet(currentDepthStyleSheet);
 }

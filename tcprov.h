@@ -6,6 +6,7 @@
 #include <QTimer>
 
 #define DEFAULT_BUFLEN 1024
+#define PI 3.14159265359
 
 class TcpRov : public QObject
 {
@@ -23,6 +24,14 @@ public:
     static constexpr double maxThrusterVertical = 200;
     static constexpr double maxThrusterHeading = 10; //FIND RIGHT VALUE
 
+    double autoDepth = 0;
+    double autoHeading = 0;
+    double referenceDepth = 0;
+    double depthAdjustment = 0.1;
+    double referenceHeading = 0;
+    double headingAdjustment = 0.1;
+
+
     WSADATA wsaData;                        // initalize Winsock
 
     std::string IPString = "127.0.0.1";		// IP address of FhSim TCP server
@@ -34,6 +43,7 @@ public:
     double runTime;                         // how long has the tcp connection lasted
 
     std::string msg_buf;
+
 
 
 
@@ -58,8 +68,8 @@ public:
             double pitch = 0.0; // not implemented in simulator at the moment
             double yaw = 0.0;   // reference heading when AutoHeading = 1
             // uncomment when new simulator supports it
-             double autoDepth = 0.0;     // boolean dooble :) 0 for off or 1 for on
-             double autoHeading = 0.0;   // 0 for off, 1 for on
+            double autoDepth = 0.0;     // boolean dooble :) 0 for off or 1 for on
+            double autoHeading = 0.0;   // 0 for off, 1 for on
     };
 
     TCPVessel readData;					// Data to receive from FhSim
@@ -69,6 +79,7 @@ signals:
     void updateROVValues(double, double, double, double, double, double);
     void updateYaw(double);
     void updateDepth(double);
+    void updateFlags(double, double);
 
 public slots:
     void tcpConnect();

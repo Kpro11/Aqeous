@@ -13,6 +13,7 @@
 #include "headingwidget.h"
 #include "depthwidget.h"
 #include <tcprov.h>
+
 using namespace QtAV;
 
 
@@ -79,26 +80,17 @@ void MainWindow::catchGamepadState(const GamepadState & gps, const int & playerI
                 "\t Y Axis: " << gps.m_rThumb.yAxis;
     */
 
-    double north = (TcpRov::maxThrusterHorizontal*gps.m_lThumb.yAxis);
-    double east = (TcpRov::maxThrusterHorizontal*gps.m_lThumb.xAxis);
-    double down = (TcpRov::maxThrusterVertical*(gps.m_rTrigger - gps.m_lTrigger));
-    double psi = (TcpRov::maxThrusterHeading*gps.m_rThumb.xAxis); //TODO: Find right normalisation value
-
-
-
-
-
-
     static bool lastKeyStateA = 0;
     static bool lastKeyStateB = 0;
 
-    double toggleAutoDepth = 0;
-    double toggleAutoHeading = 0;
-
-
     if (gps.m_pad_a) {
-        if (!lastKeyStateA) {    
-            toggleAutoDepth = 1;
+        if (!lastKeyStateA) {
+            if (tcpRov->autoDepth == 0) {
+                tcpRov->autoDepth = 1;
+                tcpRov->referenceDepth = tcpRov->readData.down;
+            } else {
+                tcpRov->autoDepth = 0;
+            }
          } lastKeyStateA = 1;
     } else {
         lastKeyStateA = 0;
@@ -106,14 +98,41 @@ void MainWindow::catchGamepadState(const GamepadState & gps, const int & playerI
 
     if (gps.m_pad_b) {
         if (!lastKeyStateB) {
-            toggleAutoHeading = 1;
+            if (tcpRov->autoHeading == 0) {
+                tcpRov->autoHeading = 1;
+                double pi = 3.14; // Should be defined somewhere in the project
+                tcpRov->referenceHeading = tcpRov->readData.yaw*pi/180;
+            } else {
+                tcpRov->autoHeading = 0;
+            }
          } lastKeyStateB = 1;
     } else {
         lastKeyStateB = 0;
     }
 
-    tcpRov->setValues(north, east, down, 0, 0, psi, toggleAutoDepth, toggleAutoHeading);
-    qDebug() << "Sending this data to tcp: " << north << east << down << psi << tcpRov->nextData.autoDepth << tcpRov->nextData.autoHeading;
+
+    double north = (TcpRov::maxThrusterHorizontal*gps.m_lThumb.yAxis);
+    double east = (TcpRov::maxThrusterHorizontal*gps.m_lThumb.xAxis);
+
+    double down = (gps.m_rTrigger - gps.m_lTrigger);
+    if (tcpRov->autoDepth == 0) {
+        down = (TcpRov::maxThrusterVertical*down);
+    } else {
+        double adjustment = (down > 0 ? 1 : 0); // 0 or 1
+        down = tcpRov->referenceDepth + adjustment*tcpRov->depthAdjustment;
+    }
+
+    double psi = gps.m_rThumb.xAxis;
+    if (tcpRov->autoHeading == 0) {
+        psi = (TcpRov::maxThrusterHeading*psi); //TODO: Find right normalisation value
+    } else {
+        double adjustment = (psi > 0 ? 1 : 0); // 0 or 1
+        psi = tcpRov->referenceHeading + adjustment*tcpRov->headingAdjustment;
+    }
+
+    tcpRov->setValues(north, east, down, 0, 0, psi, tcpRov->autoDepth, tcpRov->autoHeading);
+
+
 /*
     if (gps.m_pad_b) {
         qDebug() << "B Pressed.";
