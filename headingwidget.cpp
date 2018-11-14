@@ -19,6 +19,8 @@ void HeadingWidget::setupUI(QWidget * _videoPlayer, int * _windowWidth, int * _w
     frameWidth = *windowWidth - frameStartX * 2;
     frameHeight = 40;
 
+    pixelsPerSlot = frameWidth / 12;
+
     // create frame that acts as a container for this heading widget;
     frame = new QFrame( videoPlayer );
     frame->setObjectName("headingWidget");
@@ -99,10 +101,6 @@ void HeadingWidget::setupUI(QWidget * _videoPlayer, int * _windowWidth, int * _w
 //This function will update the current heading / yaw view by setting new positions on all labels
 void HeadingWidget::updateLabels() {
     // asumes that yaw is in degrees
-
-    // find out how many pixels there are available per label
-    int pixelsPerSlot = frameWidth / 12;
-
     // iterate trough every label
     for (int i = 0; i < labels.size(); i++) {
 
@@ -120,9 +118,6 @@ void HeadingWidget::updateLabels() {
             // set position
             labels[i]->label->setGeometry(positionInRow * pixelsPerSlot, 0, 30, 30);
 
-
-
-
         } else {
             // hide the label
             labels[i]->label->setGeometry(0,0,0,0);
@@ -131,7 +126,7 @@ void HeadingWidget::updateLabels() {
 }
 
 // calculates true distance between two points in a 360 degrees circle
-double distanceFromPointToYaw(double point, double yaw) {
+double distanceFromPointToYaw(double point, double _yaw) {
 
     // To find the distance between two points in a "circle" you have to do more than just
     // calculate the difference. You also have to take into account that the values 0 and 360 are neighbors.
@@ -145,7 +140,8 @@ double distanceFromPointToYaw(double point, double yaw) {
     // normal distance = 310
     // counter-clockwise distance = 360+320 = 680
     // clockwise distance = 50
-
+    int yaw = static_cast<int>(abs(_yaw)) % 360;
+    qDebug() << yaw;
     // the normal distance between yaw and point
     double distanceBetweenYawAndPoint = abs(yaw - point);
 
@@ -191,8 +187,9 @@ void HeadingWidget::testUpdate() {
 void HeadingWidget::updateYaw(double _yaw) {
     // yaw must be converted to degrees first
 
-    yaw = _yaw ;
+    yaw = abs(_yaw);
     currentYaw->setText(QString::number(yaw));
+    updateLabels();
 
     // todo add conversion from rad to degrees here
 }

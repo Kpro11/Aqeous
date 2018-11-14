@@ -47,6 +47,9 @@ private:
 
     QList<HeadingLabel *> labels;
 
+    // how many pixels there are available per label
+    int pixelsPerSlot;
+
     QString whiteText = " QLabel { color: white;  } ";   // stylesheet for white text
 
     QString charStyle = " QLabel { color: white; font-size: 23px; } ";
