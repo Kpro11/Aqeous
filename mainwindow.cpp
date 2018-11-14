@@ -11,6 +11,7 @@
 #include <QSlider>
 #include <QLabel>
 #include "headingwidget.h"
+#include "depthwidget.h"
 #include <tcprov.h>
 using namespace QtAV;
 
@@ -50,9 +51,13 @@ MainWindow::MainWindow(QWidget *parent) :
 // function that sets up the rest of ui that relies on screen dimensions, this function should be run after screen dimensions has been set.
 void MainWindow::setupUI() {
 
-    // header widget
+    // Fancy Heading Slider Widget
     headingWidget = new HeadingWidget ( this );
     headingWidget->setupUI(videoPlayer, & windowWidth, & windowHeight);
+
+    // Fancy Depth Slider Widget
+    depthWidget = new DepthWidget ( this );
+    depthWidget->setupUI(videoPlayer, & windowWidth, & windowHeight);
 
 }
 

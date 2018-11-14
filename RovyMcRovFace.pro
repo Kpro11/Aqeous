@@ -73,7 +73,8 @@ SOURCES += \
     powerstatus.cpp \
     controltester.cpp \
     tcprov.cpp \
-    headingwidget.cpp
+    headingwidget.cpp \
+    depthwidget.cpp
 
 HEADERS += \
         mainwindow.h \
@@ -84,7 +85,8 @@ HEADERS += \
     tcprov.h \
     gamepadserver.h \
     gamepadstate.h \
-    headingwidget.h
+    headingwidget.h \
+    depthwidget.h
 
 FORMS += \
     secondarywindow.ui \
