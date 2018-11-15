@@ -1,29 +1,30 @@
 ## Requirements
-We recomend using a 64 bit compiler, spesifically the MSVC 2015 one. You can get this by installing Visual Studio 2015
+We recommend using a 64 bit compiler, spesifically MSVC 2015. You can get this by installing Visual Studio 2015 from https://visualstudio.microsoft.com/vs/older-downloads/
+We also recommend using Qt version 5.11.2 or higher, and Qt Creator version 4.7.1 or higher. Both can be downloaded from https://www.qt.io/download
 
 ## Installation instructions
 
 ### QtAV 
-1. Download a QtAV 1.11.0 64 bit executable installer (not 1.12.0) from http://www.qtav.org/install.html
-_We have tested this with the VS2015x64 1.11.0 version_ 
+1. Download a QtAV version 1.11.0 64 bit executable installer (not the 1.12.0 version) from http://www.qtav.org/install.html
+_We have tested this with the VS2015x64 1.11.0 version, which we recommend_
 
-2. Install it with default options (install with development tools & examples and to location C:/QtAV)
+2. Install it with default options, i.e. with "Development Tools and Examples" and to the C:/QtAV location
 
-3. Go to install folder and run the sdk_deploy.bat 
+3. Go to the install folder and run the sdk_deploy.bat file
 
-4. In qtcreator, switch from "debug" to "release". This switch located in the bottom left above the run, debug and build buttons.
+4. In Qt Creator, switch from "Debug" to "Release". This switch located in the bottom left, above the run, debug and build buttons
 
-5. Make sure to run qmake before running project again. (QtCreator status bar -> build -> run qmake)
+5. Make sure to run qmake before running project again. It can be found in the Qt Creator status bar at the top, under "Build", and then "Run qmake"
 
 Alternativly check this link: https://github.com/wang-bin/QtAV/wiki/Deploy-SDK-Without-Building-QtAV or build it yourself
-_The reason you have to use the release option and potential fix is discussed in pr #1 https://github.com/Kpro11/RovyMcRovFace/pull/1_
+_The reason the release option has to be used, and a potential fix is discussed in pr #1 https://github.com/Kpro11/Aqeous/pull/1_
 
 ### Simulator and stream:
-1. Follow internal instructions to set up propiatery simulator, located on our google drive (sorry open source gods)
-2. Install Open Brodcaster Software from https://obsproject.com/ (be sure to install the 64 bit version!)
-3. In obs menu bar: profile -> import: RovyMcRovFace/obs/RovSimProfile/
-4. In obs menu bar: scene -> import: RovyMcRovFace/obs/RovSimScene.json
+1. Follow internal instructions to set up the propiatery simulator that belongs to SINTEF
+2. Install Open Brodcaster Software (OBS) from https://obsproject.com/, make sure to install the 64 bit version
+3. In the OBS menu bar, go to "Profile" and then "Import". Pick the Aqeous/obs/RovSimProfile/ folder
+4. In the OBS menu bar, go to "Scene" and then "Import". Pick the Aqeous/obs/RovSimScene.json file
 
-**This does only work on windows** because 1. the simulator only works on windows, and 2. the path's to the different programs are, for now, hardcoded to windows locations. 
+**This does only work on windows** as the simulator only works on windows, and the paths to the different programs are, for now, hardcoded to windows locations
 
-After that you should be good to go. If not, check that obs is properly recording the fhsim window and then check that the settings are set according to this https://obsproject.com/forum/resources/obs-studio-send-an-udp-stream-to-a-second-pc-using-obs.455/
+After that you should be good to go. If not, check that OBS is properly recording the fhsim window and then check that the settings are set in accordance with this https://obsproject.com/forum/resources/obs-studio-send-an-udp-stream-to-a-second-pc-using-obs.455/
