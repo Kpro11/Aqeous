@@ -51,6 +51,14 @@ BiasWidget::BiasWidget(QWidget *parent, int _frameWidth, int _frameHeight) : QWi
     arrowLengthNorth = sqrt(pow(middle.x() - north.x(), 2) + pow(north.y() - middle.y(), 2));
     arrowLengthEast = arrowLengthNorth;
 
+    // set default length to zero
+    biasArrowLines->up.setLength(0);
+    biasArrowLines->east.setLength(0);
+    biasArrowLines->south.setLength(0);
+    biasArrowLines->down.setLength(0);
+    biasArrowLines->west.setLength(0);
+    biasArrowLines->north.setLength(0);
+
     // create the different pens used with real bias arrows
 
     biasArrowPenNorth = new QPen();
@@ -109,16 +117,22 @@ void BiasWidget::drawBiasArrows(QPainter *painter) {
     // we set new pens on every axis because they should have different colors
 
     painter->setPen(*biasArrowPenNorth);
-    painter->drawLine(biasArrowLines->north);
-    painter->drawLine(biasArrowLines->south);
+    if (biasArrowLines->north.length() > 0)
+        painter->drawLine(biasArrowLines->north);
+    if (biasArrowLines->south.length() > 0)
+        painter->drawLine(biasArrowLines->south);
 
     painter->setPen(*biasArrowPenEast);
-    painter->drawLine(biasArrowLines->west);
-    painter->drawLine(biasArrowLines->east);
+    if (biasArrowLines->west.length() > 0)
+        painter->drawLine(biasArrowLines->west);
+    if (biasArrowLines->east.length() > 0)
+        painter->drawLine(biasArrowLines->east);
 
     painter->setPen(*biasArrowPenDown);
-    painter->drawLine(biasArrowLines->up);
-    painter->drawLine(biasArrowLines->down);
+    if (biasArrowLines->up.length() > 0)
+        painter->drawLine(biasArrowLines->up);
+    if (biasArrowLines->down.length() > 0)
+        painter->drawLine(biasArrowLines->down);
 }
 
 /// Updates the length of the bias arrows
