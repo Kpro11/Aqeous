@@ -41,6 +41,8 @@ private slots:
 private:
     QtAV::VideoOutput *m_vo;
     QtAV::AVPlayer *m_player;
+
+    void checkAndHandleFlag(bool button, bool& lastKeyState, double& flag, double& reference, double referenceValue);
 };
 
 #endif // MAINWINDOW_H

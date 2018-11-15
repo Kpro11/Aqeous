@@ -66,6 +66,20 @@ MainWindow::~MainWindow()
 {
 }
 
+void checkAndHandleFlag(bool button, bool& lastKeyState, double& flag, double& reference, double referenceValue) {
+    if (button) {
+        if (!lastKeyState) {
+            if (flag == 0) {
+                flag = 1;
+                reference = referenceValue;
+            } else {
+                flag = 0;
+            }
+         } lastKeyState = 1;
+    } else {
+        lastKeyState = 0;
+    }
+}
 
 void MainWindow::catchGamepadState(const GamepadState & gps, const int & playerId) {
     //ui->depth_counter->display(value);
@@ -90,20 +104,7 @@ void MainWindow::catchGamepadState(const GamepadState & gps, const int & playerI
     static bool lastKeyStateTriggerL = 0;
     static bool lastKeyStateTriggerR = 0;
 
-    if (gps.m_pad_a) {
-        if (!lastKeyStateA) {
-            if (tcpRov->autoDepth == 0) {
-                tcpRov->autoDepth = 1;
-                tcpRov->referenceDepth = tcpRov->readData.down;
-                emit updateAutoDepth(1);
-            } else {
-                tcpRov->autoDepth = 0;
-                emit updateAutoDepth(0);
-            }
-         } lastKeyStateA = 1;
-    } else {
-        lastKeyStateA = 0;
-    }
+    checkAndHandleFlag(gps.m_pad_a, lastKeyStateA, tcpRov->autoDepth, tcpRov->referenceDepth, tcpRov->readData.down);
 
     if (gps.m_pad_b) {
         if (!lastKeyStateB) {
