@@ -1,5 +1,5 @@
 ## Requirements
-We recommend using a 64 bit compiler, spesifically MSVC 2015. You can get this by installing Visual Studio 2015 from https://visualstudio.microsoft.com/vs/older-downloads/
+We recommend using a 64 bit compiler, specifically MSVC 2015. You can get this by installing Visual Studio 2015 from https://visualstudio.microsoft.com/vs/older-downloads/
 
 We also recommend using Qt version 5.11.2 or higher, and Qt Creator version 4.7.1 or higher. Both can be downloaded from https://www.qt.io/download
 
@@ -15,7 +15,7 @@ _We have tested this with the VS2015x64 1.11.0 version, which we recommend_
 
 4. In Qt Creator, switch from "Debug" to "Release". This switch located in the bottom left, above the run, debug and build buttons
 
-5. Make sure to run qmake before running project again. It can be found in the Qt Creator status bar at the top, under "Build", and then "Run qmake"
+5. Make sure to run qmake before running the project again. It can be found in the Qt Creator status bar at the top, under "Build", and then "Run qmake"
 
 Alternativly check this link: https://github.com/wang-bin/QtAV/wiki/Deploy-SDK-Without-Building-QtAV or build it yourself
 _The reason the release option has to be used, and a potential fix is discussed in pr #1 https://github.com/Kpro11/Aqeous/pull/1_
