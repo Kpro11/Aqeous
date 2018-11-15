@@ -131,7 +131,7 @@ void MainWindow::autoHandling(double autoFlagOn, double reference, double autoAd
             adjustment = -1;
         }
         force = reference + adjustment*autoAdjustment;
-        tcpRov->referenceHeading += adjustment * tcpRov->headingAdjustment;
+        reference += adjustment * autoAdjustment;
     } else {
         force = (maxValue*force); //TODO: Find right normalisation value
     }
