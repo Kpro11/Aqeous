@@ -7,6 +7,17 @@
 #include <QPen>
 #include <QPaintEvent>
 
+/// class used to hold all the lines required to draw one bias widget
+class ArrowLines {
+public:
+    QLineF up;
+    QLineF east;
+    QLineF south;
+    QLineF down;
+    QLineF west;
+    QLineF north;
+};
+
 class BiasWidget : public QWidget
 {
     Q_OBJECT
@@ -20,13 +31,26 @@ protected:
     void paintEvent(QPaintEvent * event) override;
 
 private:
+    //
+    // Variables:
+    //
+
     const double maxArrowLength = 100; // in px
     int frameWidth;
     int frameHeight;
-    QPen pen;
-    QBrush brush;
-    bool antialiased;
-    bool transformed;
+    // QPen pen;
+    // QBrush brush;
+
+    QPen *backgroundArrowPen;
+
+    ArrowLines * backgroundArrowLines;
+
+    //
+    // Functions:
+    //
+    void drawBackgroundArrows(QPainter *painter);
+
+
 
 signals:
 
