@@ -36,7 +36,7 @@ void DepthWidget::setupUI(QWidget * _videoPlayer, int * _windowWidth, int * _win
     setupStyleSheets();
 
     int frameStartOffset = *windowHeight / 42;
-    int frameStartX = *windowWidth / 300;
+    int frameStartX = *windowWidth / 100;
     int frameStartY = *windowHeight / 4 + frameStartOffset;
     frameWidth = 60;
     frameHeight = *windowHeight - (frameStartY - frameStartOffset) * 1.5;
