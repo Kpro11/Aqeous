@@ -84,6 +84,7 @@ signals:
     void updateYaw(double);
     void updateDepth(double);
     void updateFlags(double, double);
+    void updateBias(double, double, double);
 
 public slots:
     void tcpConnect();

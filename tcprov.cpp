@@ -63,6 +63,7 @@ void TcpRov::tcpRead() {
     emit updateROVValues(readData.north, readData.east, readData.down, readData.roll, readData.pitch, readData.yaw);
     emit updateYaw(readData.yaw);
     emit updateDepth(readData.down);
+    emit updateBias(biasSurge, biasSway, biasHeave);
 
     // send next data
     tcpSend();
@@ -171,8 +172,6 @@ void TcpRov::tcpSend() {
     msg_buf.append((const char*)&nextData.yaw, sizeof(nextData.yaw));
     msg_buf.append((const char*)&nextData.autoDepth, sizeof(nextData.autoDepth));
     msg_buf.append((const char*)&nextData.autoHeading, sizeof(nextData.autoHeading));
-
-    qDebug() << nextData.autoDepth << nextData.autoHeading;
 
     int iResult = send(ConnectSocket, &msg_buf[0], msg_buf.size(), 0);
     qDebug() << "Buffer size: " << msg_buf.size();

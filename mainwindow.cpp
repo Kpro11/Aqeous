@@ -59,6 +59,7 @@ void MainWindow::setupUI() {
     depthWidget->setupUI(videoPlayer, & windowWidth, & windowHeight);
 
     // Fancy bias arrow / cordinate system shower;
+    // Create a surrounding QFrame that QPainter can live in
     QFrame * biasContainer = new QFrame( videoPlayer );
     biasContainer->setGeometry(1200,500,500,500);
     biasContainer->setStyleSheet("QFrame { border: 1px solid yellow}");

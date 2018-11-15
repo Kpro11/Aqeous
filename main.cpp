@@ -98,6 +98,9 @@ int main(int argc, char *argv[])
     QObject::connect(&w1, qOverload<double>(&MainWindow::updateAutoDepth), dw, &DepthWidget::updateAutoDepth);
     QObject::connect(&w1, qOverload<double>(&MainWindow::updateDepthReference), dw, &DepthWidget::updateDepthReference);
 
+    BiasWidget * bw = w1.biasWidget;
+    QObject::connect(tcpRov, qOverload<double, double, double>(&TcpRov::updateBias), bw, &BiasWidget::updateBias);
+
     //
     // End tcp init
     //
