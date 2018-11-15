@@ -35,9 +35,9 @@ void HeadingWidget::setupUI(QWidget * _videoPlayer, int * _windowWidth, int * _w
     setupStyleSheets();
 
     int frameStartX = * windowWidth / 12;
-    int frameStartY = * windowHeight / 12;
+    int frameStartY = * windowHeight / 16;
     frameWidth = *windowWidth - frameStartX * 2;
-    frameHeight = 40;
+    frameHeight = 35;
 
     pixelsPerSlot = frameWidth / 12;
 
@@ -57,9 +57,9 @@ void HeadingWidget::setupUI(QWidget * _videoPlayer, int * _windowWidth, int * _w
     currentYawPos = new Position();
 
     currentYawPos->width = 200;
-    currentYawPos->height = frameHeight * 1.5;
+    currentYawPos->height = frameHeight;
     currentYawPos->x = frameStartX + (frameWidth / 2) - currentYawPos->width / 2; //position to horizontally center the widget
-    currentYawPos->y = frameStartY + frameHeight + frameHeight / 2;  // position to vertically center the widget
+    currentYawPos->y = frameStartY + frameHeight + frameHeight / 1.5;  // position to vertically center the widget
     setPosition(currentYaw, currentYawPos);
 
     yawReference = new QLabel( "0", videoPlayer );
@@ -70,7 +70,7 @@ void HeadingWidget::setupUI(QWidget * _videoPlayer, int * _windowWidth, int * _w
     yawReferencePos->width = currentYawPos->width;
     yawReferencePos->height = currentYawPos->height;
     yawReferencePos->x = currentYawPos->x;
-    yawReferencePos->y = currentYawPos->y + currentYawPos->height;
+    yawReferencePos->y = currentYawPos->y + currentYawPos->height * 1.5;
     setPosition(yawReference, yawReferencePos);
 
     yawReferenceLock = new QLabel("0", videoPlayer );
