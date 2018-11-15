@@ -143,20 +143,36 @@ void MainWindow::catchGamepadState(const GamepadState & gps, const int & playerI
 
     double north = tcpRov->biasSurge + (TcpRov::maxThrusterHorizontal*gps.m_lThumb.yAxis);
     double east = tcpRov->biasSway + (TcpRov::maxThrusterHorizontal*gps.m_lThumb.xAxis);
-
     double down = (gps.m_rTrigger - gps.m_lTrigger);
+
     if (tcpRov->autoDepth) {
-        double adjustment = (down > 0 ? 1 : 0); // 0 or 1
+        qDebug() << "DEPTH: " << tcpRov->referenceDepth;
+        double adjustment = 0;
+        if (down > 0) {
+            adjustment = 1;
+        }
+        else if (down < 0) {
+            adjustment = -1;
+        }
         down = tcpRov->referenceDepth + adjustment*tcpRov->depthAdjustment;
+        tcpRov->referenceDepth += adjustment * tcpRov->depthAdjustment;
     } else {
         down = tcpRov->biasHeave + (TcpRov::maxThrusterVertical*down);
     }
 
     double psi = gps.m_rThumb.xAxis;
 
+
     if (tcpRov->autoHeading) {
-        double adjustment = (psi > 0 ? 1 : 0); // 0 or 1
+        double adjustment = 0;
+        if (psi > 0) {
+            adjustment = 1;
+        }
+        else if (psi < 0) {
+            adjustment = -1;
+        }
         psi = tcpRov->referenceHeading + adjustment*tcpRov->headingAdjustment;
+        tcpRov->referenceHeading += adjustment * tcpRov->headingAdjustment;
     } else {
         psi = (TcpRov::maxThrusterHeading*psi); //TODO: Find right normalisation value
     }

@@ -27,9 +27,9 @@ public:
     double autoDepth = 0;
     double autoHeading = 0;
     double referenceDepth = 0;
-    double depthAdjustment = 0.1;
+    double depthAdjustment = 0.01;
     double referenceHeading = 0;
-    double headingAdjustment = 0.1;
+    double headingAdjustment = 0.01;
 
     double biasSurge = 0;
     double biasSway = 0;
