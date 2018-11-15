@@ -43,6 +43,9 @@ private:
     QtAV::AVPlayer *m_player;
 
     void checkAndHandleFlag(bool button, bool& lastKeyState, double& flag, double& reference, double referenceValue);
+    void handleBiasUp(bool button, bool& lastKeyState, double& bias, double maxValue);
+    void handleBiasDown(bool button, bool& lastKeyState, double& bias, double minValue);
+    void autoHandling(double autoFlagOn, double reference, double autoAdjustment, double& force);
 };
 
 #endif // MAINWINDOW_H
