@@ -26,6 +26,8 @@ public:
     static const int maxTriggerValue = 255;
 
 
+
+
 signals:
     void stateUpdate(const GamepadState & gps, const int & player);
 
