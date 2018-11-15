@@ -133,7 +133,7 @@ void MainWindow::autoHandling(double autoFlagOn, double reference, double autoAd
         force = reference + adjustment*autoAdjustment;
         tcpRov->referenceHeading += adjustment * tcpRov->headingAdjustment;
     } else {
-        force = (TcpRov::maxThrusterHeading*force); //TODO: Find right normalisation value
+        force = (maxValue*force); //TODO: Find right normalisation value
     }
 }
 
@@ -185,7 +185,7 @@ void MainWindow::catchGamepadState(const GamepadState & gps, const int & playerI
     autoHandling(tcpRov->autoDepth, tcpRov->referenceDepth, tcpRov->depthAdjustment, down, TcpRov::maxThrusterVertical);
 
     double psi = gps.m_rThumb.xAxis;
-    autoHandling(tcpRov->autoHeading, tcpRov->referenceHeading, tcpRov->headingAdjustment, psi, TcpRov::maxThrusterHeading)
+    autoHandling(tcpRov->autoHeading, tcpRov->referenceHeading, tcpRov->headingAdjustment, psi, TcpRov::maxThrusterHeading);
 
     tcpRov->setValues(north, east, down, 0, 0, psi, tcpRov->autoDepth, tcpRov->autoHeading);
 }
