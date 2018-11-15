@@ -29,7 +29,7 @@ public:
     double referenceDepth = 0;
     double depthAdjustment = 0.01;
     double referenceHeading = 0;
-    double headingAdjustment = 0.01;
+    double headingAdjustment = 0.05;
 
     double biasSurge = 0;
     double biasSway = 0;

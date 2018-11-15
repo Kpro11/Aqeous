@@ -82,7 +82,6 @@ void MainWindow::catchGamepadState(const GamepadState & gps, const int & playerI
 
     static bool lastKeyStateA = 0;
     static bool lastKeyStateB = 0;
-    static bool lastKeyStateX = 0;
 
     if (gps.m_pad_a) {
         if (!lastKeyStateA) {
@@ -115,38 +114,54 @@ void MainWindow::catchGamepadState(const GamepadState & gps, const int & playerI
         tcpRov->biasSurge = std::min(tcpRov->biasSurge+1, TcpRov::maxThrusterHorizontal);
     }
     if (gps.m_pad_down) {
-        tcpRov->biasSurge = std::max(tcpRov->biasSurge-1, -TcpRov::maxThrusterHorizontal);;
+         tcpRov->biasSurge = std::max(tcpRov->biasSurge-1, -TcpRov::maxThrusterHorizontal);
     }
     if (gps.m_pad_right) {
-        tcpRov->biasSway = std::min(tcpRov->biasSway+1, TcpRov::maxThrusterHorizontal);;
+        tcpRov->biasSway = std::min(tcpRov->biasSway+1, TcpRov::maxThrusterHorizontal);
     }
     if (gps.m_pad_left) {
-        tcpRov->biasSway = std::max(tcpRov->biasSway-1, -TcpRov::maxThrusterHorizontal);;
+        tcpRov->biasSway = std::max(tcpRov->biasSway-1, -TcpRov::maxThrusterHorizontal);
     }
     if (gps.m_rShoulder) {
-        tcpRov->biasHeave = std::min(tcpRov->biasHeave+1, TcpRov::maxThrusterVertical);;
+        tcpRov->biasHeave = std::min(tcpRov->biasHeave+1, TcpRov::maxThrusterVertical);
     }
     if (gps.m_lShoulder) {
-        tcpRov->biasHeave = std::max(tcpRov->biasHeave-1, -TcpRov::maxThrusterVertical);;
+        tcpRov->biasHeave = std::max(tcpRov->biasHeave-1, -TcpRov::maxThrusterVertical);
     }
 
     if (gps.m_pad_x) {
-        if (!lastKeyStateX) {
+        if (gps.m_lShoulder || gps.m_rShoulder) {
+            tcpRov->biasHeave=0;
+        } else if (gps.m_pad_up || gps.m_pad_down) {
+            tcpRov->biasSurge=0;
+        } else if (gps.m_pad_left || gps.m_pad_right) {
+            tcpRov->biasSway=0;
+        }
+    }
+
+
+
+    if (gps.m_pad_y) {
            tcpRov->biasSurge=0;
            tcpRov->biasSway=0;
            tcpRov->biasHeave=0;
-         } lastKeyStateX = 1;
-    } else {
-        lastKeyStateX = 0;
     }
 
+/*
+    if (gps.m_pad_y) {
+        if (!lastKeyStateY) {
+           tcpRov->biasHeave=0;
+         } lastKeyStateY = 1;
+    } else {
+        lastKeyStateY = 0;
+    }
+*/
 
     double north = tcpRov->biasSurge + (TcpRov::maxThrusterHorizontal*gps.m_lThumb.yAxis);
     double east = tcpRov->biasSway + (TcpRov::maxThrusterHorizontal*gps.m_lThumb.xAxis);
     double down = (gps.m_rTrigger - gps.m_lTrigger);
 
     if (tcpRov->autoDepth) {
-        qDebug() << "DEPTH: " << tcpRov->referenceDepth;
         double adjustment = 0;
         if (down > 0) {
             adjustment = 1;
