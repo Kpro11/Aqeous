@@ -75,7 +75,8 @@ SOURCES += \
     tcprov.cpp \
     headingwidget.cpp \
     depthwidget.cpp \
-    converter.cpp
+    converter.cpp \
+    fontsize.cpp
 
 HEADERS += \
         mainwindow.h \
@@ -88,7 +89,9 @@ HEADERS += \
     gamepadstate.h \
     headingwidget.h \
     depthwidget.h \
-    converter.h
+    converter.h \
+    position.h \
+    fontsize.h
 
 FORMS += \
     secondarywindow.ui \

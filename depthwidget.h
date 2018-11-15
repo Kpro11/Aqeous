@@ -3,13 +3,13 @@
 
 #include <QWidget>
 #include <QLabel>
+#include "position.h"
 
 class DepthLabel {
     public:
         QLabel *label;
         int value;
 };
-
 
 class DepthWidget : public QWidget
 {
@@ -18,6 +18,7 @@ public:
     explicit DepthWidget(QWidget *parent = nullptr);
     void setupUI(QWidget * _videoPlayer, int * _windowWidth, int * _windowHeight);
     double depth = 0.0;
+    double depthRef;
 
 private:
     QWidget * videoPlayer;
@@ -29,22 +30,35 @@ private:
     int frameHeight;
 
     QLabel * currentDepth;
+    Position * currentDepthPos;
+
+    QLabel * depthReference;
+    Position * depthReferencePos;
+
+    QLabel * depthReferenceLock;
+    Position * depthReferenceLockPos;
 
     //Frame that holds the labels
     QFrame * frame;
 
     QList<DepthLabel *> labels;
 
-    QString whiteText = " QLabel { color: white;  } ";   // stylesheet for white text
-    QString bigNumStyle = " QLabel { color: white; font-size: 23px; } ";
-    QString numStyle = " QLabel { color: white; font-size: 17px; } ";
+    QString borderStyleSheet;
+    QString whiteText;
+    QString bigNumStyle;
+    QString numStyle;
+    QString depthStyleSheet;
 
 signals:
 
 public slots:
     void updateLabels();
     void updateDepth(double _depth);
-    void updateFlags(double, double);
+    void updateAutoDepth(double _autoDepth);
+    void updateDepthReference(double _depthRef);
+    void setPosition(QLabel * _lbl, Position * _lblPos);
+    QString formatDepth(double _depth);
+    void setupStyleSheets();
 };
 
 #endif // DEPTHWIDGET_H

@@ -4,5 +4,6 @@
         <file>images/transrect.png</file>
         <file>images/redrect.png</file>
         <file>images/hitramap.png</file>
+        <file>images/lock-icon.png</file>
     </qresource>
 </RCC>
