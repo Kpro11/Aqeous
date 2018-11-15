@@ -43,6 +43,7 @@ private:
 
     QList<DepthLabel *> labels;
 
+    QString borderStyleSheet;
     QString whiteText;
     QString bigNumStyle;
     QString numStyle;

@@ -15,3 +15,7 @@ int FontSize::getBigFont(int *windowWidth) {
 int FontSize::getSmallFont(int *windowWidth) {
     return linearTransform(*windowWidth, minWidth, maxWidth, smallFontMin, smallFontMax);
 }
+
+int FontSize::getBorder(int *windowWidth) {
+    return linearTransform(*windowWidth, minWidth, maxWidth, minBorder, maxBorder);
+}

@@ -21,6 +21,10 @@ void HeadingWidget::setupStyleSheets() {
     charStyle = " QLabel { color: white; font-size: " + QString::number(bigFont) + "px; } ";
     numStyle = " QLabel { color: white; font-size: " + QString::number(smallFont) + "px; } ";
     yawStyleSheet = "QLabel { color: white; font-size: " + QString::number(bigFont) + "px; }";
+
+    borderStyleSheet = "QFrame#headingWidget { border: ";
+    borderStyleSheet += QString::number(FontSize::getBorder(windowWidth));
+    borderStyleSheet += "px solid white; border-top: 0; border-left: 0; border-right: 0; }";
 }
 
 void HeadingWidget::setupUI(QWidget * _videoPlayer, int * _windowWidth, int * _windowHeight) {
@@ -44,7 +48,7 @@ void HeadingWidget::setupUI(QWidget * _videoPlayer, int * _windowWidth, int * _w
     // set the position and dimensions (start x, start y, width, heigth
     frame->setGeometry(frameStartX, frameStartY, frameWidth, frameHeight);
     // add a border to the bottom
-    frame->setStyleSheet( "QFrame#headingWidget { border: 3px solid white; border-top: 0; border-left: 0; border-right: 0; }" );
+    frame->setStyleSheet( borderStyleSheet );
 
     // Add a label to show current heading / yaw
     currentYaw = new QLabel( QString::number(yaw) , videoPlayer );

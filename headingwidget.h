@@ -69,6 +69,7 @@ private:
     // how many pixels there are available per label
     int pixelsPerSlot;
 
+    QString borderStyleSheet;
     QString whiteText;
     QString yawStyleSheet;
     QString charStyle;

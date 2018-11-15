@@ -8,6 +8,7 @@ public:
     static double linearTransform(double X, int A, int B, int C, int D);
     static int getBigFont(int *windowWidth);
     static int getSmallFont(int *windowWidth);
+    static int getBorder(int *windowWidth);
 
 private:
     FontSize () {} // dissalow creation of an instance of this class
@@ -21,6 +22,9 @@ private:
     static const int minWidth = 0;
     static const int maxWidth = 3840;
 
+    // min and max border widths
+    static const int minBorder = 1;
+    static const int maxBorder = 5;
 };
 
 #endif // FONTSIZE_H

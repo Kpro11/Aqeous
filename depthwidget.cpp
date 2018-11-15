@@ -13,6 +13,10 @@ void DepthWidget::setupStyleSheets() {
     double bigFont = FontSize::getBigFont(windowWidth);
     double smallFont = FontSize::getSmallFont(windowWidth);
 
+    borderStyleSheet = "QFrame#depthWidget { border: ";
+    borderStyleSheet += QString::number(FontSize::getBorder(windowWidth));
+    borderStyleSheet += "px solid white; border-top: 0; border-left: 0; border-bottom: 0; }";
+
     // stylesheet for white text
     whiteText = " QLabel { color: white;  } ";
     // Stylesheet for text that should be slightly larger
@@ -44,7 +48,7 @@ void DepthWidget::setupUI(QWidget * _videoPlayer, int * _windowWidth, int * _win
     // set the position and dimensions (start x, start y, width, heigth
     frame->setGeometry(frameStartX, frameStartY, frameWidth, frameHeight);
     // add a border to the bottom
-    frame->setStyleSheet( "QFrame#depthWidget { border: 3px solid white; border-top: 0; border-left: 0; border-bottom: 0; }" );
+    frame->setStyleSheet( borderStyleSheet );
 
     // Add a label to show current depth
     currentDepth = new QLabel( QString::number(depth) , videoPlayer );
