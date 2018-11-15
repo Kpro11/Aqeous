@@ -36,6 +36,7 @@ public slots:
     void setPosition(QLabel * _lbl, Position * _lblPos);
     QString formatYaw(double _yaw);
     void updateYawReference(double _yaw);
+    double wrapYaw(double _yaw);
 
 private:
     QTimer * testTimer;

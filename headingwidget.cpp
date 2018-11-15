@@ -143,16 +143,13 @@ void HeadingWidget::updateLabels() {
 
         // finds the distance in this 360 degree circle
         double distance = distanceFromPointToYaw(point, yaw);
-
         // label should only show if it is in range
         if (abs(distance) <= 90) {
-
             // normalize
             double positionInRow = (distance + 90) / 15;
 
             // set position
             labels[i]->label->setGeometry(positionInRow * pixelsPerSlot, 0, 30, 30);
-
         } else {
             // hide the label
             labels[i]->label->setGeometry(0,0,0,0);
@@ -175,14 +172,15 @@ double distanceFromPointToYaw(double point, double _yaw) {
     // normal distance = 310
     // counter-clockwise distance = 360+320 = 680
     // clockwise distance = 50
-    int yaw = static_cast<int>(abs(_yaw)) % 360;
+
+    _yaw = static_cast<int>(_yaw) % 360;
 
     // the normal distance between yaw and point
-    double distanceBetweenYawAndPoint = abs(yaw - point);
+    double distanceBetweenYawAndPoint = abs(_yaw - point);
 
     // calculate variables to help traverse (counter-)clockwise
-    double yawDistanceToZero = yaw;
-    double yawDistanceToMax = 360 - yaw;
+    double yawDistanceToZero = _yaw;
+    double yawDistanceToMax = 360 - _yaw;
 
     double pointDistanceToZero = point;
     double pointDistanceToMax = 360 - point;
@@ -202,12 +200,12 @@ double distanceFromPointToYaw(double point, double _yaw) {
         return distanceBelow;
     } else { // distanceBetweenYawAndPoint was lowest
         // we calculate it again because it will produce the rigth "fortegn"
-        return point - yaw;
+        return point - _yaw;
     }
 
     // The code belov returns the true distance
     // Choose the value that was lowest. This is the correct value
-    // return std::min(std::min(distanceAbove, distanceBelow), distanceBetweenYawAndPoint);
+    // return std::min(std::min(distanceAbove, distanceBelow), distanceBetween_yawAndPoint);
 }
 
 void HeadingWidget::testUpdate() {
@@ -218,17 +216,55 @@ void HeadingWidget::testUpdate() {
     */
 }
 
+//
 
+/// @notice This function is called when we get a new yaw value.
+/// @dev Wraps yaw, updates currentYaw and updates labels
+/// @param _yaw The current yaw in degrees. Example values [-823.33333, -359.3, -2, 0, 40, 360, 720]
 void HeadingWidget::updateYaw(double _yaw) {
-    // yaw must be converted to degrees first
-
-    yaw = abs(_yaw);
 
 
+    // set the new global yaw
+    yaw = wrapYaw(_yaw);
+
+    // updates headingWidget
     currentYaw->setText(formatYaw(yaw));
     updateLabels();
+}
 
-    // todo add conversion from rad to degrees here
+
+/// @notice Wraps the yaw around the 360 degree axis
+/// @param _yaw The current yaw in degrees. Example values [-823.33333, -359.3, -2, 0, 40, 360, 720]
+double HeadingWidget::wrapYaw(double _yaw) {
+    // We need to wrap the yaw around the 360 degree axis and preserve decimals.
+
+    /* We do this by
+     * 1. round yaw to floor. Ex: 2.2 => 2, -4.3 => -4
+     * 2. Wrap yaw to [0,359]
+     * 3. Extract the decimals of the original yaw
+     * 4. Add decimals to wrapped yaw. (If original yaw is negative we also have to invert the decimals around [1,0]
+     */
+
+    // Floor the yaw and cast to int.
+    int roundedYaw = static_cast<int>(floor(_yaw));
+
+    // because the c++ % operation is wierd and diffrent from python (a % b) we have to use this formula to immitate python %: (b + (a%b)) % b
+    // Wraps the yaw around on 360 degrees
+    // Example: -30 => 330, 370 => 10, -370 => 350
+    int wrappedYaw = (360 + roundedYaw % 360) % 360;
+
+    // Now we have to add the decimals back.
+    double newYaw = wrappedYaw;
+    if (_yaw >= 0) {
+       // ex: 2.23 - 2 = 0.23
+       newYaw += _yaw - floor(_yaw);
+    } else {
+       // here we have to find decimals and invert them since we get a 0 -> -360 scale and not -360 -> 0
+       // ex: 1 - abs(-20.3-(-20)) = 1 - 0.3 = 0.7
+       newYaw += 1 - abs(_yaw - ceil(_yaw));
+    }
+
+    return newYaw;
 }
 
 // This function will output a string with exactly one decimal
@@ -244,11 +280,18 @@ QString HeadingWidget::formatYaw(double _yaw) {
         output += ".0";
     }
 
+    // If it shows 360, show 0 instead
+    if (output == "360.0") {
+        output = "0.0";
+    }
+
     return output;
 }
 
 void HeadingWidget::updateYawReference(double _yaw) {
-    yawReference->setText(formatYaw(Converter::radToDeg(_yaw)));
+    double yawDeg = Converter::radToDeg(_yaw);
+    double wrappedYaw = wrapYaw(yawDeg);
+    yawReference->setText(formatYaw(wrappedYaw));
 }
 
 void HeadingWidget::updateAutoHeading(double _autoHeading) {
