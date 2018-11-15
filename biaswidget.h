@@ -48,6 +48,7 @@ private:
 
     ArrowLines * backgroundArrowLines;
     ArrowLines * biasArrowLines;
+    ArrowLines * biasArrowLinesOriginal;
 
     double arrowLengthNorth;
     double arrowLengthEast;

@@ -46,6 +46,18 @@ BiasWidget::BiasWidget(QWidget *parent, int _frameWidth, int _frameHeight) : QWi
     biasArrowLines->west = QLineF(middle, west);
     biasArrowLines->north = QLineF(middle, north);
 
+    // create a copy
+    biasArrowLinesOriginal = new ArrowLines();
+
+    biasArrowLinesOriginal->up = QLineF(middle, up);
+    biasArrowLinesOriginal->east = QLineF(middle, east);
+    biasArrowLinesOriginal->south = QLineF(middle,south);
+    biasArrowLinesOriginal->down = QLineF(middle, down);
+    biasArrowLinesOriginal->west = QLineF(middle, west);
+    biasArrowLinesOriginal->north = QLineF(middle, north);
+
+
+
     // calculate the length of bias arrows
     arrowLengthDown = frameHeight / 2;
     arrowLengthNorth = sqrt(pow(middle.x() - north.x(), 2) + pow(north.y() - middle.y(), 2));
@@ -58,6 +70,8 @@ BiasWidget::BiasWidget(QWidget *parent, int _frameWidth, int _frameHeight) : QWi
     biasArrowLines->down.setLength(0);
     biasArrowLines->west.setLength(0);
     biasArrowLines->north.setLength(0);
+
+
 
     // create the different pens used with real bias arrows
 
@@ -114,8 +128,9 @@ void BiasWidget::drawBackgroundArrows(QPainter *painter) {
 /// @param * painter The QPainter object created in paintEvent
 void BiasWidget::drawBiasArrows(QPainter *painter) {
 
-    // we set new pens on every axis because they should have different colors
+    qDebug() << "drawBiasArrows: " << biasArrowLines->north.length();
 
+    // we set new pens on every axis because they should have different colors
     painter->setPen(*biasArrowPenNorth);
     if (biasArrowLines->north.length() > 0)
         painter->drawLine(biasArrowLines->north);
@@ -140,17 +155,23 @@ void BiasWidget::drawBiasArrows(QPainter *painter) {
 /// @param double east => [-400,400]
 /// @param double down => [-200,200]
 void BiasWidget::updateBias(double north, double east, double down) {
-
+    qDebug() << "Updating bias with " << north << east << down;
     // update north and south axis:
     if(north > 0) {
         // set south length to 0
         biasArrowLines->south.setLength(0);
+        // transform from [0,400] to [0, maxArrowLength]
         double newLength = FontSize::linearTransform(north, 0, 400, 0, arrowLengthNorth);
+        // here we have to make a copy of the original line because somehow setLength doesnt work when length is set to zero
+        biasArrowLines->north = biasArrowLinesOriginal->north;
+        // set the new length
         biasArrowLines->north.setLength(newLength);
+        qDebug() << newLength << biasArrowLines->north.length();
     } else if (north < 0) {
         // set north length to 0
         biasArrowLines->north.setLength(0);
         double newLength = FontSize::linearTransform(abs(north), 0, 400, 0, arrowLengthNorth);
+        biasArrowLines->south = biasArrowLinesOriginal->south;
         biasArrowLines->south.setLength(newLength);
     } else {
         // set both to zero
@@ -160,38 +181,38 @@ void BiasWidget::updateBias(double north, double east, double down) {
 
     // east and west axis
     if (east > 0) {
-        // set west length to 0
         biasArrowLines->west.setLength(0);
         double newLength = FontSize::linearTransform(east, 0, 400, 0, arrowLengthEast);
+        biasArrowLines->east = biasArrowLinesOriginal->east;
         biasArrowLines->east.setLength(newLength);
     } else if (east < 0) {
-        // set east length to 0
         biasArrowLines->east.setLength(0);
         double newLength = FontSize::linearTransform(abs(east), 0, 400, 0, arrowLengthEast);
+        biasArrowLines->west = biasArrowLinesOriginal->west;
         biasArrowLines->west.setLength(newLength);
     } else {
-        // set both to zero
         biasArrowLines->east.setLength(0);
         biasArrowLines->west.setLength(0);
     }
 
     // up and down axis
     if (down > 0) {
-        // set up length to 0
         biasArrowLines->up.setLength(0);
         double newLength = FontSize::linearTransform(down, 0, 200, 0, arrowLengthDown);
+        biasArrowLines->down = biasArrowLinesOriginal->down;
         biasArrowLines->down.setLength(newLength);
     } else if (down < 0) {
-        // set down length to 0
         biasArrowLines->down.setLength(0);
         double newLength = FontSize::linearTransform(abs(down), 0, 200, 0, arrowLengthDown);
+        biasArrowLines->up = biasArrowLinesOriginal->up;
         biasArrowLines->up.setLength(newLength);
     } else {
-        // set both to zero
         biasArrowLines->down.setLength(0);
         biasArrowLines->up.setLength(0);
     }
 
+    // update the component, this will call the paintEvent
+    update();
 }
 
 /// Sets the minimum size - should never be called tho?
