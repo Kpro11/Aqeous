@@ -45,7 +45,7 @@ private:
     void checkAndHandleFlag(bool button, bool& lastKeyState, double& flag, double& reference, double referenceValue);
     void handleBiasUp(bool button, bool& lastKeyState, double& bias, double maxValue);
     void handleBiasDown(bool button, bool& lastKeyState, double& bias, double minValue);
-    void autoHandling(double autoFlagOn, double reference, double autoAdjustment, double& force, double maxValue);
+    void autoHandling(double autoFlagOn, double& reference, double autoAdjustment, double& force, double bias, double maxValue);
 };
 
 #endif // MAINWINDOW_H

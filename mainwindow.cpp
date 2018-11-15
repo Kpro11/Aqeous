@@ -121,7 +121,7 @@ void MainWindow::handleBiasDown(bool button, bool& lastKeyState, double& bias, d
     }
 }
 
-void MainWindow::autoHandling(double autoFlagOn, double reference, double autoAdjustment, double& force, double maxValue) {
+void MainWindow::autoHandling(double autoFlagOn, double& reference, double autoAdjustment, double& force, double bias, double maxValue) {
     if (autoFlagOn) {
         double adjustment = 0;
         if (force > 0) {
@@ -133,7 +133,7 @@ void MainWindow::autoHandling(double autoFlagOn, double reference, double autoAd
         force = reference + adjustment*autoAdjustment;
         reference += adjustment * autoAdjustment;
     } else {
-        force = (maxValue*force); //TODO: Find right normalisation value
+        force = bias + (maxValue*force); //TODO: Find right normalisation value
     }
 }
 
@@ -182,10 +182,11 @@ void MainWindow::catchGamepadState(const GamepadState & gps, const int & playerI
     double east = tcpRov->biasSway + (TcpRov::maxThrusterHorizontal*gps.m_lThumb.xAxis);
 
     double down = (gps.m_rTrigger - gps.m_lTrigger);
-    autoHandling(tcpRov->autoDepth, tcpRov->referenceDepth, tcpRov->depthAdjustment, down, TcpRov::maxThrusterVertical);
+    autoHandling(tcpRov->autoDepth, tcpRov->referenceDepth, tcpRov->depthAdjustment, down, tcpRov->biasHeave, TcpRov::maxThrusterVertical);
 
     double psi = gps.m_rThumb.xAxis;
-    autoHandling(tcpRov->autoHeading, tcpRov->referenceHeading, tcpRov->headingAdjustment, psi, TcpRov::maxThrusterHeading);
+    // Bias set to 0 because yaw bias is not implemented
+    autoHandling(tcpRov->autoHeading, tcpRov->referenceHeading, tcpRov->headingAdjustment, psi, 0, TcpRov::maxThrusterHeading);
 
     tcpRov->setValues(north, east, down, 0, 0, psi, tcpRov->autoDepth, tcpRov->autoHeading);
 }
