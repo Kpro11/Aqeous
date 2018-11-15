@@ -66,6 +66,14 @@ MainWindow::~MainWindow()
 {
 }
 
+/**
+ * @brief MainWindow::checkAndHandleFlag    Toggles flag if button is pressed (not held)
+ * @param button            Bool to signal if a button is pressed
+ * @param lastKeyState      Used to detect when a button is pressed (as opposed to held)
+ * @param flag              Flag to be toggled when button pressed
+ * @param reference         Reference which will be used when flag is set
+ * @param referenceValue    Value reference will be set to (last known value from ROV)
+ */
 void MainWindow::checkAndHandleFlag(bool button, bool& lastKeyState, double& flag, double& reference, double referenceValue) {
     if (button) {
         if (!lastKeyState) {
@@ -81,6 +89,13 @@ void MainWindow::checkAndHandleFlag(bool button, bool& lastKeyState, double& fla
     }
 }
 
+/**
+ * @brief MainWindow::handleBiasUp  Handles changes of bias in a positive direction
+ * @param button        Bool to signal if a button is pressed
+ * @param lastKeyState  Used to detect when a button is pressed (as opposed to held)
+ * @param bias          Current value for bias, which will be updated
+ * @param maxValue      Maximum legal value for bias, generally the maximum value for the thruster
+ */
 void MainWindow::handleBiasUp(bool button, bool& lastKeyState, double& bias, double maxValue) {
 
     if (button) {
@@ -101,6 +116,13 @@ void MainWindow::handleBiasUp(bool button, bool& lastKeyState, double& bias, dou
     }
 }
 
+/**
+ * @brief MainWindow::handleBiasDown    Handles changes of bias in a negative direction
+ * @param button        Bool to signal if a button is pressed
+ * @param lastKeyState  Used to detect when a button is pressed (as opposed to held)
+ * @param bias          Current value for bias, which will be updated
+ * @param minValue      Minimum legal value for bias, generally the minimum value for the thruster
+ */
 void MainWindow::handleBiasDown(bool button, bool& lastKeyState, double& bias, double minValue) {
 
     if (button) {
@@ -121,6 +143,15 @@ void MainWindow::handleBiasDown(bool button, bool& lastKeyState, double& bias, d
     }
 }
 
+/**
+ * @brief MainWindow::autoHandling  Handles auto and manual mode for a force or moment
+ * @param autoFlagOn        Flag to signify if manual or auto mode
+ * @param reference         Reference value for auto mode
+ * @param autoAdjustment    Amount the reference will be adjusted by for each tick
+ * @param force             Value of the force/moment, starts out as a number between -1 and 1, ends up as either a force or reference
+ * @param bias              Current bias of the force/moment
+ * @param maxValue          Maximum value for the thruster
+ */
 void MainWindow::autoHandling(double autoFlagOn, double& reference, double autoAdjustment, double& force, double bias, double maxValue) {
     if (autoFlagOn) {
         double adjustment = 0;
@@ -162,6 +193,7 @@ void MainWindow::catchGamepadState(const GamepadState & gps, const int & playerI
     handleBiasUp(gps.m_rShoulder, lastKeyStateTriggerR, tcpRov->biasHeave, TcpRov::maxThrusterVertical);
     handleBiasDown(gps.m_lShoulder, lastKeyStateTriggerL, tcpRov->biasHeave, -TcpRov::maxThrusterVertical);
 
+    // Reset various biases
     if (gps.m_pad_x) {
         if (gps.m_lShoulder || gps.m_rShoulder) {
             tcpRov->biasHeave=0;
@@ -172,6 +204,7 @@ void MainWindow::catchGamepadState(const GamepadState & gps, const int & playerI
         }
     }
 
+    // Reset all biases
     if (gps.m_pad_y) {
            tcpRov->biasSurge=0;
            tcpRov->biasSway=0;
