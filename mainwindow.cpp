@@ -154,13 +154,13 @@ void MainWindow::catchGamepadState(const GamepadState & gps, const int & playerI
     checkAndHandleFlag(gps.m_pad_b, lastKeyStateB, tcpRov->autoHeading, tcpRov->referenceHeading, tcpRov->readData.yaw*3.14159265/180);
 
     handleBiasUp(gps.m_pad_up, lastKeyStateUp, tcpRov->biasSurge, TcpRov::maxThrusterHorizontal);
-    handleBiasDown(gps.m_pad_down, lastKeyStateDown, tcpRov->biasSurge, TcpRov::maxThrusterHorizontal);
+    handleBiasDown(gps.m_pad_down, lastKeyStateDown, tcpRov->biasSurge, -TcpRov::maxThrusterHorizontal);
 
     handleBiasUp(gps.m_pad_right, lastKeyStateRight, tcpRov->biasSway, TcpRov::maxThrusterHorizontal);
-    handleBiasDown(gps.m_pad_left, lastKeyStateLeft, tcpRov->biasSway, TcpRov::maxThrusterHorizontal);
+    handleBiasDown(gps.m_pad_left, lastKeyStateLeft, tcpRov->biasSway, -TcpRov::maxThrusterHorizontal);
 
     handleBiasUp(gps.m_rShoulder, lastKeyStateTriggerR, tcpRov->biasHeave, TcpRov::maxThrusterVertical);
-    handleBiasDown(gps.m_lShoulder, lastKeyStateTriggerL, tcpRov->biasHeave, TcpRov::maxThrusterVertical);
+    handleBiasDown(gps.m_lShoulder, lastKeyStateTriggerL, tcpRov->biasHeave, -TcpRov::maxThrusterVertical);
 
     if (gps.m_pad_x) {
         if (gps.m_lShoulder || gps.m_rShoulder) {
