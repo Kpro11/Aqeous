@@ -1,5 +1,6 @@
 ## Requirements
 We recommend using a 64 bit compiler, spesifically MSVC 2015. You can get this by installing Visual Studio 2015 from https://visualstudio.microsoft.com/vs/older-downloads/
+
 We also recommend using Qt version 5.11.2 or higher, and Qt Creator version 4.7.1 or higher. Both can be downloaded from https://www.qt.io/download
 
 ## Installation instructions
@@ -27,4 +28,5 @@ _The reason the release option has to be used, and a potential fix is discussed 
 
 **This does only work on windows** as the simulator only works on windows, and the paths to the different programs are, for now, hardcoded to windows locations
 
-After that you should be good to go. If not, check that OBS is properly recording the fhsim window and then check that the settings are set in accordance with this https://obsproject.com/forum/resources/obs-studio-send-an-udp-stream-to-a-second-pc-using-obs.455/
+After that you should be good to go. If not, check that OBS is properly recording the fhsim window and then check that the settings are set in accordance with this link:
+https://obsproject.com/forum/resources/obs-studio-send-an-udp-stream-to-a-second-pc-using-obs.455/
