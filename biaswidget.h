@@ -42,19 +42,27 @@ private:
     // QBrush brush;
 
     QPen *backgroundArrowPen;
+    QPen *biasArrowPenNorth;
+    QPen *biasArrowPenEast;
+    QPen *biasArrowPenDown;
 
     ArrowLines * backgroundArrowLines;
+    ArrowLines * biasArrowLines;
+
+    double arrowLengthNorth;
+    double arrowLengthEast;
+    double arrowLengthDown;
 
     //
     // Functions:
     //
     void drawBackgroundArrows(QPainter *painter);
-
-
+    void drawBiasArrows(QPainter *painter);
 
 signals:
 
 public slots:
+    void updateBias(double north, double east, double down);
 
 };
 
