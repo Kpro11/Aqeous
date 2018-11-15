@@ -80,8 +80,15 @@ void MainWindow::catchGamepadState(const GamepadState & gps, const int & playerI
                 "\t Y Axis: " << gps.m_rThumb.yAxis;
     */
 
+    //0 if button was up (unpressed), 1 if button was down (pressed)
     static bool lastKeyStateA = 0;
     static bool lastKeyStateB = 0;
+    static bool lastKeyStateDown = 0;
+    static bool lastKeyStateUp = 0;
+    static bool lastKeyStateLeft = 0;
+    static bool lastKeyStateRight = 0;
+    static bool lastKeyStateTriggerL = 0;
+    static bool lastKeyStateTriggerR = 0;
 
     if (gps.m_pad_a) {
         if (!lastKeyStateA) {
@@ -110,23 +117,108 @@ void MainWindow::catchGamepadState(const GamepadState & gps, const int & playerI
         lastKeyStateB = 0;
     }
 
+
     if (gps.m_pad_up) {
-        tcpRov->biasSurge = std::min(tcpRov->biasSurge+1, TcpRov::maxThrusterHorizontal);
+        if (tcpRov->biasSurge == 0) {
+            if(lastKeyStateUp) {
+                tcpRov->biasSurge = 0;
+                lastKeyStateUp = 1;
+            } else {
+                tcpRov->biasSurge = std::min(tcpRov->biasSurge+1, TcpRov::maxThrusterHorizontal);
+                lastKeyStateUp = 1;
+            }
+        } else {
+            tcpRov->biasSurge = std::min(tcpRov->biasSurge+1, TcpRov::maxThrusterHorizontal);
+            lastKeyStateUp = 1;
+        }
+    } else {
+        lastKeyStateUp = 0;
     }
+
     if (gps.m_pad_down) {
-         tcpRov->biasSurge = std::max(tcpRov->biasSurge-1, -TcpRov::maxThrusterHorizontal);
+        if (tcpRov->biasSurge == 0) {
+            if(lastKeyStateDown) {
+                tcpRov->biasSurge = 0;
+                lastKeyStateDown = 1;
+            } else {
+                tcpRov->biasSurge = std::max(tcpRov->biasSurge-1, -TcpRov::maxThrusterHorizontal);
+                lastKeyStateDown = 1;
+            }
+        } else {
+            tcpRov->biasSurge = std::max(tcpRov->biasSurge-1, -TcpRov::maxThrusterHorizontal);
+            lastKeyStateDown = 1;
+        }
+    } else {
+        lastKeyStateDown = 0;
     }
+
     if (gps.m_pad_right) {
-        tcpRov->biasSway = std::min(tcpRov->biasSway+1, TcpRov::maxThrusterHorizontal);
+        if (tcpRov->biasSway == 0) {
+            if(lastKeyStateRight) {
+                tcpRov->biasSway = 0;
+                lastKeyStateRight = 1;
+            } else {
+               tcpRov->biasSway = std::min(tcpRov->biasSway+1, TcpRov::maxThrusterHorizontal);
+                lastKeyStateRight = 1;
+            }
+        } else {
+            tcpRov->biasSway = std::min(tcpRov->biasSway+1, TcpRov::maxThrusterHorizontal);
+            lastKeyStateRight = 1;
+        }
+    } else {
+        lastKeyStateRight = 0;
     }
+
     if (gps.m_pad_left) {
-        tcpRov->biasSway = std::max(tcpRov->biasSway-1, -TcpRov::maxThrusterHorizontal);
+        if (tcpRov->biasSway == 0) {
+            if(lastKeyStateLeft) {
+                tcpRov->biasSway = 0;
+                lastKeyStateLeft = 1;
+            } else {
+               tcpRov->biasSway = std::max(tcpRov->biasSway-1, -TcpRov::maxThrusterHorizontal);
+                lastKeyStateLeft = 1;
+            }
+        } else {
+            tcpRov->biasSway = std::max(tcpRov->biasSway-1, -TcpRov::maxThrusterHorizontal);
+            lastKeyStateLeft = 1;
+        }
+    } else {
+        lastKeyStateLeft = 0;
     }
+
+
     if (gps.m_rShoulder) {
-        tcpRov->biasHeave = std::min(tcpRov->biasHeave+1, TcpRov::maxThrusterVertical);
+        if (tcpRov->biasHeave == 0) {
+            if(lastKeyStateTriggerR) {
+                tcpRov->biasHeave = 0;
+                lastKeyStateTriggerR = 1;
+            } else {
+               tcpRov->biasHeave = std::min(tcpRov->biasHeave+1, TcpRov::maxThrusterVertical);
+                lastKeyStateTriggerR = 1;
+            }
+        } else {
+            tcpRov->biasHeave = std::min(tcpRov->biasHeave+1, TcpRov::maxThrusterVertical);
+            lastKeyStateTriggerR = 1;
+        }
+    } else {
+        lastKeyStateTriggerR = 0;
     }
+
     if (gps.m_lShoulder) {
-        tcpRov->biasHeave = std::max(tcpRov->biasHeave-1, -TcpRov::maxThrusterVertical);
+        if (tcpRov->biasHeave == 0) {
+            if(lastKeyStateTriggerL) {
+                tcpRov->biasHeave = 0;
+                lastKeyStateTriggerL = 1;
+            } else {
+               tcpRov->biasHeave = std::max(tcpRov->biasHeave-1, -TcpRov::maxThrusterVertical);
+                lastKeyStateTriggerL = 1;
+            }
+        } else {
+            tcpRov->biasHeave = std::max(tcpRov->biasHeave-1, -TcpRov::maxThrusterVertical);
+            lastKeyStateTriggerL = 1;
+        }
+    } else {
+        lastKeyStateTriggerL = 0;
     }
 
     if (gps.m_pad_x) {
@@ -139,23 +231,11 @@ void MainWindow::catchGamepadState(const GamepadState & gps, const int & playerI
         }
     }
 
-
-
     if (gps.m_pad_y) {
            tcpRov->biasSurge=0;
            tcpRov->biasSway=0;
            tcpRov->biasHeave=0;
     }
-
-/*
-    if (gps.m_pad_y) {
-        if (!lastKeyStateY) {
-           tcpRov->biasHeave=0;
-         } lastKeyStateY = 1;
-    } else {
-        lastKeyStateY = 0;
-    }
-*/
 
     double north = tcpRov->biasSurge + (TcpRov::maxThrusterHorizontal*gps.m_lThumb.yAxis);
     double east = tcpRov->biasSway + (TcpRov::maxThrusterHorizontal*gps.m_lThumb.xAxis);
@@ -193,48 +273,4 @@ void MainWindow::catchGamepadState(const GamepadState & gps, const int & playerI
     }
 
     tcpRov->setValues(north, east, down, 0, 0, psi, tcpRov->autoDepth, tcpRov->autoHeading);
-
-
-/*
-    if (gps.m_pad_b) {
-        qDebug() << "B Pressed.";
-    }
-    if (gps.m_pad_x) {
-        qDebug() << "X Pressed.";
-    }
-    if (gps.m_pad_y) {
-        qDebug() << "Y Pressed.";
-    }
-    if (gps.m_pad_up) {
-        qDebug() << "Up Pressed.";
-    }
-    if (gps.m_pad_down) {
-        qDebug() << "Down Pressed.";
-    }
-    if (gps.m_pad_left) {
-        qDebug() << "Left Pressed.";
-    }
-    if (gps.m_pad_right) {
-        qDebug() << "Right Pressed.";
-    }
-    if (gps.m_lShoulder) {
-        qDebug() << "Left Shoulder Pressed.";
-    }
-    if (gps.m_rShoulder) {
-        qDebug() << "Right Shoulder Pressed.";
-    }
-    if (gps.m_lThumb.pressed) {
-        qDebug() << "Left Thumb Pressed.";
-    }
-    if (gps.m_rThumb.pressed) {
-        qDebug() << "Right Thumb Pressed.";
-    }
-    if (gps.m_pad_start) {
-        qDebug() << "Start Pressed.";
-    }
-    if (gps.m_pad_back) {
-        qDebug() << "Back Pressed.";
-    }
-    */
-
 }
