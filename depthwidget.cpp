@@ -1,19 +1,41 @@
 #include "depthwidget.h"
+#include <QDebug>
+#include "fontsize.h"
 
 DepthWidget::DepthWidget(QWidget *parent) : QWidget(parent)
 {
 
 }
 
+/// @notice setups all required stylesheets and sets font-size relative to the dimensions of the window
+void DepthWidget::setupStyleSheets() {
+
+    double bigFont = FontSize::getBigFont(windowWidth);
+    double smallFont = FontSize::getSmallFont(windowWidth);
+
+    // stylesheet for white text
+    whiteText = " QLabel { color: white;  } ";
+    // Stylesheet for text that should be slightly larger
+    bigNumStyle = " QLabel { color: white; font-size: " + QString::number(bigFont) + "px; } ";
+    // text that is slighy smaller
+    numStyle = " QLabel { color: white; font-size: " + QString::number(smallFont) + "px; } ";
+    // for the currentDepth and referenceDepth labels
+    depthStyleSheet = "QLabel { color: white; font-size: " + QString::number(bigFont) + "px; }";
+}
+
+
 void DepthWidget::setupUI(QWidget * _videoPlayer, int * _windowWidth, int * _windowHeight) {
     videoPlayer = _videoPlayer;
     windowWidth = _windowWidth;
     windowHeight = _windowHeight;
 
-    int frameStartX = 80;
-    int frameStartY = 300;
+    setupStyleSheets();
+
+    int frameStartOffset = *windowHeight / 42;
+    int frameStartX = *windowWidth / 50;
+    int frameStartY = *windowHeight / 4 + frameStartOffset;
     frameWidth = 60;
-    frameHeight = *windowHeight - frameStartY * 1.5;
+    frameHeight = *windowHeight - (frameStartY - frameStartOffset) * 1.5;
 
     // create frame that acts as a container for this heading widget;
     frame = new QFrame( videoPlayer );
@@ -23,7 +45,6 @@ void DepthWidget::setupUI(QWidget * _videoPlayer, int * _windowWidth, int * _win
     frame->setGeometry(frameStartX, frameStartY, frameWidth, frameHeight);
     // add a border to the bottom
     frame->setStyleSheet( "QFrame#depthWidget { border: 3px solid white; border-top: 0; border-left: 0; border-bottom: 0; }" );
-
 
     // Add a label to show current depth
     currentDepth = new QLabel( QString::number(depth) , videoPlayer );
@@ -35,8 +56,6 @@ void DepthWidget::setupUI(QWidget * _videoPlayer, int * _windowWidth, int * _win
     currentDepthPos->x = frameStartX + frameWidth + currentDepthPos->width / 6 ; //position to horizontally center the widget
     currentDepthPos->y = frameStartY + frameHeight / 2 - currentDepthPos->height / 2;  // position to vertically center the widget
     setPosition(currentDepth, currentDepthPos);
-
-
 
     currentDepth->setStyleSheet(depthStyleSheet);
 
@@ -65,7 +84,6 @@ void DepthWidget::setupUI(QWidget * _videoPlayer, int * _windowWidth, int * _win
     QPixmap pixmapTarget = QPixmap(":/images/lock-icon.png");
     pixmapTarget = pixmapTarget.scaled(depthReferencePos->height / 2.2, depthReferencePos->height / 2.2);
     depthReferenceLock->setPixmap(pixmapTarget);
-
 
     // hide reference depth and lock icon
     depthReference->hide();

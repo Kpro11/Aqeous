@@ -37,6 +37,7 @@ public slots:
     QString formatYaw(double _yaw);
     void updateYawReference(double _yaw);
     double wrapYaw(double _yaw);
+    void setupStyleSheets();
 
 private:
     QTimer * testTimer;
@@ -49,7 +50,7 @@ private:
     int frameWidth;
     int frameHeight;
 
-    QString yawStyleSheet = "QLabel { color: white; font-size: 30px; }";
+
 
     QLabel *currentYaw;
     Position *currentYawPos;
@@ -68,14 +69,10 @@ private:
     // how many pixels there are available per label
     int pixelsPerSlot;
 
-    QString whiteText = " QLabel { color: white;  } ";   // stylesheet for white text
-
-    QString charStyle = " QLabel { color: white; font-size: 23px; } ";
-    QString numStyle = " QLabel { color: white; font-size: 17px; } ";
-
-    QString greenText = " QLabel { color: green;  } ";   // stylesheet for green text
-    QString greenCharStyle = " QLabel { color: green ; text-size: 35px; } ";
-    QString greenNumStyle = " QLabel { color: dark-green; text-size: 20px; } ";
+    QString whiteText;
+    QString yawStyleSheet;
+    QString charStyle;
+    QString numStyle;
 
 };
 

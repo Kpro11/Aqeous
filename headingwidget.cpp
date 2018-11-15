@@ -4,10 +4,23 @@
 #include <QLabel>
 #include <math.h>
 #include "converter.h"
+#include "fontsize.h"
 
 HeadingWidget::HeadingWidget(QWidget *parent) : QWidget(parent)
 {
 
+}
+
+void HeadingWidget::setupStyleSheets() {
+
+    whiteText = " QLabel { color: white;  } ";   // stylesheet for white text
+
+    int bigFont = FontSize::getBigFont(windowWidth);
+    int smallFont = FontSize::getSmallFont(windowWidth);
+
+    charStyle = " QLabel { color: white; font-size: " + QString::number(bigFont) + "px; } ";
+    numStyle = " QLabel { color: white; font-size: " + QString::number(smallFont) + "px; } ";
+    yawStyleSheet = "QLabel { color: white; font-size: " + QString::number(bigFont) + "px; }";
 }
 
 void HeadingWidget::setupUI(QWidget * _videoPlayer, int * _windowWidth, int * _windowHeight) {
@@ -15,8 +28,10 @@ void HeadingWidget::setupUI(QWidget * _videoPlayer, int * _windowWidth, int * _w
     windowWidth = _windowWidth;
     windowHeight = _windowHeight;
 
-    int frameStartX = 200;
-    int frameStartY = 80;
+    setupStyleSheets();
+
+    int frameStartX = * windowWidth / 12;
+    int frameStartY = * windowHeight / 12;
     frameWidth = *windowWidth - frameStartX * 2;
     frameHeight = 40;
 
