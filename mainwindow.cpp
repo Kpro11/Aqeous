@@ -62,7 +62,7 @@ void MainWindow::setupUI() {
     // Create a surrounding QFrame that QPainter can live in
     QFrame * biasContainer = new QFrame( videoPlayer );
     biasContainer->setGeometry(1200,500,500,500);
-    biasContainer->setStyleSheet("QFrame { border: 1px solid yellow}");
+    //biasContainer->setStyleSheet("QFrame { border: 1px solid yellow}");
     biasWidget = new BiasWidget( biasContainer, 500, 500);
 }
 

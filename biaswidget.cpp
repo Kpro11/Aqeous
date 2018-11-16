@@ -110,6 +110,9 @@ void BiasWidget::paintEvent(QPaintEvent * ) {
     // draw all the background arrows
     drawBackgroundArrows(&painter);
 
+    // draw the arrow letters
+    drawBiasArrowLetters(&painter);
+
     // update length of real bias arrows:
     // testing func: updateBias(-359,200,-50);
 
@@ -155,6 +158,57 @@ void BiasWidget::drawBiasArrows(QPainter *painter) {
     if (biasArrowLines->down.length() > 0)
         painter->drawLine(biasArrowLines->down);
 }
+
+void BiasWidget::drawBiasArrowLetters(QPainter *painter) {
+    QString n = "N";
+    QString e = "E";
+    QString d = "D";
+    QString s = "S";
+    QString w = "W";
+    QString u = "U";
+
+    QPointF n_p = north;
+    QPointF e_p = east;
+    QPointF d_p = down;
+    QPointF s_p = south;
+    QPointF w_p = west;
+    QPointF u_p = up;       // hue hue
+
+    // adjust the points to better place the letters
+
+    double spacing = frameWidth / 24;   // random reference point
+
+    n_p.setX( n_p.x() - spacing * 1.4);
+
+    s_p.setX( s_p.x() + spacing * 0.6 );
+    s_p.setY( s_p.y() + spacing * 0.7);
+
+    e_p.setX( e_p.x() + spacing * 0.6 );
+    e_p.setY( e_p.y() + spacing * 0.2 );
+
+    w_p.setX( w_p.x() - spacing * 1.7 );
+    w_p.setY( w_p.y() + spacing * 0.8 );
+
+    u_p.setY( u_p.y() - spacing * 0.4 );
+    u_p.setX( u_p.x() - spacing * 0.45 );
+
+    d_p.setX( d_p.x() - spacing * 0.45 );
+    d_p.setY( d_p.y() + spacing * 1.4 );
+
+    // set the font size
+    QFont font = painter->font();
+    font.setPixelSize(fontSize);
+    painter->setFont(font);
+
+    // Finally draw the text
+    painter->drawText(n_p, n);
+    painter->drawText(s_p, s);
+    painter->drawText(e_p, e);
+    painter->drawText(w_p, w);
+    painter->drawText(u_p, u);
+    painter->drawText(d_p, d);
+}
+
 
 /// Updates the length of the bias arrows
 /// @param double _north => the bias gotten from controller - [-400,400]

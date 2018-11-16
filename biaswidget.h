@@ -67,6 +67,7 @@ private:
     //
     void drawBackgroundArrows(QPainter *painter);
     void drawBiasArrows(QPainter *painter);
+    void drawBiasArrowLetters(QPainter *painter);
 
 signals:
 
