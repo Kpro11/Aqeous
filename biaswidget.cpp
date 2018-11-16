@@ -9,7 +9,7 @@ BiasWidget::BiasWidget(QWidget *parent, int _frameWidth, int _frameHeight) : QWi
     frameHeight = _frameHeight;
 
     // pen used to create background arrows (not the ones created by real bias)
-    int penWidth = 6;
+    int penWidth = 4;
 
     backgroundArrowPen = new QPen();
     backgroundArrowPen->setStyle(Qt::SolidLine);    // tried using DashedLine here instead but it doesnt fill up 100% at the end
@@ -256,16 +256,17 @@ void BiasWidget::updateBias(double _north, double _east, double _down) {
     }
 
     // up and down axis
+    qDebug() << "Down " << _down;
     if (_down > 0) {
-        biasArrowLines->up.setLength(0);
-        double newLength = FontSize::linearTransform(_down, 0, 200, 0, arrowLengthDown);
-        biasArrowLines->down = biasArrowLinesOriginal->down;
-        biasArrowLines->down.setLength(newLength);
-    } else if (_down < 0) {
         biasArrowLines->down.setLength(0);
         double newLength = FontSize::linearTransform(abs(_down), 0, 200, 0, arrowLengthDown);
         biasArrowLines->up = biasArrowLinesOriginal->up;
         biasArrowLines->up.setLength(newLength);
+    } else if (_down < 0) {
+        biasArrowLines->up.setLength(0);
+        double newLength = FontSize::linearTransform(abs(_down), 0, 200, 0, arrowLengthDown);
+        biasArrowLines->down = biasArrowLinesOriginal->down;
+        biasArrowLines->down.setLength(newLength);
     } else {
         biasArrowLines->down.setLength(0);
         biasArrowLines->up.setLength(0);
