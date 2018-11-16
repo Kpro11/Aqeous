@@ -1,3 +1,7 @@
+# RovyMcRovFace
+_This project is a part of the course TDT4290 customer driven project in the autumn of 2018._
+
+![](https://user-images.githubusercontent.com/13204226/48592191-864dde00-e947-11e8-885e-9eef5c134502.gif)
 ## Requirements
 We recommend using a 64 bit compiler, specifically MSVC 2015. You can get this by installing Visual Studio 2015 from https://visualstudio.microsoft.com/vs/older-downloads/
 
