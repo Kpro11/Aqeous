@@ -1,0 +1,8 @@
+<map id="MainWindow" name="MainWindow">
+<area shape="rect" id="node3" href="$class_bias_widget.html" title="BiasWidget" alt="" coords="135,95,223,121"/>
+<area shape="rect" id="node5" href="$class_heading_widget.html" title="HeadingWidget" alt="" coords="247,95,357,121"/>
+<area shape="rect" id="node10" href="$class_depth_widget.html" title="DepthWidget" alt="" coords="381,95,477,121"/>
+<area shape="rect" id="node6" href="$class_tcp_rov.html" title="TcpRov" alt="" coords="501,95,567,121"/>
+<area shape="rect" id="node8" href="$class_tcp_rov_1_1_t_c_p_thruster.html" title="TcpRov::TCPThruster" alt="" coords="459,5,609,32"/>
+<area shape="rect" id="node9" href="$class_tcp_rov_1_1_t_c_p_vessel.html" title="TcpRov::TCPVessel" alt="" coords="633,5,774,32"/>
+</map>

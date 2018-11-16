@@ -1,0 +1,68 @@
+\hypertarget{class_font_size}{}\section{Font\+Size Class Reference}
+\label{class_font_size}\index{Font\+Size@{Font\+Size}}
+
+
+{\ttfamily \#include $<$fontsize.\+h$>$}
+
+\subsection*{Static Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+static double \mbox{\hyperlink{class_font_size_ada2f9f5c9056fcdc738df0187895d1f2}{linear\+Transform}} (double X, int A, int B, int C, int D)
+\begin{DoxyCompactList}\small\item\em static class that computes the required font-\/sizes based on window width \end{DoxyCompactList}\item 
+static int \mbox{\hyperlink{class_font_size_a9d85262c3fa01a4500e25cf40cbd1c82}{get\+Big\+Font}} (int $\ast$window\+Width)
+\item 
+static int \mbox{\hyperlink{class_font_size_ac20daf65517d4a6f0892cb6c46b30739}{get\+Small\+Font}} (int $\ast$window\+Width)
+\item 
+static int \mbox{\hyperlink{class_font_size_a341e329a4ab9d0688d95b117398d324d}{get\+Border}} (int $\ast$window\+Width)
+\end{DoxyCompactItemize}
+
+
+\subsection{Member Function Documentation}
+\mbox{\Hypertarget{class_font_size_a9d85262c3fa01a4500e25cf40cbd1c82}\label{class_font_size_a9d85262c3fa01a4500e25cf40cbd1c82}} 
+\index{Font\+Size@{Font\+Size}!get\+Big\+Font@{get\+Big\+Font}}
+\index{get\+Big\+Font@{get\+Big\+Font}!Font\+Size@{Font\+Size}}
+\subsubsection{\texorpdfstring{get\+Big\+Font()}{getBigFont()}}
+{\footnotesize\ttfamily int Font\+Size\+::get\+Big\+Font (\begin{DoxyParamCaption}\item[{int $\ast$}]{window\+Width }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [static]}}
+
+Here is the call graph for this function\+:
+% FIG 0
+Here is the caller graph for this function\+:
+% FIG 1
+\mbox{\Hypertarget{class_font_size_a341e329a4ab9d0688d95b117398d324d}\label{class_font_size_a341e329a4ab9d0688d95b117398d324d}} 
+\index{Font\+Size@{Font\+Size}!get\+Border@{get\+Border}}
+\index{get\+Border@{get\+Border}!Font\+Size@{Font\+Size}}
+\subsubsection{\texorpdfstring{get\+Border()}{getBorder()}}
+{\footnotesize\ttfamily int Font\+Size\+::get\+Border (\begin{DoxyParamCaption}\item[{int $\ast$}]{window\+Width }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [static]}}
+
+Here is the call graph for this function\+:
+% FIG 2
+Here is the caller graph for this function\+:
+% FIG 3
+\mbox{\Hypertarget{class_font_size_ac20daf65517d4a6f0892cb6c46b30739}\label{class_font_size_ac20daf65517d4a6f0892cb6c46b30739}} 
+\index{Font\+Size@{Font\+Size}!get\+Small\+Font@{get\+Small\+Font}}
+\index{get\+Small\+Font@{get\+Small\+Font}!Font\+Size@{Font\+Size}}
+\subsubsection{\texorpdfstring{get\+Small\+Font()}{getSmallFont()}}
+{\footnotesize\ttfamily int Font\+Size\+::get\+Small\+Font (\begin{DoxyParamCaption}\item[{int $\ast$}]{window\+Width }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [static]}}
+
+Here is the call graph for this function\+:
+% FIG 4
+Here is the caller graph for this function\+:
+% FIG 5
+\mbox{\Hypertarget{class_font_size_ada2f9f5c9056fcdc738df0187895d1f2}\label{class_font_size_ada2f9f5c9056fcdc738df0187895d1f2}} 
+\index{Font\+Size@{Font\+Size}!linear\+Transform@{linear\+Transform}}
+\index{linear\+Transform@{linear\+Transform}!Font\+Size@{Font\+Size}}
+\subsubsection{\texorpdfstring{linear\+Transform()}{linearTransform()}}
+{\footnotesize\ttfamily double Font\+Size\+::linear\+Transform (\begin{DoxyParamCaption}\item[{double}]{X,  }\item[{int}]{A,  }\item[{int}]{B,  }\item[{int}]{C,  }\item[{int}]{D }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [static]}}
+
+
+
+static class that computes the required font-\/sizes based on window width 
+
+Maps value x in range \mbox{[}A,B\mbox{]} to new x in range \mbox{[}C, D\mbox{]}  uses this Linear transform equation\+: newX = (X-\/A)/(B-\/A) $\ast$ (D-\/C) + C Here is the caller graph for this function\+:
+% FIG 6
+
+
+The documentation for this class was generated from the following files\+:\begin{DoxyCompactItemize}
+\item 
+\mbox{\hyperlink{fontsize_8h}{fontsize.\+h}}\item 
+\mbox{\hyperlink{fontsize_8cpp}{fontsize.\+cpp}}\end{DoxyCompactItemize}

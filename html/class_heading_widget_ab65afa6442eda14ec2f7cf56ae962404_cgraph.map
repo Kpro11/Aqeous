@@ -1,0 +1,10 @@
+<map id="HeadingWidget::setupUI" name="HeadingWidget::setupUI">
+<area shape="rect" id="node2" href="$class_heading_widget.html#a23d83c2a9906e54385bf67d6a4df1bb0" title="HeadingWidget::setupStyle\lSheets" alt="" coords="224,49,403,90"/>
+<area shape="rect" id="node7" href="$class_heading_widget.html#af5b9fd1a9b6268a73a486529e92ca9b1" title="HeadingWidget::setPosition" alt="" coords="222,115,405,141"/>
+<area shape="rect" id="node8" href="$class_heading_widget.html#a5970ad0efbbc29f3f1cc4222af237090" title="HeadingWidget::updateLabels" alt="" coords="216,165,411,192"/>
+<area shape="rect" id="node3" href="$class_font_size.html#a9d85262c3fa01a4500e25cf40cbd1c82" title="FontSize::getBigFont" alt="" coords="471,5,617,32"/>
+<area shape="rect" id="node5" href="$class_font_size.html#ac20daf65517d4a6f0892cb6c46b30739" title="FontSize::getSmallFont" alt="" coords="465,56,623,83"/>
+<area shape="rect" id="node6" href="$class_font_size.html#a341e329a4ab9d0688d95b117398d324d" title="FontSize::getBorder" alt="" coords="475,107,613,133"/>
+<area shape="rect" id="node4" href="$class_font_size.html#ada2f9f5c9056fcdc738df0187895d1f2" title="static class that computes the required font&#45;sizes based on window width " alt="" coords="677,56,849,83"/>
+<area shape="rect" id="node9" href="$headingwidget_8cpp.html#a75f276bc7121531391b9c108373ae5b1" title="distanceFromPointToYaw" alt="" coords="459,165,629,192"/>
+</map>

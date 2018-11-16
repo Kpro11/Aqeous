@@ -1,0 +1,4 @@
+<map id="SecondaryWindow::connectToROV" name="SecondaryWindow::connectToROV">
+<area shape="rect" id="node2" href="$class_secondary_window.html#a0f90b91908ca874a5babaaf365326b86" title="SecondaryWindow::on\l_openSimulator_clicked" alt="" coords="236,5,396,47"/>
+<area shape="rect" id="node3" href="$class_secondary_window.html#ac273d33aab31b4a12b7c7688c504f349" title="SecondaryWindow::on\l_connectROV_clicked" alt="" coords="241,71,391,112"/>
+</map>

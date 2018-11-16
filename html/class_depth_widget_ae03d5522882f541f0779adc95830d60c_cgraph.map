@@ -1,0 +1,9 @@
+<map id="DepthWidget::setupUI" name="DepthWidget::setupUI">
+<area shape="rect" id="node2" href="$class_depth_widget.html#ae0988973b723b0d5e89424353c64f916" title="setups all required stylesheets and sets font&#45;size relative to the dimensions of the window ..." alt="" coords="203,56,409,83"/>
+<area shape="rect" id="node7" href="$class_depth_widget.html#af211eeb4ae068a45a5ed08f445cadf10" title="DepthWidget::setPosition" alt="" coords="221,107,391,133"/>
+<area shape="rect" id="node8" href="$class_depth_widget.html#a96a2f50285066aa3749b134e5bfa8813" title="DepthWidget::updateLabels" alt="" coords="215,157,397,184"/>
+<area shape="rect" id="node3" href="$class_font_size.html#a9d85262c3fa01a4500e25cf40cbd1c82" title="FontSize::getBigFont" alt="" coords="464,5,609,32"/>
+<area shape="rect" id="node5" href="$class_font_size.html#ac20daf65517d4a6f0892cb6c46b30739" title="FontSize::getSmallFont" alt="" coords="457,56,616,83"/>
+<area shape="rect" id="node6" href="$class_font_size.html#a341e329a4ab9d0688d95b117398d324d" title="FontSize::getBorder" alt="" coords="467,107,606,133"/>
+<area shape="rect" id="node4" href="$class_font_size.html#ada2f9f5c9056fcdc738df0187895d1f2" title="static class that computes the required font&#45;sizes based on window width " alt="" coords="664,56,836,83"/>
+</map>

@@ -1,0 +1,36 @@
+{\itshape This project is a part of the course T\+D\+T4290 customer driven project in the autumn of 2018.}
+
+ \subsection*{Requirements}
+
+We recommend using a 64 bit compiler, specifically M\+S\+VC 2015. You can get this by installing Visual Studio 2015 from \href{https://visualstudio.microsoft.com/vs/older-downloads/}{\tt https\+://visualstudio.\+microsoft.\+com/vs/older-\/downloads/}
+
+We also recommend using Qt version 5.\+11.\+2 or higher, and Qt Creator version 4.\+7.\+1 or higher. Both can be downloaded from \href{https://www.qt.io/download}{\tt https\+://www.\+qt.\+io/download}
+
+\subsection*{Installation instructions}
+
+\subsubsection*{Qt\+AV}
+
+
+\begin{DoxyEnumerate}
+\item Download a Qt\+AV version 1.\+11.\+0 64 bit executable installer (not the 1.\+12.\+0 version) from \href{http://www.qtav.org/install.html}{\tt http\+://www.\+qtav.\+org/install.\+html} {\itshape We have tested this with the V\+S2015x64 1.\+11.\+0 version, which we recommend}
+\item Install it with default options, i.\+e. with \char`\"{}\+Development Tools and Examples\char`\"{} and to the C\+:/\+Qt\+AV location
+\item Go to the install folder and run the sdk\+\_\+deploy.\+bat file
+\item In Qt Creator, switch from \char`\"{}\+Debug\char`\"{} to \char`\"{}\+Release\char`\"{}. This switch located in the bottom left, above the run, debug and build buttons
+\item Make sure to run qmake before running the project again. It can be found in the Qt Creator status bar at the top, under \char`\"{}\+Build\char`\"{}, and then \char`\"{}\+Run qmake\char`\"{}
+\end{DoxyEnumerate}
+
+Alternativly check this link\+: \href{https://github.com/wang-bin/QtAV/wiki/Deploy-SDK-Without-Building-QtAV}{\tt https\+://github.\+com/wang-\/bin/\+Qt\+A\+V/wiki/\+Deploy-\/\+S\+D\+K-\/\+Without-\/\+Building-\/\+Qt\+AV} or build it yourself {\itshape The reason the release option has to be used, and a potential fix is discussed in pr \#1 \href{https://github.com/Kpro11/Aqeous/pull/1}{\tt https\+://github.\+com/\+Kpro11/\+Aqeous/pull/1}}
+
+\subsubsection*{Simulator and stream\+:}
+
+
+\begin{DoxyEnumerate}
+\item Follow internal instructions to set up the propiatery simulator that belongs to S\+I\+N\+T\+EF
+\item Install Open Brodcaster Software (O\+BS) from \href{https://obsproject.com/,}{\tt https\+://obsproject.\+com/,} make sure to install the 64 bit version
+\item In the O\+BS menu bar, go to \char`\"{}\+Profile\char`\"{} and then \char`\"{}\+Import\char`\"{}. Pick the Aqeous/obs/\+Rov\+Sim\+Profile/ folder
+\item In the O\+BS menu bar, go to \char`\"{}\+Scene\char`\"{} and then \char`\"{}\+Import\char`\"{}. Pick the Aqeous/obs/\+Rov\+Sim\+Scene.\+json file
+\end{DoxyEnumerate}
+
+{\bfseries This does only work on windows} as the simulator only works on windows, and the paths to the different programs are, for now, hardcoded to windows locations
+
+After that you should be good to go. If not, check that O\+BS is properly recording the fhsim window and then check that the settings are set in accordance with this link\+: \href{https://obsproject.com/forum/resources/obs-studio-send-an-udp-stream-to-a-second-pc-using-obs.455/}{\tt https\+://obsproject.\+com/forum/resources/obs-\/studio-\/send-\/an-\/udp-\/stream-\/to-\/a-\/second-\/pc-\/using-\/obs.\+455/} 

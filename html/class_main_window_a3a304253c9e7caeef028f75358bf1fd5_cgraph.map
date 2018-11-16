@@ -1,0 +1,15 @@
+<map id="MainWindow::setupUI" name="MainWindow::setupUI">
+<area shape="rect" id="node2" href="$class_heading_widget.html#ab65afa6442eda14ec2f7cf56ae962404" title="HeadingWidget::setupUI" alt="" coords="201,195,364,221"/>
+<area shape="rect" id="node11" href="$class_depth_widget.html#ae03d5522882f541f0779adc95830d60c" title="DepthWidget::setupUI" alt="" coords="208,81,357,108"/>
+<area shape="rect" id="node3" href="$class_heading_widget.html#a23d83c2a9906e54385bf67d6a4df1bb0" title="HeadingWidget::setupStyle\lSheets" alt="" coords="426,158,605,199"/>
+<area shape="rect" id="node8" href="$class_heading_widget.html#af5b9fd1a9b6268a73a486529e92ca9b1" title="HeadingWidget::setPosition" alt="" coords="424,224,607,251"/>
+<area shape="rect" id="node9" href="$class_heading_widget.html#a5970ad0efbbc29f3f1cc4222af237090" title="HeadingWidget::updateLabels" alt="" coords="418,275,613,301"/>
+<area shape="rect" id="node4" href="$class_font_size.html#a9d85262c3fa01a4500e25cf40cbd1c82" title="FontSize::getBigFont" alt="" coords="679,35,825,61"/>
+<area shape="rect" id="node6" href="$class_font_size.html#ac20daf65517d4a6f0892cb6c46b30739" title="FontSize::getSmallFont" alt="" coords="673,85,831,112"/>
+<area shape="rect" id="node7" href="$class_font_size.html#a341e329a4ab9d0688d95b117398d324d" title="FontSize::getBorder" alt="" coords="683,136,821,163"/>
+<area shape="rect" id="node5" href="$class_font_size.html#ada2f9f5c9056fcdc738df0187895d1f2" title="static class that computes the required font&#45;sizes based on window width " alt="" coords="885,85,1057,112"/>
+<area shape="rect" id="node10" href="$headingwidget_8cpp.html#a75f276bc7121531391b9c108373ae5b1" title="distanceFromPointToYaw" alt="" coords="667,275,837,301"/>
+<area shape="rect" id="node12" href="$class_depth_widget.html#ae0988973b723b0d5e89424353c64f916" title="setups all required stylesheets and sets font&#45;size relative to the dimensions of the window ..." alt="" coords="412,5,619,32"/>
+<area shape="rect" id="node13" href="$class_depth_widget.html#af211eeb4ae068a45a5ed08f445cadf10" title="DepthWidget::setPosition" alt="" coords="431,56,600,83"/>
+<area shape="rect" id="node14" href="$class_depth_widget.html#a96a2f50285066aa3749b134e5bfa8813" title="DepthWidget::updateLabels" alt="" coords="425,107,606,133"/>
+</map>

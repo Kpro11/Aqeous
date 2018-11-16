@@ -1,0 +1,111 @@
+\hypertarget{class_gamepad_server}{}\section{Gamepad\+Server Class Reference}
+\label{class_gamepad_server}\index{Gamepad\+Server@{Gamepad\+Server}}
+
+
+{\ttfamily \#include $<$gamepadserver.\+h$>$}
+
+
+
+Inheritance diagram for Gamepad\+Server\+:
+% FIG 0
+
+
+Collaboration diagram for Gamepad\+Server\+:
+% FIG 1
+\subsection*{Signals}
+\begin{DoxyCompactItemize}
+\item 
+void \mbox{\hyperlink{class_gamepad_server_a1f7b4b9ded7aa0d6982543e97cf05da0}{state\+Update}} (const \mbox{\hyperlink{class_gamepad_state}{Gamepad\+State}} \&gps, const int \&player)
+\end{DoxyCompactItemize}
+\subsection*{Static Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+static \mbox{\hyperlink{class_gamepad_server}{Gamepad\+Server}} \& \mbox{\hyperlink{class_gamepad_server_a18cc731027dd5f2b4a1879e1a8d37323}{instance}} ()
+\end{DoxyCompactItemize}
+\subsection*{Public Attributes}
+\begin{DoxyCompactItemize}
+\item 
+const int \mbox{\hyperlink{class_gamepad_server_afedf5e5e6725878a37509c496f1c8a16}{U\+P\+D\+A\+T\+E\+\_\+\+P\+E\+R\+I\+O\+D\+\_\+\+MS}} = 15
+\end{DoxyCompactItemize}
+\subsection*{Static Public Attributes}
+\begin{DoxyCompactItemize}
+\item 
+static constexpr double \mbox{\hyperlink{class_gamepad_server_a11ce0f01e1d7bc8dcb8759f3d76d082b}{deadzoneX}} = 0.\+15
+\item 
+static constexpr double \mbox{\hyperlink{class_gamepad_server_ae1ed960ab8a24c5dc0f1679a7f93e65c}{deadzoneY}} = 0.\+15
+\item 
+static const int \mbox{\hyperlink{class_gamepad_server_a3bd710d06a8dfae1be029e3abacab2d2}{max\+Joystick\+Value}} = 32767
+\item 
+static const int \mbox{\hyperlink{class_gamepad_server_a55b784c3b441918f845d17630f1a6a1c}{max\+Trigger\+Value}} = 255
+\end{DoxyCompactItemize}
+\subsection*{Protected Slots}
+\begin{DoxyCompactItemize}
+\item 
+void \mbox{\hyperlink{class_gamepad_server_a778ea9e920578ce470c09cbf9b2f29c8}{read\+State}} ()
+\end{DoxyCompactItemize}
+
+
+\subsection{Member Function Documentation}
+\mbox{\Hypertarget{class_gamepad_server_a18cc731027dd5f2b4a1879e1a8d37323}\label{class_gamepad_server_a18cc731027dd5f2b4a1879e1a8d37323}} 
+\index{Gamepad\+Server@{Gamepad\+Server}!instance@{instance}}
+\index{instance@{instance}!Gamepad\+Server@{Gamepad\+Server}}
+\subsubsection{\texorpdfstring{instance()}{instance()}}
+{\footnotesize\ttfamily static \mbox{\hyperlink{class_gamepad_server}{Gamepad\+Server}}\& Gamepad\+Server\+::instance (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}, {\ttfamily [static]}}
+
+Here is the caller graph for this function\+:
+% FIG 2
+\mbox{\Hypertarget{class_gamepad_server_a778ea9e920578ce470c09cbf9b2f29c8}\label{class_gamepad_server_a778ea9e920578ce470c09cbf9b2f29c8}} 
+\index{Gamepad\+Server@{Gamepad\+Server}!read\+State@{read\+State}}
+\index{read\+State@{read\+State}!Gamepad\+Server@{Gamepad\+Server}}
+\subsubsection{\texorpdfstring{read\+State}{readState}}
+{\footnotesize\ttfamily void Gamepad\+Server\+::read\+State (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [protected]}, {\ttfamily [slot]}}
+
+Here is the call graph for this function\+:
+% FIG 3
+\mbox{\Hypertarget{class_gamepad_server_a1f7b4b9ded7aa0d6982543e97cf05da0}\label{class_gamepad_server_a1f7b4b9ded7aa0d6982543e97cf05da0}} 
+\index{Gamepad\+Server@{Gamepad\+Server}!state\+Update@{state\+Update}}
+\index{state\+Update@{state\+Update}!Gamepad\+Server@{Gamepad\+Server}}
+\subsubsection{\texorpdfstring{state\+Update}{stateUpdate}}
+{\footnotesize\ttfamily void Gamepad\+Server\+::state\+Update (\begin{DoxyParamCaption}\item[{const \mbox{\hyperlink{class_gamepad_state}{Gamepad\+State}} \&}]{gps,  }\item[{const int \&}]{player }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [signal]}}
+
+Here is the caller graph for this function\+:
+% FIG 4
+
+
+\subsection{Member Data Documentation}
+\mbox{\Hypertarget{class_gamepad_server_a11ce0f01e1d7bc8dcb8759f3d76d082b}\label{class_gamepad_server_a11ce0f01e1d7bc8dcb8759f3d76d082b}} 
+\index{Gamepad\+Server@{Gamepad\+Server}!deadzoneX@{deadzoneX}}
+\index{deadzoneX@{deadzoneX}!Gamepad\+Server@{Gamepad\+Server}}
+\subsubsection{\texorpdfstring{deadzoneX}{deadzoneX}}
+{\footnotesize\ttfamily constexpr double Gamepad\+Server\+::deadzoneX = 0.\+15\hspace{0.3cm}{\ttfamily [static]}}
+
+\mbox{\Hypertarget{class_gamepad_server_ae1ed960ab8a24c5dc0f1679a7f93e65c}\label{class_gamepad_server_ae1ed960ab8a24c5dc0f1679a7f93e65c}} 
+\index{Gamepad\+Server@{Gamepad\+Server}!deadzoneY@{deadzoneY}}
+\index{deadzoneY@{deadzoneY}!Gamepad\+Server@{Gamepad\+Server}}
+\subsubsection{\texorpdfstring{deadzoneY}{deadzoneY}}
+{\footnotesize\ttfamily constexpr double Gamepad\+Server\+::deadzoneY = 0.\+15\hspace{0.3cm}{\ttfamily [static]}}
+
+\mbox{\Hypertarget{class_gamepad_server_a3bd710d06a8dfae1be029e3abacab2d2}\label{class_gamepad_server_a3bd710d06a8dfae1be029e3abacab2d2}} 
+\index{Gamepad\+Server@{Gamepad\+Server}!max\+Joystick\+Value@{max\+Joystick\+Value}}
+\index{max\+Joystick\+Value@{max\+Joystick\+Value}!Gamepad\+Server@{Gamepad\+Server}}
+\subsubsection{\texorpdfstring{max\+Joystick\+Value}{maxJoystickValue}}
+{\footnotesize\ttfamily const int Gamepad\+Server\+::max\+Joystick\+Value = 32767\hspace{0.3cm}{\ttfamily [static]}}
+
+\mbox{\Hypertarget{class_gamepad_server_a55b784c3b441918f845d17630f1a6a1c}\label{class_gamepad_server_a55b784c3b441918f845d17630f1a6a1c}} 
+\index{Gamepad\+Server@{Gamepad\+Server}!max\+Trigger\+Value@{max\+Trigger\+Value}}
+\index{max\+Trigger\+Value@{max\+Trigger\+Value}!Gamepad\+Server@{Gamepad\+Server}}
+\subsubsection{\texorpdfstring{max\+Trigger\+Value}{maxTriggerValue}}
+{\footnotesize\ttfamily const int Gamepad\+Server\+::max\+Trigger\+Value = 255\hspace{0.3cm}{\ttfamily [static]}}
+
+\mbox{\Hypertarget{class_gamepad_server_afedf5e5e6725878a37509c496f1c8a16}\label{class_gamepad_server_afedf5e5e6725878a37509c496f1c8a16}} 
+\index{Gamepad\+Server@{Gamepad\+Server}!U\+P\+D\+A\+T\+E\+\_\+\+P\+E\+R\+I\+O\+D\+\_\+\+MS@{U\+P\+D\+A\+T\+E\+\_\+\+P\+E\+R\+I\+O\+D\+\_\+\+MS}}
+\index{U\+P\+D\+A\+T\+E\+\_\+\+P\+E\+R\+I\+O\+D\+\_\+\+MS@{U\+P\+D\+A\+T\+E\+\_\+\+P\+E\+R\+I\+O\+D\+\_\+\+MS}!Gamepad\+Server@{Gamepad\+Server}}
+\subsubsection{\texorpdfstring{U\+P\+D\+A\+T\+E\+\_\+\+P\+E\+R\+I\+O\+D\+\_\+\+MS}{UPDATE\_PERIOD\_MS}}
+{\footnotesize\ttfamily const int Gamepad\+Server\+::\+U\+P\+D\+A\+T\+E\+\_\+\+P\+E\+R\+I\+O\+D\+\_\+\+MS = 15}
+
+
+
+The documentation for this class was generated from the following files\+:\begin{DoxyCompactItemize}
+\item 
+\mbox{\hyperlink{gamepadserver_8h}{gamepadserver.\+h}}\item 
+\mbox{\hyperlink{gamepadserver_8cpp}{gamepadserver.\+cpp}}\end{DoxyCompactItemize}

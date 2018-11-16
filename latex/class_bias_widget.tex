@@ -1,0 +1,99 @@
+\hypertarget{class_bias_widget}{}\section{Bias\+Widget Class Reference}
+\label{class_bias_widget}\index{Bias\+Widget@{Bias\+Widget}}
+
+
+{\ttfamily \#include $<$biaswidget.\+h$>$}
+
+
+
+Inheritance diagram for Bias\+Widget\+:
+% FIG 0
+
+
+Collaboration diagram for Bias\+Widget\+:
+% FIG 1
+\subsection*{Public Slots}
+\begin{DoxyCompactItemize}
+\item 
+void \mbox{\hyperlink{class_bias_widget_a9f3ae503fe3d5f4096c3cd0cdbd9c59a}{update\+Bias}} (double north, double east, double down)
+\end{DoxyCompactItemize}
+\subsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\hyperlink{class_bias_widget_a4ecfcf8875a2fd859ef51c663a4e0be6}{Bias\+Widget}} (Q\+Widget $\ast$parent=nullptr, int \+\_\+frame\+Width=0, int \+\_\+frame\+Height=0)
+\item 
+Q\+Size \mbox{\hyperlink{class_bias_widget_a056c7fb68421608c0f163eedad8f3ef1}{minimum\+Size\+Hint}} () const override
+\item 
+Q\+Size \mbox{\hyperlink{class_bias_widget_a353177d26630c385017fabf8fb517e75}{size\+Hint}} () const override
+\end{DoxyCompactItemize}
+\subsection*{Protected Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+void \mbox{\hyperlink{class_bias_widget_a59937e37b7ba432d0f344f6b211e28af}{paint\+Event}} (Q\+Paint\+Event $\ast$event) override
+\end{DoxyCompactItemize}
+
+
+\subsection{Constructor \& Destructor Documentation}
+\mbox{\Hypertarget{class_bias_widget_a4ecfcf8875a2fd859ef51c663a4e0be6}\label{class_bias_widget_a4ecfcf8875a2fd859ef51c663a4e0be6}} 
+\index{Bias\+Widget@{Bias\+Widget}!Bias\+Widget@{Bias\+Widget}}
+\index{Bias\+Widget@{Bias\+Widget}!Bias\+Widget@{Bias\+Widget}}
+\subsubsection{\texorpdfstring{Bias\+Widget()}{BiasWidget()}}
+{\footnotesize\ttfamily Bias\+Widget\+::\+Bias\+Widget (\begin{DoxyParamCaption}\item[{Q\+Widget $\ast$}]{parent = {\ttfamily nullptr},  }\item[{int}]{\+\_\+frame\+Width = {\ttfamily 0},  }\item[{int}]{\+\_\+frame\+Height = {\ttfamily 0} }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [explicit]}}
+
+
+
+\subsection{Member Function Documentation}
+\mbox{\Hypertarget{class_bias_widget_a056c7fb68421608c0f163eedad8f3ef1}\label{class_bias_widget_a056c7fb68421608c0f163eedad8f3ef1}} 
+\index{Bias\+Widget@{Bias\+Widget}!minimum\+Size\+Hint@{minimum\+Size\+Hint}}
+\index{minimum\+Size\+Hint@{minimum\+Size\+Hint}!Bias\+Widget@{Bias\+Widget}}
+\subsubsection{\texorpdfstring{minimum\+Size\+Hint()}{minimumSizeHint()}}
+{\footnotesize\ttfamily Q\+Size Bias\+Widget\+::minimum\+Size\+Hint (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [override]}}
+
+Sets the minimum size -\/ should never be called tho? \begin{DoxyReturn}{Returns}
+Q\+Size -\/ the size of the window 
+\end{DoxyReturn}
+\mbox{\Hypertarget{class_bias_widget_a59937e37b7ba432d0f344f6b211e28af}\label{class_bias_widget_a59937e37b7ba432d0f344f6b211e28af}} 
+\index{Bias\+Widget@{Bias\+Widget}!paint\+Event@{paint\+Event}}
+\index{paint\+Event@{paint\+Event}!Bias\+Widget@{Bias\+Widget}}
+\subsubsection{\texorpdfstring{paint\+Event()}{paintEvent()}}
+{\footnotesize\ttfamily void Bias\+Widget\+::paint\+Event (\begin{DoxyParamCaption}\item[{Q\+Paint\+Event $\ast$}]{event }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [override]}, {\ttfamily [protected]}}
+
+Draws the entire widget, is called every time component updates 
+\begin{DoxyParams}{Parameters}
+{\em Q\+Paint\+Event} & $\ast$ event Check Q\+Painter spec \\
+\hline
+\end{DoxyParams}
+\mbox{\Hypertarget{class_bias_widget_a353177d26630c385017fabf8fb517e75}\label{class_bias_widget_a353177d26630c385017fabf8fb517e75}} 
+\index{Bias\+Widget@{Bias\+Widget}!size\+Hint@{size\+Hint}}
+\index{size\+Hint@{size\+Hint}!Bias\+Widget@{Bias\+Widget}}
+\subsubsection{\texorpdfstring{size\+Hint()}{sizeHint()}}
+{\footnotesize\ttfamily Q\+Size Bias\+Widget\+::size\+Hint (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [override]}}
+
+Sets the size of the widget \begin{DoxyReturn}{Returns}
+Q\+Size -\/ the wanted size of the widget based on parent witdh and height 
+\end{DoxyReturn}
+\mbox{\Hypertarget{class_bias_widget_a9f3ae503fe3d5f4096c3cd0cdbd9c59a}\label{class_bias_widget_a9f3ae503fe3d5f4096c3cd0cdbd9c59a}} 
+\index{Bias\+Widget@{Bias\+Widget}!update\+Bias@{update\+Bias}}
+\index{update\+Bias@{update\+Bias}!Bias\+Widget@{Bias\+Widget}}
+\subsubsection{\texorpdfstring{update\+Bias}{updateBias}}
+{\footnotesize\ttfamily void Bias\+Widget\+::update\+Bias (\begin{DoxyParamCaption}\item[{double}]{\+\_\+north,  }\item[{double}]{\+\_\+east,  }\item[{double}]{\+\_\+down }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [slot]}}
+
+Updates the length of the bias arrows 
+\begin{DoxyParams}{Parameters}
+{\em double} & \+\_\+north =$>$ the bias gotten from controller -\/ \mbox{[}-\/400,400\mbox{]} \\
+\hline
+{\em double} & \+\_\+east =$>$ \mbox{[}-\/400,400\mbox{]} \\
+\hline
+{\em double} & \+\_\+down =$>$ \mbox{[}-\/200,200\mbox{]} \\
+\hline
+\end{DoxyParams}
+Here is the call graph for this function\+:
+% FIG 2
+Here is the caller graph for this function\+:
+% FIG 3
+
+
+The documentation for this class was generated from the following files\+:\begin{DoxyCompactItemize}
+\item 
+\mbox{\hyperlink{biaswidget_8h}{biaswidget.\+h}}\item 
+\mbox{\hyperlink{biaswidget_8cpp}{biaswidget.\+cpp}}\end{DoxyCompactItemize}

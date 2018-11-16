@@ -1,0 +1,6 @@
+<map id="DepthWidget::setupStyleSheets" name="DepthWidget::setupStyleSheets">
+<area shape="rect" id="node2" href="$class_font_size.html#a9d85262c3fa01a4500e25cf40cbd1c82" title="FontSize::getBigFont" alt="" coords="267,5,412,32"/>
+<area shape="rect" id="node4" href="$class_font_size.html#ac20daf65517d4a6f0892cb6c46b30739" title="FontSize::getSmallFont" alt="" coords="260,56,419,83"/>
+<area shape="rect" id="node5" href="$class_font_size.html#a341e329a4ab9d0688d95b117398d324d" title="FontSize::getBorder" alt="" coords="270,107,409,133"/>
+<area shape="rect" id="node3" href="$class_font_size.html#ada2f9f5c9056fcdc738df0187895d1f2" title="static class that computes the required font&#45;sizes based on window width " alt="" coords="467,56,639,83"/>
+</map>

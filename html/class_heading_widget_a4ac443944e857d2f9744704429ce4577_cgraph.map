@@ -1,0 +1,5 @@
+<map id="HeadingWidget::updateYawReference" name="HeadingWidget::updateYawReference">
+<area shape="rect" id="node2" href="$class_converter.html#ae2ec78dff109070d0107ae8a2c0beb4b" title="Converter::radToDeg" alt="" coords="253,5,395,32"/>
+<area shape="rect" id="node3" href="$class_heading_widget.html#a049dfd0b5fc1ad2d771130bde8516ab2" title="HeadingWidget::wrapYaw" alt="" coords="239,56,409,83"/>
+<area shape="rect" id="node4" href="$class_heading_widget.html#a9e14fb07916e6b5d242fb20695d5cc05" title="HeadingWidget::formatYaw" alt="" coords="235,107,413,133"/>
+</map>

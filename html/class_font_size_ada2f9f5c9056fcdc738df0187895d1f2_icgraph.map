@@ -1,0 +1,12 @@
+<map id="FontSize::linearTransform" name="FontSize::linearTransform">
+<area shape="rect" id="node2" href="$class_bias_widget.html#a9f3ae503fe3d5f4096c3cd0cdbd9c59a" title="BiasWidget::updateBias" alt="" coords="897,5,1059,32"/>
+<area shape="rect" id="node4" href="$class_font_size.html#a9d85262c3fa01a4500e25cf40cbd1c82" title="FontSize::getBigFont" alt="" coords="232,56,377,83"/>
+<area shape="rect" id="node10" href="$class_font_size.html#ac20daf65517d4a6f0892cb6c46b30739" title="FontSize::getSmallFont" alt="" coords="225,107,384,133"/>
+<area shape="rect" id="node11" href="$class_font_size.html#a341e329a4ab9d0688d95b117398d324d" title="FontSize::getBorder" alt="" coords="235,157,374,184"/>
+<area shape="rect" id="node3" href="$main_8cpp.html#a0ddf1224851353fc92bfbff6f499fa97" title="main" alt="" coords="1107,31,1157,57"/>
+<area shape="rect" id="node5" href="$class_depth_widget.html#ae0988973b723b0d5e89424353c64f916" title="setups all required stylesheets and sets font&#45;size relative to the dimensions of the window ..." alt="" coords="432,56,639,83"/>
+<area shape="rect" id="node8" href="$class_heading_widget.html#a23d83c2a9906e54385bf67d6a4df1bb0" title="HeadingWidget::setupStyle\lSheets" alt="" coords="446,107,625,149"/>
+<area shape="rect" id="node6" href="$class_depth_widget.html#ae03d5522882f541f0779adc95830d60c" title="DepthWidget::setupUI" alt="" coords="693,56,843,83"/>
+<area shape="rect" id="node7" href="$class_main_window.html#a3a304253c9e7caeef028f75358bf1fd5" title="MainWindow::setupUI" alt="" coords="904,56,1052,83"/>
+<area shape="rect" id="node9" href="$class_heading_widget.html#ab65afa6442eda14ec2f7cf56ae962404" title="HeadingWidget::setupUI" alt="" coords="687,111,849,137"/>
+</map>

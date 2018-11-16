@@ -1,0 +1,164 @@
+\hypertarget{class_main_window}{}\section{Main\+Window Class Reference}
+\label{class_main_window}\index{Main\+Window@{Main\+Window}}
+
+
+{\ttfamily \#include $<$mainwindow.\+h$>$}
+
+
+
+Inheritance diagram for Main\+Window\+:
+% FIG 0
+
+
+Collaboration diagram for Main\+Window\+:
+% FIG 1
+\subsection*{Signals}
+\begin{DoxyCompactItemize}
+\item 
+void \mbox{\hyperlink{class_main_window_a5f74d765bf269b11fa170d7883fbf134}{update\+Depth\+Reference}} (double \+\_\+depth)
+\item 
+void \mbox{\hyperlink{class_main_window_ae64085dc959c76a25d207446e5052d3c}{update\+Yaw\+Reference}} (double \+\_\+yaw)
+\item 
+void \mbox{\hyperlink{class_main_window_a3396959981d06581fb8b10f19cbded2a}{update\+Auto\+Heading}} (double \+\_\+auto\+Heading)
+\item 
+void \mbox{\hyperlink{class_main_window_acca8a0048231eaa5f025bd86030ee883}{update\+Auto\+Depth}} (double \+\_\+auto\+Depth)
+\end{DoxyCompactItemize}
+\subsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\hyperlink{class_main_window_a8b244be8b7b7db1b08de2a2acb9409db}{Main\+Window}} (Q\+Widget $\ast$parent=0)
+\item 
+\mbox{\hyperlink{class_main_window_ae98d00a93bc118200eeef9f9bba1dba7}{$\sim$\+Main\+Window}} ()
+\item 
+void \mbox{\hyperlink{class_main_window_a3a304253c9e7caeef028f75358bf1fd5}{setup\+UI}} ()
+\end{DoxyCompactItemize}
+\subsection*{Public Attributes}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\hyperlink{class_tcp_rov}{Tcp\+Rov}} $\ast$ \mbox{\hyperlink{class_main_window_a7006af59fdc693b8b3b465b4765cf963}{tcp\+Rov}}
+\item 
+Q\+Widget $\ast$ \mbox{\hyperlink{class_main_window_a3adf86de532933a431d3c455ca69ead2}{video\+Player}}
+\item 
+\mbox{\hyperlink{class_heading_widget}{Heading\+Widget}} $\ast$ \mbox{\hyperlink{class_main_window_afc1e7d28fa0ca38c597d040e01cc6b8a}{heading\+Widget}}
+\item 
+\mbox{\hyperlink{class_depth_widget}{Depth\+Widget}} $\ast$ \mbox{\hyperlink{class_main_window_a5b012373e6e8cf8777be269e022734ed}{depth\+Widget}}
+\item 
+\mbox{\hyperlink{class_bias_widget}{Bias\+Widget}} $\ast$ \mbox{\hyperlink{class_main_window_a0a61c67af3eb8bdc182d76932c1e1974}{bias\+Widget}}
+\item 
+int \mbox{\hyperlink{class_main_window_aea07048eb175eb5ba13887bb5fb23d3e}{window\+Width}}
+\item 
+int \mbox{\hyperlink{class_main_window_a7bc7703ecfb3fbf19c202e37cbd21478}{window\+Height}}
+\end{DoxyCompactItemize}
+
+
+\subsection{Constructor \& Destructor Documentation}
+\mbox{\Hypertarget{class_main_window_a8b244be8b7b7db1b08de2a2acb9409db}\label{class_main_window_a8b244be8b7b7db1b08de2a2acb9409db}} 
+\index{Main\+Window@{Main\+Window}!Main\+Window@{Main\+Window}}
+\index{Main\+Window@{Main\+Window}!Main\+Window@{Main\+Window}}
+\subsubsection{\texorpdfstring{Main\+Window()}{MainWindow()}}
+{\footnotesize\ttfamily Main\+Window\+::\+Main\+Window (\begin{DoxyParamCaption}\item[{Q\+Widget $\ast$}]{parent = {\ttfamily 0} }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [explicit]}}
+
+Here is the call graph for this function\+:
+% FIG 2
+\mbox{\Hypertarget{class_main_window_ae98d00a93bc118200eeef9f9bba1dba7}\label{class_main_window_ae98d00a93bc118200eeef9f9bba1dba7}} 
+\index{Main\+Window@{Main\+Window}!````~Main\+Window@{$\sim$\+Main\+Window}}
+\index{````~Main\+Window@{$\sim$\+Main\+Window}!Main\+Window@{Main\+Window}}
+\subsubsection{\texorpdfstring{$\sim$\+Main\+Window()}{~MainWindow()}}
+{\footnotesize\ttfamily Main\+Window\+::$\sim$\+Main\+Window (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+
+
+
+\subsection{Member Function Documentation}
+\mbox{\Hypertarget{class_main_window_a3a304253c9e7caeef028f75358bf1fd5}\label{class_main_window_a3a304253c9e7caeef028f75358bf1fd5}} 
+\index{Main\+Window@{Main\+Window}!setup\+UI@{setup\+UI}}
+\index{setup\+UI@{setup\+UI}!Main\+Window@{Main\+Window}}
+\subsubsection{\texorpdfstring{setup\+U\+I()}{setupUI()}}
+{\footnotesize\ttfamily void Main\+Window\+::setup\+UI (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+
+Here is the call graph for this function\+:
+% FIG 3
+Here is the caller graph for this function\+:
+% FIG 4
+\mbox{\Hypertarget{class_main_window_acca8a0048231eaa5f025bd86030ee883}\label{class_main_window_acca8a0048231eaa5f025bd86030ee883}} 
+\index{Main\+Window@{Main\+Window}!update\+Auto\+Depth@{update\+Auto\+Depth}}
+\index{update\+Auto\+Depth@{update\+Auto\+Depth}!Main\+Window@{Main\+Window}}
+\subsubsection{\texorpdfstring{update\+Auto\+Depth}{updateAutoDepth}}
+{\footnotesize\ttfamily void Main\+Window\+::update\+Auto\+Depth (\begin{DoxyParamCaption}\item[{double}]{\+\_\+auto\+Depth }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [signal]}}
+
+Here is the caller graph for this function\+:
+% FIG 5
+\mbox{\Hypertarget{class_main_window_a3396959981d06581fb8b10f19cbded2a}\label{class_main_window_a3396959981d06581fb8b10f19cbded2a}} 
+\index{Main\+Window@{Main\+Window}!update\+Auto\+Heading@{update\+Auto\+Heading}}
+\index{update\+Auto\+Heading@{update\+Auto\+Heading}!Main\+Window@{Main\+Window}}
+\subsubsection{\texorpdfstring{update\+Auto\+Heading}{updateAutoHeading}}
+{\footnotesize\ttfamily void Main\+Window\+::update\+Auto\+Heading (\begin{DoxyParamCaption}\item[{double}]{\+\_\+auto\+Heading }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [signal]}}
+
+Here is the caller graph for this function\+:
+% FIG 6
+\mbox{\Hypertarget{class_main_window_a5f74d765bf269b11fa170d7883fbf134}\label{class_main_window_a5f74d765bf269b11fa170d7883fbf134}} 
+\index{Main\+Window@{Main\+Window}!update\+Depth\+Reference@{update\+Depth\+Reference}}
+\index{update\+Depth\+Reference@{update\+Depth\+Reference}!Main\+Window@{Main\+Window}}
+\subsubsection{\texorpdfstring{update\+Depth\+Reference}{updateDepthReference}}
+{\footnotesize\ttfamily void Main\+Window\+::update\+Depth\+Reference (\begin{DoxyParamCaption}\item[{double}]{\+\_\+depth }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [signal]}}
+
+Here is the caller graph for this function\+:
+% FIG 7
+\mbox{\Hypertarget{class_main_window_ae64085dc959c76a25d207446e5052d3c}\label{class_main_window_ae64085dc959c76a25d207446e5052d3c}} 
+\index{Main\+Window@{Main\+Window}!update\+Yaw\+Reference@{update\+Yaw\+Reference}}
+\index{update\+Yaw\+Reference@{update\+Yaw\+Reference}!Main\+Window@{Main\+Window}}
+\subsubsection{\texorpdfstring{update\+Yaw\+Reference}{updateYawReference}}
+{\footnotesize\ttfamily void Main\+Window\+::update\+Yaw\+Reference (\begin{DoxyParamCaption}\item[{double}]{\+\_\+yaw }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [signal]}}
+
+Here is the caller graph for this function\+:
+% FIG 8
+
+
+\subsection{Member Data Documentation}
+\mbox{\Hypertarget{class_main_window_a0a61c67af3eb8bdc182d76932c1e1974}\label{class_main_window_a0a61c67af3eb8bdc182d76932c1e1974}} 
+\index{Main\+Window@{Main\+Window}!bias\+Widget@{bias\+Widget}}
+\index{bias\+Widget@{bias\+Widget}!Main\+Window@{Main\+Window}}
+\subsubsection{\texorpdfstring{bias\+Widget}{biasWidget}}
+{\footnotesize\ttfamily \mbox{\hyperlink{class_bias_widget}{Bias\+Widget}}$\ast$ Main\+Window\+::bias\+Widget}
+
+\mbox{\Hypertarget{class_main_window_a5b012373e6e8cf8777be269e022734ed}\label{class_main_window_a5b012373e6e8cf8777be269e022734ed}} 
+\index{Main\+Window@{Main\+Window}!depth\+Widget@{depth\+Widget}}
+\index{depth\+Widget@{depth\+Widget}!Main\+Window@{Main\+Window}}
+\subsubsection{\texorpdfstring{depth\+Widget}{depthWidget}}
+{\footnotesize\ttfamily \mbox{\hyperlink{class_depth_widget}{Depth\+Widget}}$\ast$ Main\+Window\+::depth\+Widget}
+
+\mbox{\Hypertarget{class_main_window_afc1e7d28fa0ca38c597d040e01cc6b8a}\label{class_main_window_afc1e7d28fa0ca38c597d040e01cc6b8a}} 
+\index{Main\+Window@{Main\+Window}!heading\+Widget@{heading\+Widget}}
+\index{heading\+Widget@{heading\+Widget}!Main\+Window@{Main\+Window}}
+\subsubsection{\texorpdfstring{heading\+Widget}{headingWidget}}
+{\footnotesize\ttfamily \mbox{\hyperlink{class_heading_widget}{Heading\+Widget}}$\ast$ Main\+Window\+::heading\+Widget}
+
+\mbox{\Hypertarget{class_main_window_a7006af59fdc693b8b3b465b4765cf963}\label{class_main_window_a7006af59fdc693b8b3b465b4765cf963}} 
+\index{Main\+Window@{Main\+Window}!tcp\+Rov@{tcp\+Rov}}
+\index{tcp\+Rov@{tcp\+Rov}!Main\+Window@{Main\+Window}}
+\subsubsection{\texorpdfstring{tcp\+Rov}{tcpRov}}
+{\footnotesize\ttfamily \mbox{\hyperlink{class_tcp_rov}{Tcp\+Rov}}$\ast$ Main\+Window\+::tcp\+Rov}
+
+\mbox{\Hypertarget{class_main_window_a3adf86de532933a431d3c455ca69ead2}\label{class_main_window_a3adf86de532933a431d3c455ca69ead2}} 
+\index{Main\+Window@{Main\+Window}!video\+Player@{video\+Player}}
+\index{video\+Player@{video\+Player}!Main\+Window@{Main\+Window}}
+\subsubsection{\texorpdfstring{video\+Player}{videoPlayer}}
+{\footnotesize\ttfamily Q\+Widget$\ast$ Main\+Window\+::video\+Player}
+
+\mbox{\Hypertarget{class_main_window_a7bc7703ecfb3fbf19c202e37cbd21478}\label{class_main_window_a7bc7703ecfb3fbf19c202e37cbd21478}} 
+\index{Main\+Window@{Main\+Window}!window\+Height@{window\+Height}}
+\index{window\+Height@{window\+Height}!Main\+Window@{Main\+Window}}
+\subsubsection{\texorpdfstring{window\+Height}{windowHeight}}
+{\footnotesize\ttfamily int Main\+Window\+::window\+Height}
+
+\mbox{\Hypertarget{class_main_window_aea07048eb175eb5ba13887bb5fb23d3e}\label{class_main_window_aea07048eb175eb5ba13887bb5fb23d3e}} 
+\index{Main\+Window@{Main\+Window}!window\+Width@{window\+Width}}
+\index{window\+Width@{window\+Width}!Main\+Window@{Main\+Window}}
+\subsubsection{\texorpdfstring{window\+Width}{windowWidth}}
+{\footnotesize\ttfamily int Main\+Window\+::window\+Width}
+
+
+
+The documentation for this class was generated from the following files\+:\begin{DoxyCompactItemize}
+\item 
+\mbox{\hyperlink{mainwindow_8h}{mainwindow.\+h}}\item 
+\mbox{\hyperlink{mainwindow_8cpp}{mainwindow.\+cpp}}\end{DoxyCompactItemize}

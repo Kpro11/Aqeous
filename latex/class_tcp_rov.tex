@@ -1,0 +1,423 @@
+\hypertarget{class_tcp_rov}{}\section{Tcp\+Rov Class Reference}
+\label{class_tcp_rov}\index{Tcp\+Rov@{Tcp\+Rov}}
+
+
+{\ttfamily \#include $<$tcprov.\+h$>$}
+
+
+
+Inheritance diagram for Tcp\+Rov\+:
+% FIG 0
+
+
+Collaboration diagram for Tcp\+Rov\+:
+% FIG 1
+\subsection*{Classes}
+\begin{DoxyCompactItemize}
+\item 
+class \mbox{\hyperlink{class_tcp_rov_1_1_t_c_p_thruster}{T\+C\+P\+Thruster}}
+\item 
+class \mbox{\hyperlink{class_tcp_rov_1_1_t_c_p_vessel}{T\+C\+P\+Vessel}}
+\end{DoxyCompactItemize}
+\subsection*{Public Slots}
+\begin{DoxyCompactItemize}
+\item 
+void \mbox{\hyperlink{class_tcp_rov_a0eee6d4cc81a4a1ffefc7d5860a2161e}{tcp\+Connect}} ()
+\item 
+void \mbox{\hyperlink{class_tcp_rov_a6d49254af0b9a4a53675dbae32c5a937}{tcp\+Read}} ()
+\item 
+void \mbox{\hyperlink{class_tcp_rov_ab04514769f70093b687558d09716ae5c}{tcp\+Send}} ()
+\item 
+void \mbox{\hyperlink{class_tcp_rov_a9d719ce6c283d311ac81e89ff56c973a}{set\+Values}} (double, double, double, double)
+\item 
+void \mbox{\hyperlink{class_tcp_rov_a01029567d86810a512a6dd8a0349bfec}{set\+Values}} (double, double, double, double, double, double)
+\item 
+void \mbox{\hyperlink{class_tcp_rov_a02c824d8ad2ce77e8d1a4ea7bc1fd9fe}{set\+Values}} (double, double, double, double, double, double, double, double)
+\item 
+void \mbox{\hyperlink{class_tcp_rov_aa7314c89fd4e5dcd04e42cf965e8e890}{reset\+All\+Values}} ()
+\item 
+void \mbox{\hyperlink{class_tcp_rov_a8d1bbd6025b53b04f03622ee996eb292}{reset\+Values\+But\+Not\+Flag\+Values}} ()
+\item 
+void \mbox{\hyperlink{class_tcp_rov_aa5e739ff2a64a009bbd518eae6f226b0}{start\+Tcp\+Read\+Timer}} ()
+\item 
+void \mbox{\hyperlink{class_tcp_rov_a0663b83a515ba834e58913407aeb2246}{stop\+Tcp\+Read\+Timer}} ()
+\item 
+void \mbox{\hyperlink{class_tcp_rov_acaef32df08c8e1c6ea6760b5e9dcd51b}{toggle\+Auto\+Depth}} ()
+\item 
+void \mbox{\hyperlink{class_tcp_rov_a5d93e60de71cced318526e3a26274c21}{toggle\+Auto\+Heading}} ()
+\end{DoxyCompactItemize}
+\subsection*{Signals}
+\begin{DoxyCompactItemize}
+\item 
+void \mbox{\hyperlink{class_tcp_rov_aa5f708b5730bfbcf64a5a518dac5e473}{update\+R\+O\+V\+Values}} (double, double, double, double, double, double)
+\item 
+void \mbox{\hyperlink{class_tcp_rov_a35dad4ad0097ef7a4ca3f47b0d907bf3}{update\+Yaw}} (double)
+\item 
+void \mbox{\hyperlink{class_tcp_rov_ab201a7065564d4eab11ac71f101c47ff}{update\+Depth}} (double)
+\item 
+void \mbox{\hyperlink{class_tcp_rov_a3b76d01ab849c7072c9357258d93ffa2}{update\+Flags}} (double, double)
+\item 
+void \mbox{\hyperlink{class_tcp_rov_acd0dd0bc4120b971aada9453edfea572}{update\+Bias}} (double, double, double)
+\end{DoxyCompactItemize}
+\subsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\hyperlink{class_tcp_rov_a42796567a8cef8574d08b33cac3a200b}{Tcp\+Rov}} (Q\+Object $\ast$parent=nullptr)
+\end{DoxyCompactItemize}
+\subsection*{Public Attributes}
+\begin{DoxyCompactItemize}
+\item 
+Q\+Timer $\ast$ \mbox{\hyperlink{class_tcp_rov_a5f2826f79ed62895875293b721006d8b}{tcp\+Read\+Timer}}
+\item 
+double \mbox{\hyperlink{class_tcp_rov_a1ccf9c057aaf27f87224a67344dc8825}{time\+Step}} = 0.\+1
+\item 
+double \mbox{\hyperlink{class_tcp_rov_ae2e3f9074a6405d705d8336415324a75}{rec\+Num}} = 4
+\item 
+double \mbox{\hyperlink{class_tcp_rov_a9594e6e9fe74b9bf95be073feaa64015}{sen\+Num}} = 4
+\item 
+double \mbox{\hyperlink{class_tcp_rov_a9b3e9d308a427b0937d90950ba9ca25e}{auto\+Depth}} = 0
+\item 
+double \mbox{\hyperlink{class_tcp_rov_a8bc150b95d69205e3c545e3726f226bc}{auto\+Heading}} = 0
+\item 
+double \mbox{\hyperlink{class_tcp_rov_acf58b81ceb82a5b655647b5ba78cc7bd}{reference\+Depth}} = 0
+\item 
+double \mbox{\hyperlink{class_tcp_rov_a55d424e0f7a4c738f1348d97d5c2e71a}{depth\+Adjustment}} = 0.\+01
+\item 
+double \mbox{\hyperlink{class_tcp_rov_a53508d2f83d7fba9c1e072de9dac7f39}{reference\+Heading}} = 0
+\item 
+double \mbox{\hyperlink{class_tcp_rov_a07d5e3b9d0cf49ab7b7b174e918549b5}{heading\+Adjustment}} = 0.\+05
+\item 
+double \mbox{\hyperlink{class_tcp_rov_a9875854cdb7b726f1f744485f5b76e08}{bias\+Surge}} = 0
+\item 
+double \mbox{\hyperlink{class_tcp_rov_a01b97d8650e6430ceed310d8f50f1346}{bias\+Sway}} = 0
+\item 
+double \mbox{\hyperlink{class_tcp_rov_a8eb195041c3815a585fa0eb8667d272a}{bias\+Heave}} = 0
+\item 
+W\+S\+A\+D\+A\+TA \mbox{\hyperlink{class_tcp_rov_a922d1ddb18d544533c4579a04418fd9d}{wsa\+Data}}
+\item 
+std\+::string \mbox{\hyperlink{class_tcp_rov_a41cacbf5c086d1f3b3ea1fcf988ad899}{I\+P\+String}} = \char`\"{}127.\+0.\+0.\+1\char`\"{}
+\item 
+std\+::string \mbox{\hyperlink{class_tcp_rov_afcefad95ed292c95e0793ad4ff06afdd}{Port\+String}} = \char`\"{}5000\char`\"{}
+\item 
+S\+O\+C\+K\+ET \mbox{\hyperlink{class_tcp_rov_a858315a52a6f1bdd36b8587d9ba4e33b}{Connect\+Socket}} = I\+N\+V\+A\+L\+I\+D\+\_\+\+S\+O\+C\+K\+ET
+\item 
+int \mbox{\hyperlink{class_tcp_rov_a6fb97f92a42be353c4cb4f24eca55bbf}{i\+Read}} = 0
+\item 
+double \mbox{\hyperlink{class_tcp_rov_a0ed45f9086bc1a5c7075a53019d4f064}{run\+Time}}
+\item 
+std\+::string \mbox{\hyperlink{class_tcp_rov_a699d149f6e268350b412c551f98aec46}{msg\+\_\+buf}}
+\item 
+\mbox{\hyperlink{class_tcp_rov_1_1_t_c_p_vessel}{T\+C\+P\+Vessel}} \mbox{\hyperlink{class_tcp_rov_a9b153ec49987e2c7b52e449575faa00b}{read\+Data}}
+\item 
+\mbox{\hyperlink{class_tcp_rov_1_1_t_c_p_thruster}{T\+C\+P\+Thruster}} \mbox{\hyperlink{class_tcp_rov_ac41ba5adbdadeb15db23914991981877}{next\+Data}}
+\end{DoxyCompactItemize}
+\subsection*{Static Public Attributes}
+\begin{DoxyCompactItemize}
+\item 
+static constexpr double \mbox{\hyperlink{class_tcp_rov_a9bac895242bd00093eb22989b655151b}{max\+Thruster\+Horizontal}} = 400
+\item 
+static constexpr double \mbox{\hyperlink{class_tcp_rov_a26657e7fefb95327647c1134dff59a4b}{max\+Thruster\+Vertical}} = 200
+\item 
+static constexpr double \mbox{\hyperlink{class_tcp_rov_abdb59b7942f5bb887bcfbbab3b09f812}{max\+Thruster\+Heading}} = 10
+\end{DoxyCompactItemize}
+
+
+\subsection{Constructor \& Destructor Documentation}
+\mbox{\Hypertarget{class_tcp_rov_a42796567a8cef8574d08b33cac3a200b}\label{class_tcp_rov_a42796567a8cef8574d08b33cac3a200b}} 
+\index{Tcp\+Rov@{Tcp\+Rov}!Tcp\+Rov@{Tcp\+Rov}}
+\index{Tcp\+Rov@{Tcp\+Rov}!Tcp\+Rov@{Tcp\+Rov}}
+\subsubsection{\texorpdfstring{Tcp\+Rov()}{TcpRov()}}
+{\footnotesize\ttfamily Tcp\+Rov\+::\+Tcp\+Rov (\begin{DoxyParamCaption}\item[{Q\+Object $\ast$}]{parent = {\ttfamily nullptr} }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [explicit]}}
+
+Here is the call graph for this function\+:
+% FIG 2
+
+
+\subsection{Member Function Documentation}
+\mbox{\Hypertarget{class_tcp_rov_aa7314c89fd4e5dcd04e42cf965e8e890}\label{class_tcp_rov_aa7314c89fd4e5dcd04e42cf965e8e890}} 
+\index{Tcp\+Rov@{Tcp\+Rov}!reset\+All\+Values@{reset\+All\+Values}}
+\index{reset\+All\+Values@{reset\+All\+Values}!Tcp\+Rov@{Tcp\+Rov}}
+\subsubsection{\texorpdfstring{reset\+All\+Values}{resetAllValues}}
+{\footnotesize\ttfamily void Tcp\+Rov\+::reset\+All\+Values (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [slot]}}
+
+\mbox{\Hypertarget{class_tcp_rov_a8d1bbd6025b53b04f03622ee996eb292}\label{class_tcp_rov_a8d1bbd6025b53b04f03622ee996eb292}} 
+\index{Tcp\+Rov@{Tcp\+Rov}!reset\+Values\+But\+Not\+Flag\+Values@{reset\+Values\+But\+Not\+Flag\+Values}}
+\index{reset\+Values\+But\+Not\+Flag\+Values@{reset\+Values\+But\+Not\+Flag\+Values}!Tcp\+Rov@{Tcp\+Rov}}
+\subsubsection{\texorpdfstring{reset\+Values\+But\+Not\+Flag\+Values}{resetValuesButNotFlagValues}}
+{\footnotesize\ttfamily void Tcp\+Rov\+::reset\+Values\+But\+Not\+Flag\+Values (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [slot]}}
+
+Here is the caller graph for this function\+:
+% FIG 3
+\mbox{\Hypertarget{class_tcp_rov_a9d719ce6c283d311ac81e89ff56c973a}\label{class_tcp_rov_a9d719ce6c283d311ac81e89ff56c973a}} 
+\index{Tcp\+Rov@{Tcp\+Rov}!set\+Values@{set\+Values}}
+\index{set\+Values@{set\+Values}!Tcp\+Rov@{Tcp\+Rov}}
+\subsubsection{\texorpdfstring{set\+Values}{setValues}\hspace{0.1cm}{\footnotesize\ttfamily [1/3]}}
+{\footnotesize\ttfamily void Tcp\+Rov\+::set\+Values (\begin{DoxyParamCaption}\item[{double}]{north,  }\item[{double}]{east,  }\item[{double}]{down,  }\item[{double}]{yaw }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [slot]}}
+
+\mbox{\Hypertarget{class_tcp_rov_a01029567d86810a512a6dd8a0349bfec}\label{class_tcp_rov_a01029567d86810a512a6dd8a0349bfec}} 
+\index{Tcp\+Rov@{Tcp\+Rov}!set\+Values@{set\+Values}}
+\index{set\+Values@{set\+Values}!Tcp\+Rov@{Tcp\+Rov}}
+\subsubsection{\texorpdfstring{set\+Values}{setValues}\hspace{0.1cm}{\footnotesize\ttfamily [2/3]}}
+{\footnotesize\ttfamily void Tcp\+Rov\+::set\+Values (\begin{DoxyParamCaption}\item[{double}]{north,  }\item[{double}]{east,  }\item[{double}]{down,  }\item[{double}]{roll,  }\item[{double}]{pitch,  }\item[{double}]{yaw }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [slot]}}
+
+\mbox{\Hypertarget{class_tcp_rov_a02c824d8ad2ce77e8d1a4ea7bc1fd9fe}\label{class_tcp_rov_a02c824d8ad2ce77e8d1a4ea7bc1fd9fe}} 
+\index{Tcp\+Rov@{Tcp\+Rov}!set\+Values@{set\+Values}}
+\index{set\+Values@{set\+Values}!Tcp\+Rov@{Tcp\+Rov}}
+\subsubsection{\texorpdfstring{set\+Values}{setValues}\hspace{0.1cm}{\footnotesize\ttfamily [3/3]}}
+{\footnotesize\ttfamily void Tcp\+Rov\+::set\+Values (\begin{DoxyParamCaption}\item[{double}]{north,  }\item[{double}]{east,  }\item[{double}]{down,  }\item[{double}]{roll,  }\item[{double}]{pitch,  }\item[{double}]{yaw,  }\item[{double}]{auto\+Depth,  }\item[{double}]{auto\+Heading }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [slot]}}
+
+\mbox{\Hypertarget{class_tcp_rov_aa5e739ff2a64a009bbd518eae6f226b0}\label{class_tcp_rov_aa5e739ff2a64a009bbd518eae6f226b0}} 
+\index{Tcp\+Rov@{Tcp\+Rov}!start\+Tcp\+Read\+Timer@{start\+Tcp\+Read\+Timer}}
+\index{start\+Tcp\+Read\+Timer@{start\+Tcp\+Read\+Timer}!Tcp\+Rov@{Tcp\+Rov}}
+\subsubsection{\texorpdfstring{start\+Tcp\+Read\+Timer}{startTcpReadTimer}}
+{\footnotesize\ttfamily void Tcp\+Rov\+::start\+Tcp\+Read\+Timer (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [slot]}}
+
+Here is the caller graph for this function\+:
+% FIG 4
+\mbox{\Hypertarget{class_tcp_rov_a0663b83a515ba834e58913407aeb2246}\label{class_tcp_rov_a0663b83a515ba834e58913407aeb2246}} 
+\index{Tcp\+Rov@{Tcp\+Rov}!stop\+Tcp\+Read\+Timer@{stop\+Tcp\+Read\+Timer}}
+\index{stop\+Tcp\+Read\+Timer@{stop\+Tcp\+Read\+Timer}!Tcp\+Rov@{Tcp\+Rov}}
+\subsubsection{\texorpdfstring{stop\+Tcp\+Read\+Timer}{stopTcpReadTimer}}
+{\footnotesize\ttfamily void Tcp\+Rov\+::stop\+Tcp\+Read\+Timer (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [slot]}}
+
+Here is the caller graph for this function\+:
+% FIG 5
+\mbox{\Hypertarget{class_tcp_rov_a0eee6d4cc81a4a1ffefc7d5860a2161e}\label{class_tcp_rov_a0eee6d4cc81a4a1ffefc7d5860a2161e}} 
+\index{Tcp\+Rov@{Tcp\+Rov}!tcp\+Connect@{tcp\+Connect}}
+\index{tcp\+Connect@{tcp\+Connect}!Tcp\+Rov@{Tcp\+Rov}}
+\subsubsection{\texorpdfstring{tcp\+Connect}{tcpConnect}}
+{\footnotesize\ttfamily void Tcp\+Rov\+::tcp\+Connect (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [slot]}}
+
+Here is the call graph for this function\+:
+% FIG 6
+\mbox{\Hypertarget{class_tcp_rov_a6d49254af0b9a4a53675dbae32c5a937}\label{class_tcp_rov_a6d49254af0b9a4a53675dbae32c5a937}} 
+\index{Tcp\+Rov@{Tcp\+Rov}!tcp\+Read@{tcp\+Read}}
+\index{tcp\+Read@{tcp\+Read}!Tcp\+Rov@{Tcp\+Rov}}
+\subsubsection{\texorpdfstring{tcp\+Read}{tcpRead}}
+{\footnotesize\ttfamily void Tcp\+Rov\+::tcp\+Read (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [slot]}}
+
+Here is the call graph for this function\+:
+% FIG 7
+Here is the caller graph for this function\+:
+% FIG 8
+\mbox{\Hypertarget{class_tcp_rov_ab04514769f70093b687558d09716ae5c}\label{class_tcp_rov_ab04514769f70093b687558d09716ae5c}} 
+\index{Tcp\+Rov@{Tcp\+Rov}!tcp\+Send@{tcp\+Send}}
+\index{tcp\+Send@{tcp\+Send}!Tcp\+Rov@{Tcp\+Rov}}
+\subsubsection{\texorpdfstring{tcp\+Send}{tcpSend}}
+{\footnotesize\ttfamily void Tcp\+Rov\+::tcp\+Send (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [slot]}}
+
+Here is the call graph for this function\+:
+% FIG 9
+Here is the caller graph for this function\+:
+% FIG 10
+\mbox{\Hypertarget{class_tcp_rov_acaef32df08c8e1c6ea6760b5e9dcd51b}\label{class_tcp_rov_acaef32df08c8e1c6ea6760b5e9dcd51b}} 
+\index{Tcp\+Rov@{Tcp\+Rov}!toggle\+Auto\+Depth@{toggle\+Auto\+Depth}}
+\index{toggle\+Auto\+Depth@{toggle\+Auto\+Depth}!Tcp\+Rov@{Tcp\+Rov}}
+\subsubsection{\texorpdfstring{toggle\+Auto\+Depth}{toggleAutoDepth}}
+{\footnotesize\ttfamily void Tcp\+Rov\+::toggle\+Auto\+Depth (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [slot]}}
+
+\mbox{\Hypertarget{class_tcp_rov_a5d93e60de71cced318526e3a26274c21}\label{class_tcp_rov_a5d93e60de71cced318526e3a26274c21}} 
+\index{Tcp\+Rov@{Tcp\+Rov}!toggle\+Auto\+Heading@{toggle\+Auto\+Heading}}
+\index{toggle\+Auto\+Heading@{toggle\+Auto\+Heading}!Tcp\+Rov@{Tcp\+Rov}}
+\subsubsection{\texorpdfstring{toggle\+Auto\+Heading}{toggleAutoHeading}}
+{\footnotesize\ttfamily void Tcp\+Rov\+::toggle\+Auto\+Heading (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [slot]}}
+
+\mbox{\Hypertarget{class_tcp_rov_acd0dd0bc4120b971aada9453edfea572}\label{class_tcp_rov_acd0dd0bc4120b971aada9453edfea572}} 
+\index{Tcp\+Rov@{Tcp\+Rov}!update\+Bias@{update\+Bias}}
+\index{update\+Bias@{update\+Bias}!Tcp\+Rov@{Tcp\+Rov}}
+\subsubsection{\texorpdfstring{update\+Bias}{updateBias}}
+{\footnotesize\ttfamily void Tcp\+Rov\+::update\+Bias (\begin{DoxyParamCaption}\item[{double}]{,  }\item[{double}]{,  }\item[{double}]{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [signal]}}
+
+Here is the caller graph for this function\+:
+% FIG 11
+\mbox{\Hypertarget{class_tcp_rov_ab201a7065564d4eab11ac71f101c47ff}\label{class_tcp_rov_ab201a7065564d4eab11ac71f101c47ff}} 
+\index{Tcp\+Rov@{Tcp\+Rov}!update\+Depth@{update\+Depth}}
+\index{update\+Depth@{update\+Depth}!Tcp\+Rov@{Tcp\+Rov}}
+\subsubsection{\texorpdfstring{update\+Depth}{updateDepth}}
+{\footnotesize\ttfamily void Tcp\+Rov\+::update\+Depth (\begin{DoxyParamCaption}\item[{double}]{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [signal]}}
+
+Here is the caller graph for this function\+:
+% FIG 12
+\mbox{\Hypertarget{class_tcp_rov_a3b76d01ab849c7072c9357258d93ffa2}\label{class_tcp_rov_a3b76d01ab849c7072c9357258d93ffa2}} 
+\index{Tcp\+Rov@{Tcp\+Rov}!update\+Flags@{update\+Flags}}
+\index{update\+Flags@{update\+Flags}!Tcp\+Rov@{Tcp\+Rov}}
+\subsubsection{\texorpdfstring{update\+Flags}{updateFlags}}
+{\footnotesize\ttfamily void Tcp\+Rov\+::update\+Flags (\begin{DoxyParamCaption}\item[{double}]{,  }\item[{double}]{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [signal]}}
+
+Here is the caller graph for this function\+:
+% FIG 13
+\mbox{\Hypertarget{class_tcp_rov_aa5f708b5730bfbcf64a5a518dac5e473}\label{class_tcp_rov_aa5f708b5730bfbcf64a5a518dac5e473}} 
+\index{Tcp\+Rov@{Tcp\+Rov}!update\+R\+O\+V\+Values@{update\+R\+O\+V\+Values}}
+\index{update\+R\+O\+V\+Values@{update\+R\+O\+V\+Values}!Tcp\+Rov@{Tcp\+Rov}}
+\subsubsection{\texorpdfstring{update\+R\+O\+V\+Values}{updateROVValues}}
+{\footnotesize\ttfamily void Tcp\+Rov\+::update\+R\+O\+V\+Values (\begin{DoxyParamCaption}\item[{double}]{,  }\item[{double}]{,  }\item[{double}]{,  }\item[{double}]{,  }\item[{double}]{,  }\item[{double}]{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [signal]}}
+
+Here is the caller graph for this function\+:
+% FIG 14
+\mbox{\Hypertarget{class_tcp_rov_a35dad4ad0097ef7a4ca3f47b0d907bf3}\label{class_tcp_rov_a35dad4ad0097ef7a4ca3f47b0d907bf3}} 
+\index{Tcp\+Rov@{Tcp\+Rov}!update\+Yaw@{update\+Yaw}}
+\index{update\+Yaw@{update\+Yaw}!Tcp\+Rov@{Tcp\+Rov}}
+\subsubsection{\texorpdfstring{update\+Yaw}{updateYaw}}
+{\footnotesize\ttfamily void Tcp\+Rov\+::update\+Yaw (\begin{DoxyParamCaption}\item[{double}]{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [signal]}}
+
+Here is the caller graph for this function\+:
+% FIG 15
+
+
+\subsection{Member Data Documentation}
+\mbox{\Hypertarget{class_tcp_rov_a9b3e9d308a427b0937d90950ba9ca25e}\label{class_tcp_rov_a9b3e9d308a427b0937d90950ba9ca25e}} 
+\index{Tcp\+Rov@{Tcp\+Rov}!auto\+Depth@{auto\+Depth}}
+\index{auto\+Depth@{auto\+Depth}!Tcp\+Rov@{Tcp\+Rov}}
+\subsubsection{\texorpdfstring{auto\+Depth}{autoDepth}}
+{\footnotesize\ttfamily double Tcp\+Rov\+::auto\+Depth = 0}
+
+\mbox{\Hypertarget{class_tcp_rov_a8bc150b95d69205e3c545e3726f226bc}\label{class_tcp_rov_a8bc150b95d69205e3c545e3726f226bc}} 
+\index{Tcp\+Rov@{Tcp\+Rov}!auto\+Heading@{auto\+Heading}}
+\index{auto\+Heading@{auto\+Heading}!Tcp\+Rov@{Tcp\+Rov}}
+\subsubsection{\texorpdfstring{auto\+Heading}{autoHeading}}
+{\footnotesize\ttfamily double Tcp\+Rov\+::auto\+Heading = 0}
+
+\mbox{\Hypertarget{class_tcp_rov_a8eb195041c3815a585fa0eb8667d272a}\label{class_tcp_rov_a8eb195041c3815a585fa0eb8667d272a}} 
+\index{Tcp\+Rov@{Tcp\+Rov}!bias\+Heave@{bias\+Heave}}
+\index{bias\+Heave@{bias\+Heave}!Tcp\+Rov@{Tcp\+Rov}}
+\subsubsection{\texorpdfstring{bias\+Heave}{biasHeave}}
+{\footnotesize\ttfamily double Tcp\+Rov\+::bias\+Heave = 0}
+
+\mbox{\Hypertarget{class_tcp_rov_a9875854cdb7b726f1f744485f5b76e08}\label{class_tcp_rov_a9875854cdb7b726f1f744485f5b76e08}} 
+\index{Tcp\+Rov@{Tcp\+Rov}!bias\+Surge@{bias\+Surge}}
+\index{bias\+Surge@{bias\+Surge}!Tcp\+Rov@{Tcp\+Rov}}
+\subsubsection{\texorpdfstring{bias\+Surge}{biasSurge}}
+{\footnotesize\ttfamily double Tcp\+Rov\+::bias\+Surge = 0}
+
+\mbox{\Hypertarget{class_tcp_rov_a01b97d8650e6430ceed310d8f50f1346}\label{class_tcp_rov_a01b97d8650e6430ceed310d8f50f1346}} 
+\index{Tcp\+Rov@{Tcp\+Rov}!bias\+Sway@{bias\+Sway}}
+\index{bias\+Sway@{bias\+Sway}!Tcp\+Rov@{Tcp\+Rov}}
+\subsubsection{\texorpdfstring{bias\+Sway}{biasSway}}
+{\footnotesize\ttfamily double Tcp\+Rov\+::bias\+Sway = 0}
+
+\mbox{\Hypertarget{class_tcp_rov_a858315a52a6f1bdd36b8587d9ba4e33b}\label{class_tcp_rov_a858315a52a6f1bdd36b8587d9ba4e33b}} 
+\index{Tcp\+Rov@{Tcp\+Rov}!Connect\+Socket@{Connect\+Socket}}
+\index{Connect\+Socket@{Connect\+Socket}!Tcp\+Rov@{Tcp\+Rov}}
+\subsubsection{\texorpdfstring{Connect\+Socket}{ConnectSocket}}
+{\footnotesize\ttfamily S\+O\+C\+K\+ET Tcp\+Rov\+::\+Connect\+Socket = I\+N\+V\+A\+L\+I\+D\+\_\+\+S\+O\+C\+K\+ET}
+
+\mbox{\Hypertarget{class_tcp_rov_a55d424e0f7a4c738f1348d97d5c2e71a}\label{class_tcp_rov_a55d424e0f7a4c738f1348d97d5c2e71a}} 
+\index{Tcp\+Rov@{Tcp\+Rov}!depth\+Adjustment@{depth\+Adjustment}}
+\index{depth\+Adjustment@{depth\+Adjustment}!Tcp\+Rov@{Tcp\+Rov}}
+\subsubsection{\texorpdfstring{depth\+Adjustment}{depthAdjustment}}
+{\footnotesize\ttfamily double Tcp\+Rov\+::depth\+Adjustment = 0.\+01}
+
+\mbox{\Hypertarget{class_tcp_rov_a07d5e3b9d0cf49ab7b7b174e918549b5}\label{class_tcp_rov_a07d5e3b9d0cf49ab7b7b174e918549b5}} 
+\index{Tcp\+Rov@{Tcp\+Rov}!heading\+Adjustment@{heading\+Adjustment}}
+\index{heading\+Adjustment@{heading\+Adjustment}!Tcp\+Rov@{Tcp\+Rov}}
+\subsubsection{\texorpdfstring{heading\+Adjustment}{headingAdjustment}}
+{\footnotesize\ttfamily double Tcp\+Rov\+::heading\+Adjustment = 0.\+05}
+
+\mbox{\Hypertarget{class_tcp_rov_a41cacbf5c086d1f3b3ea1fcf988ad899}\label{class_tcp_rov_a41cacbf5c086d1f3b3ea1fcf988ad899}} 
+\index{Tcp\+Rov@{Tcp\+Rov}!I\+P\+String@{I\+P\+String}}
+\index{I\+P\+String@{I\+P\+String}!Tcp\+Rov@{Tcp\+Rov}}
+\subsubsection{\texorpdfstring{I\+P\+String}{IPString}}
+{\footnotesize\ttfamily std\+::string Tcp\+Rov\+::\+I\+P\+String = \char`\"{}127.\+0.\+0.\+1\char`\"{}}
+
+\mbox{\Hypertarget{class_tcp_rov_a6fb97f92a42be353c4cb4f24eca55bbf}\label{class_tcp_rov_a6fb97f92a42be353c4cb4f24eca55bbf}} 
+\index{Tcp\+Rov@{Tcp\+Rov}!i\+Read@{i\+Read}}
+\index{i\+Read@{i\+Read}!Tcp\+Rov@{Tcp\+Rov}}
+\subsubsection{\texorpdfstring{i\+Read}{iRead}}
+{\footnotesize\ttfamily int Tcp\+Rov\+::i\+Read = 0}
+
+\mbox{\Hypertarget{class_tcp_rov_abdb59b7942f5bb887bcfbbab3b09f812}\label{class_tcp_rov_abdb59b7942f5bb887bcfbbab3b09f812}} 
+\index{Tcp\+Rov@{Tcp\+Rov}!max\+Thruster\+Heading@{max\+Thruster\+Heading}}
+\index{max\+Thruster\+Heading@{max\+Thruster\+Heading}!Tcp\+Rov@{Tcp\+Rov}}
+\subsubsection{\texorpdfstring{max\+Thruster\+Heading}{maxThrusterHeading}}
+{\footnotesize\ttfamily constexpr double Tcp\+Rov\+::max\+Thruster\+Heading = 10\hspace{0.3cm}{\ttfamily [static]}}
+
+\mbox{\Hypertarget{class_tcp_rov_a9bac895242bd00093eb22989b655151b}\label{class_tcp_rov_a9bac895242bd00093eb22989b655151b}} 
+\index{Tcp\+Rov@{Tcp\+Rov}!max\+Thruster\+Horizontal@{max\+Thruster\+Horizontal}}
+\index{max\+Thruster\+Horizontal@{max\+Thruster\+Horizontal}!Tcp\+Rov@{Tcp\+Rov}}
+\subsubsection{\texorpdfstring{max\+Thruster\+Horizontal}{maxThrusterHorizontal}}
+{\footnotesize\ttfamily constexpr double Tcp\+Rov\+::max\+Thruster\+Horizontal = 400\hspace{0.3cm}{\ttfamily [static]}}
+
+\mbox{\Hypertarget{class_tcp_rov_a26657e7fefb95327647c1134dff59a4b}\label{class_tcp_rov_a26657e7fefb95327647c1134dff59a4b}} 
+\index{Tcp\+Rov@{Tcp\+Rov}!max\+Thruster\+Vertical@{max\+Thruster\+Vertical}}
+\index{max\+Thruster\+Vertical@{max\+Thruster\+Vertical}!Tcp\+Rov@{Tcp\+Rov}}
+\subsubsection{\texorpdfstring{max\+Thruster\+Vertical}{maxThrusterVertical}}
+{\footnotesize\ttfamily constexpr double Tcp\+Rov\+::max\+Thruster\+Vertical = 200\hspace{0.3cm}{\ttfamily [static]}}
+
+\mbox{\Hypertarget{class_tcp_rov_a699d149f6e268350b412c551f98aec46}\label{class_tcp_rov_a699d149f6e268350b412c551f98aec46}} 
+\index{Tcp\+Rov@{Tcp\+Rov}!msg\+\_\+buf@{msg\+\_\+buf}}
+\index{msg\+\_\+buf@{msg\+\_\+buf}!Tcp\+Rov@{Tcp\+Rov}}
+\subsubsection{\texorpdfstring{msg\+\_\+buf}{msg\_buf}}
+{\footnotesize\ttfamily std\+::string Tcp\+Rov\+::msg\+\_\+buf}
+
+\mbox{\Hypertarget{class_tcp_rov_ac41ba5adbdadeb15db23914991981877}\label{class_tcp_rov_ac41ba5adbdadeb15db23914991981877}} 
+\index{Tcp\+Rov@{Tcp\+Rov}!next\+Data@{next\+Data}}
+\index{next\+Data@{next\+Data}!Tcp\+Rov@{Tcp\+Rov}}
+\subsubsection{\texorpdfstring{next\+Data}{nextData}}
+{\footnotesize\ttfamily \mbox{\hyperlink{class_tcp_rov_1_1_t_c_p_thruster}{T\+C\+P\+Thruster}} Tcp\+Rov\+::next\+Data}
+
+\mbox{\Hypertarget{class_tcp_rov_afcefad95ed292c95e0793ad4ff06afdd}\label{class_tcp_rov_afcefad95ed292c95e0793ad4ff06afdd}} 
+\index{Tcp\+Rov@{Tcp\+Rov}!Port\+String@{Port\+String}}
+\index{Port\+String@{Port\+String}!Tcp\+Rov@{Tcp\+Rov}}
+\subsubsection{\texorpdfstring{Port\+String}{PortString}}
+{\footnotesize\ttfamily std\+::string Tcp\+Rov\+::\+Port\+String = \char`\"{}5000\char`\"{}}
+
+\mbox{\Hypertarget{class_tcp_rov_a9b153ec49987e2c7b52e449575faa00b}\label{class_tcp_rov_a9b153ec49987e2c7b52e449575faa00b}} 
+\index{Tcp\+Rov@{Tcp\+Rov}!read\+Data@{read\+Data}}
+\index{read\+Data@{read\+Data}!Tcp\+Rov@{Tcp\+Rov}}
+\subsubsection{\texorpdfstring{read\+Data}{readData}}
+{\footnotesize\ttfamily \mbox{\hyperlink{class_tcp_rov_1_1_t_c_p_vessel}{T\+C\+P\+Vessel}} Tcp\+Rov\+::read\+Data}
+
+\mbox{\Hypertarget{class_tcp_rov_ae2e3f9074a6405d705d8336415324a75}\label{class_tcp_rov_ae2e3f9074a6405d705d8336415324a75}} 
+\index{Tcp\+Rov@{Tcp\+Rov}!rec\+Num@{rec\+Num}}
+\index{rec\+Num@{rec\+Num}!Tcp\+Rov@{Tcp\+Rov}}
+\subsubsection{\texorpdfstring{rec\+Num}{recNum}}
+{\footnotesize\ttfamily double Tcp\+Rov\+::rec\+Num = 4}
+
+\mbox{\Hypertarget{class_tcp_rov_acf58b81ceb82a5b655647b5ba78cc7bd}\label{class_tcp_rov_acf58b81ceb82a5b655647b5ba78cc7bd}} 
+\index{Tcp\+Rov@{Tcp\+Rov}!reference\+Depth@{reference\+Depth}}
+\index{reference\+Depth@{reference\+Depth}!Tcp\+Rov@{Tcp\+Rov}}
+\subsubsection{\texorpdfstring{reference\+Depth}{referenceDepth}}
+{\footnotesize\ttfamily double Tcp\+Rov\+::reference\+Depth = 0}
+
+\mbox{\Hypertarget{class_tcp_rov_a53508d2f83d7fba9c1e072de9dac7f39}\label{class_tcp_rov_a53508d2f83d7fba9c1e072de9dac7f39}} 
+\index{Tcp\+Rov@{Tcp\+Rov}!reference\+Heading@{reference\+Heading}}
+\index{reference\+Heading@{reference\+Heading}!Tcp\+Rov@{Tcp\+Rov}}
+\subsubsection{\texorpdfstring{reference\+Heading}{referenceHeading}}
+{\footnotesize\ttfamily double Tcp\+Rov\+::reference\+Heading = 0}
+
+\mbox{\Hypertarget{class_tcp_rov_a0ed45f9086bc1a5c7075a53019d4f064}\label{class_tcp_rov_a0ed45f9086bc1a5c7075a53019d4f064}} 
+\index{Tcp\+Rov@{Tcp\+Rov}!run\+Time@{run\+Time}}
+\index{run\+Time@{run\+Time}!Tcp\+Rov@{Tcp\+Rov}}
+\subsubsection{\texorpdfstring{run\+Time}{runTime}}
+{\footnotesize\ttfamily double Tcp\+Rov\+::run\+Time}
+
+\mbox{\Hypertarget{class_tcp_rov_a9594e6e9fe74b9bf95be073feaa64015}\label{class_tcp_rov_a9594e6e9fe74b9bf95be073feaa64015}} 
+\index{Tcp\+Rov@{Tcp\+Rov}!sen\+Num@{sen\+Num}}
+\index{sen\+Num@{sen\+Num}!Tcp\+Rov@{Tcp\+Rov}}
+\subsubsection{\texorpdfstring{sen\+Num}{senNum}}
+{\footnotesize\ttfamily double Tcp\+Rov\+::sen\+Num = 4}
+
+\mbox{\Hypertarget{class_tcp_rov_a5f2826f79ed62895875293b721006d8b}\label{class_tcp_rov_a5f2826f79ed62895875293b721006d8b}} 
+\index{Tcp\+Rov@{Tcp\+Rov}!tcp\+Read\+Timer@{tcp\+Read\+Timer}}
+\index{tcp\+Read\+Timer@{tcp\+Read\+Timer}!Tcp\+Rov@{Tcp\+Rov}}
+\subsubsection{\texorpdfstring{tcp\+Read\+Timer}{tcpReadTimer}}
+{\footnotesize\ttfamily Q\+Timer$\ast$ Tcp\+Rov\+::tcp\+Read\+Timer}
+
+\mbox{\Hypertarget{class_tcp_rov_a1ccf9c057aaf27f87224a67344dc8825}\label{class_tcp_rov_a1ccf9c057aaf27f87224a67344dc8825}} 
+\index{Tcp\+Rov@{Tcp\+Rov}!time\+Step@{time\+Step}}
+\index{time\+Step@{time\+Step}!Tcp\+Rov@{Tcp\+Rov}}
+\subsubsection{\texorpdfstring{time\+Step}{timeStep}}
+{\footnotesize\ttfamily double Tcp\+Rov\+::time\+Step = 0.\+1}
+
+\mbox{\Hypertarget{class_tcp_rov_a922d1ddb18d544533c4579a04418fd9d}\label{class_tcp_rov_a922d1ddb18d544533c4579a04418fd9d}} 
+\index{Tcp\+Rov@{Tcp\+Rov}!wsa\+Data@{wsa\+Data}}
+\index{wsa\+Data@{wsa\+Data}!Tcp\+Rov@{Tcp\+Rov}}
+\subsubsection{\texorpdfstring{wsa\+Data}{wsaData}}
+{\footnotesize\ttfamily W\+S\+A\+D\+A\+TA Tcp\+Rov\+::wsa\+Data}
+
+
+
+The documentation for this class was generated from the following files\+:\begin{DoxyCompactItemize}
+\item 
+\mbox{\hyperlink{tcprov_8h}{tcprov.\+h}}\item 
+\mbox{\hyperlink{tcprov_8cpp}{tcprov.\+cpp}}\end{DoxyCompactItemize}

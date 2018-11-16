@@ -1,0 +1,6 @@
+<map id="HeadingWidget::updateYaw" name="HeadingWidget::updateYaw">
+<area shape="rect" id="node2" href="$class_heading_widget.html#a049dfd0b5fc1ad2d771130bde8516ab2" title="HeadingWidget::wrapYaw" alt="" coords="247,5,417,32"/>
+<area shape="rect" id="node3" href="$class_heading_widget.html#a9e14fb07916e6b5d242fb20695d5cc05" title="HeadingWidget::formatYaw" alt="" coords="243,56,421,83"/>
+<area shape="rect" id="node4" href="$class_heading_widget.html#a5970ad0efbbc29f3f1cc4222af237090" title="HeadingWidget::updateLabels" alt="" coords="235,107,429,133"/>
+<area shape="rect" id="node5" href="$headingwidget_8cpp.html#a75f276bc7121531391b9c108373ae5b1" title="distanceFromPointToYaw" alt="" coords="477,107,648,133"/>
+</map>

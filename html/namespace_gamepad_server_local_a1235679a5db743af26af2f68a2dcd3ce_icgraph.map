@@ -1,0 +1,4 @@
+<map id="GamepadServerLocal::updateButtonPress" name="GamepadServerLocal::updateButtonPress">
+<area shape="rect" id="node2" href="$namespace_gamepad_server_local.html#a6741c422592dcc4aedfcdf636096b857" title="GamepadServerLocal\l::prepareStateToSend" alt="" coords="200,5,349,47"/>
+<area shape="rect" id="node3" href="$class_gamepad_server.html#a778ea9e920578ce470c09cbf9b2f29c8" title="GamepadServer::readState" alt="" coords="397,13,577,39"/>
+</map>
