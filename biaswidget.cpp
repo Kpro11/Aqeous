@@ -12,7 +12,7 @@ BiasWidget::BiasWidget(QWidget *parent, int _frameWidth, int _frameHeight) : QWi
     int penWidth = 6;
 
     backgroundArrowPen = new QPen();
-    backgroundArrowPen->setStyle(Qt::DotLine);
+    backgroundArrowPen->setStyle(Qt::SolidLine);    // tried using DashedLine here instead but it doesnt fill up 100% at the end
     backgroundArrowPen->setWidth(penWidth);
     backgroundArrowPen->setBrush(Qt::darkGray);
 
@@ -65,7 +65,7 @@ BiasWidget::BiasWidget(QWidget *parent, int _frameWidth, int _frameHeight) : QWi
 
 
     // calculate the length of bias arrows
-    arrowLengthDown = frameHeight / 2;
+    arrowLengthDown = middle.y() - down.y();
     arrowLengthNorth = sqrt(pow(middle.x() - north.x(), 2) + pow(north.y() - middle.y(), 2));
     arrowLengthEast = arrowLengthNorth;
 
@@ -176,7 +176,7 @@ void BiasWidget::drawBiasArrowLetters(QPainter *painter) {
 
     // adjust the points to better place the letters
 
-    double spacing = frameWidth / 24;   // random reference point
+    double spacing = frameWidth / 20;   // random reference point
 
     n_p.setX( n_p.x() - spacing * 1.4);
 
@@ -186,13 +186,13 @@ void BiasWidget::drawBiasArrowLetters(QPainter *painter) {
     e_p.setX( e_p.x() + spacing * 0.6 );
     e_p.setY( e_p.y() + spacing * 0.2 );
 
-    w_p.setX( w_p.x() - spacing * 1.7 );
+    w_p.setX( w_p.x() - spacing * 1.6 );
     w_p.setY( w_p.y() + spacing * 0.8 );
 
+    u_p.setX( u_p.x() - spacing * 0.35 );
     u_p.setY( u_p.y() - spacing * 0.4 );
-    u_p.setX( u_p.x() - spacing * 0.45 );
 
-    d_p.setX( d_p.x() - spacing * 0.45 );
+    d_p.setX( d_p.x() - spacing * 0.35 );
     d_p.setY( d_p.y() + spacing * 1.4 );
 
     // set the font size
