@@ -38,13 +38,21 @@ private:
     const double maxArrowLength = 100; // in px
     int frameWidth;
     int frameHeight;
-    // QPen pen;
-    // QBrush brush;
+
+    QPointF middle;
+    QPointF up;
+    QPointF east;
+    QPointF south;
+    QPointF down;
+    QPointF west;
+    QPointF north;
 
     QPen *backgroundArrowPen;
     QPen *biasArrowPenNorth;
     QPen *biasArrowPenEast;
     QPen *biasArrowPenDown;
+
+    double fontSize;
 
     ArrowLines * backgroundArrowLines;
     ArrowLines * biasArrowLines;
