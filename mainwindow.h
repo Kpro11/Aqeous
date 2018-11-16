@@ -8,6 +8,7 @@
 #include <QObject>
 #include "headingwidget.h"
 #include "depthwidget.h"
+#include "biaswidget.h"
 
 class MainWindow : public QMainWindow
 {
@@ -20,6 +21,7 @@ public:
     QWidget * videoPlayer;
     HeadingWidget * headingWidget;
     DepthWidget * depthWidget;
+    BiasWidget * biasWidget;
 
 
     int windowWidth;

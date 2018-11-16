@@ -76,7 +76,8 @@ SOURCES += \
     headingwidget.cpp \
     depthwidget.cpp \
     converter.cpp \
-    fontsize.cpp
+    fontsize.cpp \
+    biaswidget.cpp
 
 HEADERS += \
         mainwindow.h \
@@ -91,7 +92,8 @@ HEADERS += \
     depthwidget.h \
     converter.h \
     position.h \
-    fontsize.h
+    fontsize.h \
+    biaswidget.h
 
 FORMS += \
     secondarywindow.ui \

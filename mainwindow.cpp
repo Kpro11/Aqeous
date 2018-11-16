@@ -10,8 +10,6 @@
 #include <Windows.h>
 #include <QSlider>
 #include <QLabel>
-#include "headingwidget.h"
-#include "depthwidget.h"
 #include <tcprov.h>
 
 using namespace QtAV;
@@ -60,6 +58,12 @@ void MainWindow::setupUI() {
     depthWidget = new DepthWidget ( this );
     depthWidget->setupUI(videoPlayer, & windowWidth, & windowHeight);
 
+    // Fancy bias arrow / cordinate system shower;
+    // Create a surrounding QFrame that QPainter can live in
+    QFrame * biasContainer = new QFrame( videoPlayer );
+    biasContainer->setGeometry(windowWidth - 400, windowHeight - 400 , 300, 300);
+    //biasContainer->setStyleSheet("QFrame { border: 1px solid yellow}");
+    biasWidget = new BiasWidget( biasContainer, 300, 300);
 }
 
 MainWindow::~MainWindow()
