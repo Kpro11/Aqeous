@@ -11,6 +11,8 @@
 #include <QSlider>
 #include <QLabel>
 #include <tcprov.h>
+#include <constantvalues.h>
+#include <cmath>
 
 using namespace QtAV;
 
@@ -185,17 +187,19 @@ void MainWindow::catchGamepadState(const GamepadState & gps, const int & playerI
     static bool lastKeyStateTriggerL = 0;
     static bool lastKeyStateTriggerR = 0;
 
+    constexpr double pi = 3.14159265;
+
     checkAndHandleFlag(gps.m_pad_a, lastKeyStateA, tcpRov->autoDepth, tcpRov->referenceDepth, tcpRov->readData.down);
-    checkAndHandleFlag(gps.m_pad_b, lastKeyStateB, tcpRov->autoHeading, tcpRov->referenceHeading, tcpRov->readData.yaw*3.14159265/180);
+    checkAndHandleFlag(gps.m_pad_b, lastKeyStateB, tcpRov->autoHeading, tcpRov->referenceHeading, std::fmod(tcpRov->readData.yaw*pi/180, 2*pi));
 
-    handleBiasUp(gps.m_pad_up, lastKeyStateUp, tcpRov->biasSurge, TcpRov::maxThrusterHorizontal);
-    handleBiasDown(gps.m_pad_down, lastKeyStateDown, tcpRov->biasSurge, -TcpRov::maxThrusterHorizontal);
+    handleBiasUp(gps.m_pad_up, lastKeyStateUp, tcpRov->biasSurge, constantValues::maxThrusterHorizontal);
+    handleBiasDown(gps.m_pad_down, lastKeyStateDown, tcpRov->biasSurge, -constantValues::maxThrusterHorizontal);
 
-    handleBiasUp(gps.m_pad_right, lastKeyStateRight, tcpRov->biasSway, TcpRov::maxThrusterHorizontal);
-    handleBiasDown(gps.m_pad_left, lastKeyStateLeft, tcpRov->biasSway, -TcpRov::maxThrusterHorizontal);
+    handleBiasUp(gps.m_pad_right, lastKeyStateRight, tcpRov->biasSway, constantValues::maxThrusterHorizontal);
+    handleBiasDown(gps.m_pad_left, lastKeyStateLeft, tcpRov->biasSway, -constantValues::maxThrusterHorizontal);
 
-    handleBiasUp(gps.m_rShoulder, lastKeyStateTriggerR, tcpRov->biasHeave, TcpRov::maxThrusterVertical);
-    handleBiasDown(gps.m_lShoulder, lastKeyStateTriggerL, tcpRov->biasHeave, -TcpRov::maxThrusterVertical);
+    handleBiasUp(gps.m_rShoulder, lastKeyStateTriggerR, tcpRov->biasHeave, constantValues::maxThrusterVertical);
+    handleBiasDown(gps.m_lShoulder, lastKeyStateTriggerL, tcpRov->biasHeave, -constantValues::maxThrusterVertical);
 
     // Reset various biases
     if (gps.m_pad_x) {
@@ -215,15 +219,14 @@ void MainWindow::catchGamepadState(const GamepadState & gps, const int & playerI
            tcpRov->biasHeave=0;
     }
 
-    double north = tcpRov->biasSurge + (TcpRov::maxThrusterHorizontal*gps.m_lThumb.yAxis);
-    double east = tcpRov->biasSway + (TcpRov::maxThrusterHorizontal*gps.m_lThumb.xAxis);
-
+    double north = tcpRov->biasSurge + (constantValues::maxThrusterHorizontal*gps.m_lThumb.yAxis);
+    double east = tcpRov->biasSway + (constantValues::maxThrusterHorizontal*gps.m_lThumb.xAxis);
     double down = (gps.m_rTrigger - gps.m_lTrigger);
-    autoHandling(tcpRov->autoDepth, tcpRov->referenceDepth, tcpRov->depthAdjustment, down, tcpRov->biasHeave, TcpRov::maxThrusterVertical);
+    autoHandling(tcpRov->autoDepth, tcpRov->referenceDepth, constantValues::depthAdjustment, down, tcpRov->biasHeave, constantValues::maxThrusterVertical);
 
     double psi = gps.m_rThumb.xAxis;
     // Bias set to 0 because yaw bias is not implemented
-    autoHandling(tcpRov->autoHeading, tcpRov->referenceHeading, tcpRov->headingAdjustment, psi, 0, TcpRov::maxThrusterHeading);
+    autoHandling(tcpRov->autoHeading, tcpRov->referenceHeading, constantValues::headingAdjustment, psi, 0, constantValues::maxThrusterHeading);
 
     tcpRov->setValues(north, east, down, 0, 0, psi, tcpRov->autoDepth, tcpRov->autoHeading);
 }

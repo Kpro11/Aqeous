@@ -9,6 +9,7 @@
 #include "headingwidget.h"
 #include "depthwidget.h"
 #include "biaswidget.h"
+#include "constantvalues.h"
 
 class MainWindow : public QMainWindow
 {

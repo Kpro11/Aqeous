@@ -1,4 +1,5 @@
 #include "gamepadserver.h"
+#include "constantvalues.h"
 
 #include <Windows.h>
 #include <Xinput.h>
@@ -21,7 +22,7 @@ GamepadServer::GamepadServer()
 {
     QTimer * gameServerTimer = new QTimer(this);
     connect(gameServerTimer, SIGNAL(timeout()), this, SLOT(readState()));
-    gameServerTimer->start(UPDATE_PERIOD_MS);
+    gameServerTimer->start(constantValues::UPDATE_PERIOD_MS);
 }
 
 void GamepadServer::readState() {
@@ -81,21 +82,18 @@ namespace GamepadServerLocal {
     }
 
     void updateAnalogs(GamepadState & gps, const XINPUT_GAMEPAD & xStatePad) {
-        gps.m_lTrigger = (double) xStatePad.bLeftTrigger/GamepadServer::maxTriggerValue;
-        gps.m_rTrigger = (double) xStatePad.bRightTrigger/GamepadServer::maxTriggerValue;
-        gps.m_lThumb.xAxis = (double) xStatePad.sThumbLX/GamepadServer::maxJoystickValue;
-        gps.m_lThumb.yAxis = (double) xStatePad.sThumbLY/GamepadServer::maxJoystickValue;
-        gps.m_rThumb.xAxis = (double) xStatePad.sThumbRX/GamepadServer::maxJoystickValue;
-        gps.m_rThumb.yAxis = (double) xStatePad.sThumbRY/GamepadServer::maxJoystickValue;
-
-        double deadzoneX = 0.25;
-        double deadzoneY = 0.25;
+        gps.m_lTrigger = (double) xStatePad.bLeftTrigger/constantValues::maxTriggerValue;
+        gps.m_rTrigger = (double) xStatePad.bRightTrigger/constantValues::maxTriggerValue;
+        gps.m_lThumb.xAxis = (double) xStatePad.sThumbLX/constantValues::maxJoystickValue;
+        gps.m_lThumb.yAxis = (double) xStatePad.sThumbLY/constantValues::maxJoystickValue;
+        gps.m_rThumb.xAxis = (double) xStatePad.sThumbRX/constantValues::maxJoystickValue;
+        gps.m_rThumb.yAxis = (double) xStatePad.sThumbRY/constantValues::maxJoystickValue;
 
         // Factoring in deadzone
-        gps.m_lThumb.xAxis = (abs(gps.m_lThumb.xAxis) < deadzoneX ? 0 : gps.m_lThumb.xAxis);
-        gps.m_lThumb.yAxis = (abs(gps.m_lThumb.yAxis) < deadzoneY ? 0 : gps.m_lThumb.yAxis);
-        gps.m_rThumb.xAxis = (abs(gps.m_rThumb.xAxis) < deadzoneX ? 0 : gps.m_rThumb.xAxis);
-        gps.m_rThumb.yAxis = (abs(gps.m_rThumb.yAxis) < deadzoneY ? 0 : gps.m_rThumb.yAxis);
+        gps.m_lThumb.xAxis = (abs(gps.m_lThumb.xAxis) < constantValues::deadzoneX ? 0 : gps.m_lThumb.xAxis);
+        gps.m_lThumb.yAxis = (abs(gps.m_lThumb.yAxis) < constantValues::deadzoneY ? 0 : gps.m_lThumb.yAxis);
+        gps.m_rThumb.xAxis = (abs(gps.m_rThumb.xAxis) < constantValues::deadzoneX ? 0 : gps.m_rThumb.xAxis);
+        gps.m_rThumb.yAxis = (abs(gps.m_rThumb.yAxis) < constantValues::deadzoneY ? 0 : gps.m_rThumb.yAxis);
     }
 
 }

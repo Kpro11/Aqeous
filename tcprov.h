@@ -20,16 +20,11 @@ public:
     double timeStep = 0.1;					// Communication interval
     double recNum = 4;						// Number of messages (8-byte double precision numbers) to receive
     double senNum = 4;						// Number of messages (8-byte double precision numbers) to send
-    static constexpr double maxThrusterHorizontal = 400;
-    static constexpr double maxThrusterVertical = 200;
-    static constexpr double maxThrusterHeading = 10; //FIND RIGHT VALUE
 
     double autoDepth = 0;
     double autoHeading = 0;
     double referenceDepth = 0;
-    double depthAdjustment = 0.01;
     double referenceHeading = 0;
-    double headingAdjustment = 0.05;
 
     double biasSurge = 0;
     double biasSway = 0;
