@@ -92,8 +92,8 @@ public slots:
     void resetValuesButNotFlagValues();
     void startTcpReadTimer();
     void stopTcpReadTimer();
-    void toggleAutoDepth();
-    void toggleAutoHeading();
+    void setAutoHeading(double _autoHeading);
+    void setAutoDepth(double _autoDepth);
 
 };
 

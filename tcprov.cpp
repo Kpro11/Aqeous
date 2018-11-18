@@ -231,14 +231,16 @@ void TcpRov::setValues(double north, double east, double down, double roll, doub
     nextData.autoHeading = autoHeading;
 }
 
-void TcpRov::toggleAutoDepth() {
-    nextData.autoDepth = (nextData.autoDepth == 0 ? 1 : 0);
-    emit updateFlags(nextData.autoDepth, nextData.autoHeading);
+/// sets the auto heading flag to 0 or 1
+void TcpRov::setAutoHeading(double _autoHeading) {
+    autoHeading = _autoHeading;
+    emit updateFlags(autoHeading, autoDepth);
 }
 
-void TcpRov::toggleAutoHeading() {
-    nextData.autoHeading = (nextData.autoHeading == 0 ? 1 : 0);
-    emit updateFlags(nextData.autoDepth, nextData.autoHeading);
+/// sets the auto depth flag to 0 or 1
+void TcpRov::setAutoDepth(double _autoDepth) {
+    autoDepth = _autoDepth;
+    emit updateFlags(autoHeading, autoDepth);
 }
 
 // this function resets all the nextData variables to zero. This is done such that we don't double send data.
