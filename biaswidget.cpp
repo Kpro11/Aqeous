@@ -144,14 +144,12 @@ void BiasWidget::drawBackgroundArrows(QPainter *painter) {
 /// Draws all the real bias arrows
 /// @param * painter The QPainter object created in paintEvent
 void BiasWidget::drawBiasArrows(QPainter *painter) {
-
-    qDebug() << "drawBiasArrows: " << biasArrowLines->north.length();
-
     // we set new pens on every axis because they should have different colors
     painter->setPen(*biasArrowPenNorth);
-
+    // We need to extract the brush because somehow it is not avaible to extract from painter for some reason
     QBrush brush = biasArrowPenNorth->brush();
-    // check if we should draw the lines
+
+    // We must only draw the lines if their length is above zero. If we try to draw them with 0 length they will create a dot instead of nothing
     if (biasArrowLines->north.length() > 0) {
         painter->drawLine(biasArrowLines->north);
         drawArrowHead(painter, biasArrowLines->north, brush);
@@ -160,6 +158,7 @@ void BiasWidget::drawBiasArrows(QPainter *painter) {
         painter->drawLine(biasArrowLines->south);
         drawArrowHead(painter, biasArrowLines->south, brush);
     }
+
     painter->setPen(*biasArrowPenEast);
     brush = biasArrowPenEast->brush();
     if (biasArrowLines->west.length() > 0) {
@@ -262,10 +261,10 @@ void BiasWidget::drawBiasArrowLetters(QPainter *painter) {
     w_p.setY( w_p.y() + spacing * 0.8 );
 
     u_p.setX( u_p.x() - spacing * 0.35 );
-    u_p.setY( u_p.y() - spacing * 0.4 );
+    u_p.setY( u_p.y() - spacing * 0.8 );
 
     d_p.setX( d_p.x() - spacing * 0.35 );
-    d_p.setY( d_p.y() + spacing * 1.4 );
+    d_p.setY( d_p.y() + spacing * 1.6 );
 
     // set the font size
     QFont font = painter->font();
