@@ -62,3 +62,35 @@ void SecondaryWindow::updateROVValues(double _north, double _east, double _down,
     ui->pitch->display(_pitch);
     ui->yaw->display(_yaw);
 }
+
+/// @brief when check button "autoHeadingCheck" in ui is toggled this function is called
+/// @param checked is true if checkbox was checked
+void SecondaryWindow::on_autoHeadingCheck_toggled(bool checked)
+{
+    if (checked)
+        emit updateAutoHeading(1);
+    else
+        emit updateAutoHeading(0);
+}
+
+/// @brief when check button "autoDepthCheck" in ui is toggled this function is called
+/// @param checked is true if checkbox was checked
+void SecondaryWindow::on_autoDepthCheck_toggled(bool checked)
+{
+    if (checked)
+        emit updateAutoDepth(1);
+    else
+        emit updateAutoDepth(0);
+}
+
+/// @brief when user has finnished entering a value (by clicking away or pressing enter) in "autoHeadingValue" this function is called.
+void SecondaryWindow::on_autoHeadingValue_editingFinished()
+{
+    emit updateReferenceHeading(ui->autoHeadingValue->value());
+}
+
+/// @brief when user has finnished entering a value (by clicking away or pressing enter) in "autoDepthValue" this function is called.
+void SecondaryWindow::on_autoDepthValue_editingFinished()
+{
+    emit updateReferenceDepth(ui->autoDepthValue->value());
+}
