@@ -78,7 +78,8 @@ signals:
     void updateROVValues(double, double, double, double, double, double);
     void updateYaw(double);
     void updateDepth(double);
-    void updateFlags(double, double);
+    void updateAutoHeading(double _autoHeading);
+    void updateAutoDepth(double _autoDepth);
     void updateBias(double, double, double);
 
 public slots:
