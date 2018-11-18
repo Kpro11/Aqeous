@@ -64,7 +64,12 @@ void TcpRov::tcpRead() {
     emit updateYaw(readData.yaw);
     emit updateDepth(readData.down);
     emit updateBias(biasSurge, biasSway, biasHeave);
-
+    if (nextData.autoHeading >= 1) {
+        emit updateReferenceHeading(nextData.yaw);
+    }
+    if (nextData.autoDepth >= 1) {
+        emit updateReferenceDepth(nextData.heave);
+    }
     // send next data
     tcpSend();
 }
@@ -220,27 +225,29 @@ void TcpRov::setValues(double north, double east, double down, double roll, doub
 }
 
 // [future] this function will set all variables
-void TcpRov::setValues(double north, double east, double down, double roll, double pitch, double yaw, double autoDepth, double autoHeading) {
-    nextData.surge = north;
-    nextData.sway = east;
-    nextData.heave = down;
-    nextData.roll = roll;
-    nextData.pitch = pitch;
-    nextData.yaw = yaw;
-    nextData.autoDepth = autoDepth;
-    nextData.autoHeading = autoHeading;
+void TcpRov::setValues(double _north, double _east, double _down, double _roll, double _pitch, double _yaw, double _autoDepth, double _autoHeading) {
+    nextData.surge = _north;
+    nextData.sway = _east;
+    nextData.heave = _down;
+    nextData.roll = _roll;
+    nextData.pitch = _pitch;
+    nextData.yaw = _yaw;
+    nextData.autoDepth = _autoDepth;
+    nextData.autoHeading = _autoHeading;
 }
 
 /// sets the auto heading flag to 0 or 1
 void TcpRov::setAutoHeading(double _autoHeading) {
     autoHeading = _autoHeading;
-    emit updateAutoHeading(autoHeading);
+    nextData.autoHeading = _autoHeading;
+    emit updateAutoHeading(_autoHeading);
 }
 
 /// sets the auto depth flag to 0 or 1
 void TcpRov::setAutoDepth(double _autoDepth) {
     autoDepth = _autoDepth;
-    emit updateAutoDepth(autoDepth);
+    nextData.autoDepth = _autoDepth;
+    emit updateAutoDepth(_autoDepth);
 }
 
 // this function resets all the nextData variables to zero. This is done such that we don't double send data.

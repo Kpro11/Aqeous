@@ -80,6 +80,8 @@ signals:
     void updateDepth(double);
     void updateAutoHeading(double _autoHeading);
     void updateAutoDepth(double _autoDepth);
+    void updateReferenceHeading(double _autoHeading);
+    void updateReferenceDepth(double _autoDepth);
     void updateBias(double, double, double);
 
 public slots:

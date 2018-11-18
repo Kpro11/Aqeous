@@ -88,18 +88,19 @@ int main(int argc, char *argv[])
 
     // connect "set auto H & W" gui elements to tcp rov
     QObject::connect(&w2, qOverload<double>(&SecondaryWindow::updateAutoHeading), tcpRov, &TcpRov::setAutoHeading);
+    QObject::connect(&w2, qOverload<double>(&SecondaryWindow::updateAutoDepth), tcpRov, &TcpRov::setAutoDepth);
 
     HeadingWidget * hw = w1.headingWidget;
     // conect rov values to headingWidget
     QObject::connect(tcpRov, qOverload<double>(&TcpRov::updateYaw), hw, &HeadingWidget::updateYaw);
-    QObject::connect(&w1, qOverload<double>(&MainWindow::updateYawReference), hw, &HeadingWidget::updateYawReference);
+    QObject::connect(tcpRov, qOverload<double>(&TcpRov::updateReferenceHeading), hw, &HeadingWidget::updateYawReference);
     QObject::connect(tcpRov, qOverload<double>(&TcpRov::updateAutoHeading), hw, &HeadingWidget::updateAutoHeading);
 
 
     DepthWidget * dw = w1.depthWidget;
     QObject::connect(tcpRov, qOverload<double>(&TcpRov::updateDepth), dw, &DepthWidget::updateDepth);
     QObject::connect(tcpRov, qOverload<double>(&TcpRov::updateAutoDepth), dw, &DepthWidget::updateAutoDepth);
-    QObject::connect(&w1, qOverload<double>(&MainWindow::updateDepthReference), dw, &DepthWidget::updateDepthReference);
+    QObject::connect(tcpRov, qOverload<double>(&TcpRov::updateReferenceDepth), dw, &DepthWidget::updateDepthReference);
 
     BiasWidget * bw = w1.biasWidget;
     QObject::connect(tcpRov, qOverload<double, double, double>(&TcpRov::updateBias), bw, &BiasWidget::updateBias);
