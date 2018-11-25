@@ -89,6 +89,9 @@ void MainWindow::checkAndHandleFlag(bool button, bool& lastKeyState, double& fla
             } else {
                 flag = 0;
             }
+            tcpRov->autoHeadingWasUpdated();
+            tcpRov->autoDepthWasUpdated();
+
          } lastKeyState = 1;
     } else {
         lastKeyState = 0;

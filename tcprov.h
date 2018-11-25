@@ -97,6 +97,8 @@ public slots:
     void stopTcpReadTimer();
     void setAutoHeading(double _autoHeading);
     void setAutoDepth(double _autoDepth);
+    void autoHeadingWasUpdated();
+    void autoDepthWasUpdated();
 
 };
 

@@ -250,6 +250,18 @@ void TcpRov::setAutoDepth(double _autoDepth) {
     emit updateAutoDepth(_autoDepth);
 }
 
+/// The same as the functions above but it does not recive or set a value. Should only be called if autoHeading is NOT set by functions above
+void TcpRov::autoHeadingWasUpdated() {
+    nextData.autoHeading = autoHeading;
+    emit updateAutoHeading(autoHeading);
+}
+
+/// The same as the functions above but it does not recive or set a value. Should only be called if autoDepth is NOT set by functions above
+void TcpRov::autoDepthWasUpdated() {
+    nextData.autoDepth = autoDepth;
+    emit updateAutoDepth(autoDepth);
+}
+
 // this function resets all the nextData variables to zero. This is done such that we don't double send data.
 void TcpRov::resetAllValues() {
     nextData.surge = 0;
