@@ -55,6 +55,8 @@ private slots:
 
     void on_autoDepthValue_editingFinished();
 
+    void on_rovSerial_clicked();
+
 private:
     Ui::SecondaryWindow *ui;
 
