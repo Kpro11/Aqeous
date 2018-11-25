@@ -105,6 +105,8 @@ int main(int argc, char *argv[])
     // connect "set auto H & W" gui elements to tcp rov
     QObject::connect(&w2, qOverload<double>(&SecondaryWindow::updateAutoHeading), tcpRov, &TcpRov::setAutoHeading);
     QObject::connect(&w2, qOverload<double>(&SecondaryWindow::updateAutoDepth), tcpRov, &TcpRov::setAutoDepth);
+    QObject::connect(&w2, qOverload<double>(&SecondaryWindow::updateReferenceHeading), tcpRov, &TcpRov::setReferenceHeading);
+    QObject::connect(&w2, qOverload<double>(&SecondaryWindow::updateReferenceDepth), tcpRov, &TcpRov::setReferenceDepth);
 
     HeadingWidget * hw = w1.headingWidget;
     // conect rov values to headingWidget

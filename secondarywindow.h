@@ -45,6 +45,7 @@ public slots:
 
     void updateROVValues(double, double, double, double, double, double);
 
+
 private slots:
 
     void on_autoHeadingCheck_toggled(bool checked);

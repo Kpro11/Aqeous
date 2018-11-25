@@ -88,8 +88,6 @@ public slots:
     void tcpConnect();
     void tcpRead();
     void tcpSend();
-    void setValues(double, double, double, double);
-    void setValues(double, double, double, double, double, double);
     void setValues(double, double, double, double, double, double, double, double);
     void resetAllValues();
     void resetValuesButNotFlagValues();
@@ -99,6 +97,9 @@ public slots:
     void setAutoDepth(double _autoDepth);
     void autoHeadingWasUpdated();
     void autoDepthWasUpdated();
+    void setReferenceHeading(double _ref);
+    void setReferenceDepth(double _ref);
+
 
 };
 

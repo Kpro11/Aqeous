@@ -301,4 +301,17 @@ void winsockConnect(SOCKET *_ConnectSocket, addrinfo *ptr) {
     }
 }
 
+/// @brief sets the reference heading. only used when auto heading is set
+/// @param _ref double reference heading [0, 2 * PI) radians
+void TcpRov::setReferenceHeading(double _ref) {
+    referenceHeading = _ref;
+}
+
+/// @brief sets the reference depth. only used when auto depth is set
+/// @param _ref double reference depth [0, 200] meters
+void TcpRov::setReferenceDepth(double _ref) {
+    qDebug() << "Seting reference depth to " << _ref;
+    referenceDepth = _ref;
+}
+
 
