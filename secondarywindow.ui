@@ -374,7 +374,7 @@
              </sizepolicy>
             </property>
             <property name="text">
-             <string>Start simulator, start tcp_rov_forces.py and start obs streaming</string>
+             <string>Start simulator</string>
             </property>
            </widget>
           </item>
@@ -385,14 +385,22 @@
           <item>
            <widget class="QPushButton" name="connectROV">
             <property name="text">
-             <string>Connect to ROV</string>
+             <string>Connect to TCP</string>
             </property>
            </widget>
           </item>
          </layout>
         </item>
         <item>
-         <layout class="QHBoxLayout" name="horizontalLayout_8"/>
+         <layout class="QHBoxLayout" name="horizontalLayout_8">
+          <item>
+           <widget class="QPushButton" name="rovSerial">
+            <property name="text">
+             <string>Start ROV serial port</string>
+            </property>
+           </widget>
+          </item>
+         </layout>
         </item>
        </layout>
       </item>

@@ -94,3 +94,11 @@ void SecondaryWindow::on_autoDepthValue_editingFinished()
 {
     emit updateReferenceDepth(ui->autoDepthValue->value());
 }
+
+void SecondaryWindow::on_rovSerial_clicked()
+{
+    // connect to serial port
+    system("start C:/_work/FhSim/sfhdev/FhSimPlayPen_vs14_amd64/bin/tcp/runrtvisrunROV_ver1.bat && exit");
+
+
+}
