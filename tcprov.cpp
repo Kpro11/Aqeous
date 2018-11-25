@@ -54,6 +54,10 @@ void TcpRov::tcpRead() {
     memcpy(&readData.pitch, &recvbuf[0 + 8 * 4], 8);
     memcpy(&readData.yaw, &recvbuf[0 + 8 * 5], 8);
 
+    // make sure that the down is above zero
+    if (readData.down < 0)
+        readData.down = 0;
+
     // convert yaw from rad to degrees
     readData.yaw = Converter::radToDeg(readData.yaw);
 
@@ -205,30 +209,18 @@ void TcpRov::stopTcpReadTimer() {
     tcpReadTimer->stop();
 }
 
-// [old but working] this function sets the values that will be sent to the socket
-void TcpRov::setValues(double north, double east, double down, double yaw) {
-    nextData.surge = north;
-    nextData.sway = east;
-    nextData.heave = down;
-    nextData.yaw = yaw;
-}
-
-
-// [current] this function sets all variables except autoDepth and autoHeading
-void TcpRov::setValues(double north, double east, double down, double roll, double pitch, double yaw) {
-    nextData.surge = north;
-    nextData.sway = east;
-    nextData.heave = down;
-    nextData.roll = roll;
-    nextData.pitch = pitch;
-    nextData.yaw = yaw;
-}
-
-// [future] this function will set all variables
+/// @brief sets all the values that is going into the next tcp send
 void TcpRov::setValues(double _north, double _east, double _down, double _roll, double _pitch, double _yaw, double _autoDepth, double _autoHeading) {
     nextData.surge = _north;
     nextData.sway = _east;
-    nextData.heave = _down;
+    // the following code will ensure that reference depth is never set below 0 (above water)
+    if (_autoDepth > 0)
+        if (_down < 0)
+            nextData.heave = 0;
+        else
+            nextData.heave = _down;
+    else
+        nextData.heave = _down;
     nextData.roll = _roll;
     nextData.pitch = _pitch;
     nextData.yaw = _yaw;
