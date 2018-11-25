@@ -5,11 +5,11 @@
 class constantValues {
 public:
     //Related to tcprov
-    static constexpr double depthAdjustment = 0.01;
-    static constexpr double headingAdjustment = 0.05;
+    static constexpr double depthAdjustment = 0.005;
+    static constexpr double headingAdjustment = 0.00125;
     static constexpr double maxThrusterHorizontal = 400;
     static constexpr double maxThrusterVertical = 200;
-    static constexpr double maxThrusterHeading = 10; //FIND RIGHT VALUE
+    static constexpr double maxThrusterHeading = 80; //FIND RIGHT VALUE
 
     //Related to gamepadserver
     // Gamepad update period
