@@ -36,9 +36,12 @@ void SecondaryWindow::on_openSimulator_clicked()
 
     // the commands are prepended by a "start" because "start" will spawn a new process so this program doesnt halt.
     // Runs the simulator:
-    system("start C:/_work/FhSim/sfhdev/FhSimPlayPen_vs14_amd64/bin/tcp/runrtvisROV6DOF.bat && exit");
-    // Runs the python program that sends commands to the simulator. Program replaces a physical controller. This is required when not using a physical controller
-    //system("start python C:/_work/FhSim/sfhdev/FhSimPlayPen_vs14_amd64/bin/tcp/tcp_rov_forces.py && exit");
+
+    // this is the latest version which do not include the fishfarm.
+    //system("start C:/_work/FhSim/sfhdev/FhSimPlayPen_vs14_amd64/bin/tcp/runrtvisROV6DOF_autoDH_thrA.bat && exit");
+
+    // This is the latest version with fishfarm, warning this sim is pretty resource intensive
+    system("start C:/_work/FhSim/sfhdev/FhSimPlayPen_vs14_amd64/bin/tcp/runrtvisROV6DOF_autoDH_thrA_fish.bat && exit");
 
     // emits signal so that we can connect to the ROV using tcp
     emit connectToROV();
