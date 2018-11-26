@@ -1,7 +1,7 @@
 #include "secondarywindow.h"
 #include "ui_secondarywindow.h"
 #include <QDebug>
-
+#include "converter.h"
 
 SecondaryWindow::SecondaryWindow(QWidget *parent) :
     QMainWindow(parent),
@@ -89,13 +89,15 @@ void SecondaryWindow::on_autoDepthCheck_toggled(bool checked)
 /// @brief when user has finnished entering a value (by clicking away or pressing enter) in "autoHeadingValue" this function is called.
 void SecondaryWindow::on_autoHeadingValue_editingFinished()
 {
-    emit updateReferenceHeading(ui->autoHeadingValue->value());
+    double rad = Converter::degToRad(ui->autoHeadingValue->value());
+    emit updateReferenceHeading(rad);
 }
 
 /// @brief when user has finnished entering a value (by clicking away or pressing enter) in "autoDepthValue" this function is called.
 void SecondaryWindow::on_autoDepthValue_editingFinished()
 {
-    emit updateReferenceDepth(ui->autoDepthValue->value());
+    double rad = Converter::degToRad(ui->autoDepthValue->value());
+    emit updateReferenceDepth(rad);
 }
 
 /// @brief connects to the real ROV trough serial port / sintef's backend
