@@ -30,7 +30,9 @@ _The reason the release option has to be used, and a potential fix is discussed 
 1. Follow internal instructions to set up the propiatery simulator that belongs to SINTEF
 2. Install Open Brodcaster Software (OBS) from https://obsproject.com/, make sure to install the 64 bit version
 3. In the OBS menu bar, go to "Profile" and then "Import". Pick the Aqeous/obs/RovSimProfile/ folder
-4. In the OBS menu bar, go to "Scene" and then "Import". Pick the Aqeous/obs/RovSimScene.json file
+4. In the OBS menu bar, go to "Profile" and then select "RovSimProfile"
+5. In the OBS menu bar, go to "Scene Collection" and then "Import". Pick the Aqeous/obs/RovSimScene.json file
+6. In the OBS menu bar, go to "Scene Collection" and then select RovSimScene
 
 **This does only work on windows** as the simulator only works on windows, and the paths to the different programs are, for now, hardcoded to windows locations
 
