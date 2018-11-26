@@ -2,6 +2,7 @@
 #include <QLineF>
 #include <QDebug>
 #include "fontsize.h" // using only the linearTransform function
+#include <QPainterPath>
 
 BiasWidget::BiasWidget(QWidget *parent, int _frameWidth, int _frameHeight) : QWidget(parent)
 {
@@ -131,32 +132,102 @@ void BiasWidget::drawBackgroundArrows(QPainter *painter) {
     painter->drawLine(backgroundArrowLines->down);
     painter->drawLine(backgroundArrowLines->west);
     painter->drawLine(backgroundArrowLines->north);
+
+    drawArrowHead(painter, backgroundArrowLines->up, backgroundArrowPen->brush());
+    drawArrowHead(painter, backgroundArrowLines->east, backgroundArrowPen->brush());
+    drawArrowHead(painter, backgroundArrowLines->south, backgroundArrowPen->brush());
+    drawArrowHead(painter, backgroundArrowLines->down, backgroundArrowPen->brush());
+    drawArrowHead(painter, backgroundArrowLines->west, backgroundArrowPen->brush());
+    drawArrowHead(painter, backgroundArrowLines->north, backgroundArrowPen->brush());
 }
 
 /// Draws all the real bias arrows
 /// @param * painter The QPainter object created in paintEvent
 void BiasWidget::drawBiasArrows(QPainter *painter) {
-
-    qDebug() << "drawBiasArrows: " << biasArrowLines->north.length();
-
     // we set new pens on every axis because they should have different colors
     painter->setPen(*biasArrowPenNorth);
-    if (biasArrowLines->north.length() > 0)
+    // We need to extract the brush because somehow it is not avaible to extract from painter for some reason
+    QBrush brush = biasArrowPenNorth->brush();
+
+    // We must only draw the lines if their length is above zero. If we try to draw them with 0 length they will create a dot instead of nothing
+    if (biasArrowLines->north.length() > 0) {
         painter->drawLine(biasArrowLines->north);
-    if (biasArrowLines->south.length() > 0)
+        drawArrowHead(painter, biasArrowLines->north, brush);
+    }
+    if (biasArrowLines->south.length() > 0) {
         painter->drawLine(biasArrowLines->south);
+        drawArrowHead(painter, biasArrowLines->south, brush);
+    }
 
     painter->setPen(*biasArrowPenEast);
-    if (biasArrowLines->west.length() > 0)
+    brush = biasArrowPenEast->brush();
+    if (biasArrowLines->west.length() > 0) {
         painter->drawLine(biasArrowLines->west);
-    if (biasArrowLines->east.length() > 0)
+        drawArrowHead(painter, biasArrowLines->west, brush);
+    }
+    if (biasArrowLines->east.length() > 0) {
         painter->drawLine(biasArrowLines->east);
+        drawArrowHead(painter, biasArrowLines->east, brush);
+    }
 
     painter->setPen(*biasArrowPenDown);
-    if (biasArrowLines->up.length() > 0)
+    brush = biasArrowPenDown->brush();
+    if (biasArrowLines->up.length() > 0) {
         painter->drawLine(biasArrowLines->up);
-    if (biasArrowLines->down.length() > 0)
+        drawArrowHead(painter, biasArrowLines->up, brush);
+    }
+    if (biasArrowLines->down.length() > 0) {
         painter->drawLine(biasArrowLines->down);
+        drawArrowHead(painter, biasArrowLines->down, brush);
+    }
+}
+
+
+/// @brief Draws an arrowhead on the end of the given line
+/// @param painter is the painter given in paintEvent
+/// @param line is the line to draw an arrow on top of
+/// @param brush is the brush that will be used to draw the triangle
+void BiasWidget::drawArrowHead(QPainter *painter, QLineF line, QBrush brush) {
+    /*
+     * 1. get the three points of the triangle polygon with correct position and angle
+     * 2. draw a the polygon path
+     * 3. draw and fill the path
+     */
+
+    // make a copy of the line and invert it so that the starting point is now at the end point
+    QLineF *bottomLine = new QLineF(line.p2(), line.p1());
+
+    // set the size of the arrow
+    qreal arrowSize = fontSize / 2;
+
+    // extend the original line to get the top arrow point
+    line.setLength(line.length() + arrowSize);
+    QPointF newP3 = line.p2();
+    // shorten the length
+    bottomLine->setLength(arrowSize);
+
+    // rotate the line to be perpendicular
+    bottomLine->setAngle(bottomLine->angle() - 90);
+
+    // record the new p1 point
+    QPointF newP1 = bottomLine->p2();
+
+    //rotate it 180 degrees to mirror it
+    bottomLine->setAngle(bottomLine->angle() + 180);
+
+    // record the new p2 point
+    QPointF newP2 = bottomLine->p2();
+
+    // create a path for the triangle
+    QPainterPath path;
+
+    path.moveTo(newP1);
+    path.lineTo(newP2);
+    path.lineTo(newP3);
+    path.lineTo(newP1);
+
+    // finally paint the triangle
+    painter->fillPath(path, brush);
 }
 
 void BiasWidget::drawBiasArrowLetters(QPainter *painter) {
@@ -190,10 +261,10 @@ void BiasWidget::drawBiasArrowLetters(QPainter *painter) {
     w_p.setY( w_p.y() + spacing * 0.8 );
 
     u_p.setX( u_p.x() - spacing * 0.35 );
-    u_p.setY( u_p.y() - spacing * 0.4 );
+    u_p.setY( u_p.y() - spacing * 0.8 );
 
     d_p.setX( d_p.x() - spacing * 0.35 );
-    d_p.setY( d_p.y() + spacing * 1.4 );
+    d_p.setY( d_p.y() + spacing * 1.6 );
 
     // set the font size
     QFont font = painter->font();

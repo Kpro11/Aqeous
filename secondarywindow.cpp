@@ -1,7 +1,7 @@
 #include "secondarywindow.h"
 #include "ui_secondarywindow.h"
 #include <QDebug>
-
+#include "converter.h"
 
 SecondaryWindow::SecondaryWindow(QWidget *parent) :
     QMainWindow(parent),
@@ -36,9 +36,12 @@ void SecondaryWindow::on_openSimulator_clicked()
 
     // the commands are prepended by a "start" because "start" will spawn a new process so this program doesnt halt.
     // Runs the simulator:
-    system("start C:/_work/FhSim/sfhdev/FhSimPlayPen_vs14_amd64/bin/tcp/runrtvisROV6DOF.bat && exit");
-    // Runs the python program that sends commands to the simulator. Program replaces a physical controller. This is required when not using a physical controller
-    //system("start python C:/_work/FhSim/sfhdev/FhSimPlayPen_vs14_amd64/bin/tcp/tcp_rov_forces.py && exit");
+
+    // this is the latest version which do not include the fishfarm.
+    //system("start C:/_work/FhSim/sfhdev/FhSimPlayPen_vs14_amd64/bin/tcp/runrtvisROV6DOF_autoDH_thrA.bat && exit");
+
+    // This is the latest version with fishfarm, warning this sim is pretty resource intensive
+    system("start C:/_work/FhSim/sfhdev/FhSimPlayPen_vs14_amd64/bin/tcp/runrtvisROV6DOF_autoDH_thrA_fish.bat && exit");
 
     // emits signal so that we can connect to the ROV using tcp
     emit connectToROV();
@@ -62,3 +65,45 @@ void SecondaryWindow::updateROVValues(double _north, double _east, double _down,
     ui->pitch->display(_pitch);
     ui->yaw->display(_yaw);
 }
+
+/// @brief when check button "autoHeadingCheck" in ui is toggled this function is called
+/// @param checked is true if checkbox was checked
+void SecondaryWindow::on_autoHeadingCheck_toggled(bool checked)
+{
+    if (checked)
+        emit updateAutoHeading(1);
+    else
+        emit updateAutoHeading(0);
+}
+
+/// @brief when check button "autoDepthCheck" in ui is toggled this function is called
+/// @param checked is true if checkbox was checked
+void SecondaryWindow::on_autoDepthCheck_toggled(bool checked)
+{
+    if (checked)
+        emit updateAutoDepth(1);
+    else
+        emit updateAutoDepth(0);
+}
+
+/// @brief when user has finnished entering a value (by clicking away or pressing enter) in "autoHeadingValue" this function is called.
+void SecondaryWindow::on_autoHeadingValue_editingFinished()
+{
+    double rad = Converter::degToRad(ui->autoHeadingValue->value());
+    emit updateReferenceHeading(rad);
+}
+
+/// @brief when user has finnished entering a value (by clicking away or pressing enter) in "autoDepthValue" this function is called.
+void SecondaryWindow::on_autoDepthValue_editingFinished()
+{
+    double rad = Converter::degToRad(ui->autoDepthValue->value());
+    emit updateReferenceDepth(rad);
+}
+
+/// @brief connects to the real ROV trough serial port / sintef's backend
+void SecondaryWindow::on_rovSerial_clicked()
+{
+    // connect to serial port
+    system("start C:/_work/FhSim/sfhdev/FhSimPlayPen_vs14_amd64/bin/tcp/runrtvisrunROV_ver1.bat && exit");
+}
+

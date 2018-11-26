@@ -9,6 +9,7 @@
 #include "headingwidget.h"
 #include "depthwidget.h"
 #include "biaswidget.h"
+#include "constantvalues.h"
 
 class MainWindow : public QMainWindow
 {
@@ -28,12 +29,6 @@ public:
     int windowHeight;
 
     void setupUI();
-
-signals:
-    void updateDepthReference(double _depth);
-    void updateYawReference(double _yaw);
-    void updateAutoHeading(double _autoHeading);
-    void updateAutoDepth(double _autoDepth);
 
 private slots:
     //void on_depth_slider_valueChanged(int value);

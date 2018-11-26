@@ -54,6 +54,10 @@ void TcpRov::tcpRead() {
     memcpy(&readData.pitch, &recvbuf[0 + 8 * 4], 8);
     memcpy(&readData.yaw, &recvbuf[0 + 8 * 5], 8);
 
+    // make sure that the down is above zero
+    if (readData.down < 0)
+        readData.down = 0;
+
     // convert yaw from rad to degrees
     readData.yaw = Converter::radToDeg(readData.yaw);
 
@@ -64,7 +68,12 @@ void TcpRov::tcpRead() {
     emit updateYaw(readData.yaw);
     emit updateDepth(readData.down);
     emit updateBias(biasSurge, biasSway, biasHeave);
-
+    if (nextData.autoHeading >= 1) {
+        emit updateReferenceHeading(nextData.yaw);
+    }
+    if (nextData.autoDepth >= 1) {
+        emit updateReferenceDepth(nextData.heave);
+    }
     // send next data
     tcpSend();
 }
@@ -200,45 +209,49 @@ void TcpRov::stopTcpReadTimer() {
     tcpReadTimer->stop();
 }
 
-// [old but working] this function sets the values that will be sent to the socket
-void TcpRov::setValues(double north, double east, double down, double yaw) {
-    nextData.surge = north;
-    nextData.sway = east;
-    nextData.heave = down;
-    nextData.yaw = yaw;
+/// @brief sets all the values that is going into the next tcp send
+void TcpRov::setValues(double _north, double _east, double _down, double _roll, double _pitch, double _yaw, double _autoDepth, double _autoHeading) {
+    nextData.surge = _north;
+    nextData.sway = _east;
+    // the following code will ensure that reference depth is never set below 0 (above water)
+    if (_autoDepth > 0)
+        if (_down < 0)
+            nextData.heave = 0;
+        else
+            nextData.heave = _down;
+    else
+        nextData.heave = _down;
+    nextData.roll = _roll;
+    nextData.pitch = _pitch;
+    nextData.yaw = _yaw;
+    nextData.autoDepth = _autoDepth;
+    nextData.autoHeading = _autoHeading;
 }
 
-
-// [current] this function sets all variables except autoDepth and autoHeading
-void TcpRov::setValues(double north, double east, double down, double roll, double pitch, double yaw) {
-    nextData.surge = north;
-    nextData.sway = east;
-    nextData.heave = down;
-    nextData.roll = roll;
-    nextData.pitch = pitch;
-    nextData.yaw = yaw;
+/// sets the auto heading flag to 0 or 1
+void TcpRov::setAutoHeading(double _autoHeading) {
+    autoHeading = _autoHeading;
+    nextData.autoHeading = _autoHeading;
+    emit updateAutoHeading(_autoHeading);
 }
 
-// [future] this function will set all variables
-void TcpRov::setValues(double north, double east, double down, double roll, double pitch, double yaw, double autoDepth, double autoHeading) {
-    nextData.surge = north;
-    nextData.sway = east;
-    nextData.heave = down;
-    nextData.roll = roll;
-    nextData.pitch = pitch;
-    nextData.yaw = yaw;
-    nextData.autoDepth = autoDepth;
+/// sets the auto depth flag to 0 or 1
+void TcpRov::setAutoDepth(double _autoDepth) {
+    autoDepth = _autoDepth;
+    nextData.autoDepth = _autoDepth;
+    emit updateAutoDepth(_autoDepth);
+}
+
+/// The same as the functions above but it does not recive or set a value. Should only be called if autoHeading is NOT set by functions above
+void TcpRov::autoHeadingWasUpdated() {
     nextData.autoHeading = autoHeading;
+    emit updateAutoHeading(autoHeading);
 }
 
-void TcpRov::toggleAutoDepth() {
-    nextData.autoDepth = (nextData.autoDepth == 0 ? 1 : 0);
-    emit updateFlags(nextData.autoDepth, nextData.autoHeading);
-}
-
-void TcpRov::toggleAutoHeading() {
-    nextData.autoHeading = (nextData.autoHeading == 0 ? 1 : 0);
-    emit updateFlags(nextData.autoDepth, nextData.autoHeading);
+/// The same as the functions above but it does not recive or set a value. Should only be called if autoDepth is NOT set by functions above
+void TcpRov::autoDepthWasUpdated() {
+    nextData.autoDepth = autoDepth;
+    emit updateAutoDepth(autoDepth);
 }
 
 // this function resets all the nextData variables to zero. This is done such that we don't double send data.
@@ -286,6 +299,20 @@ void winsockConnect(SOCKET *_ConnectSocket, addrinfo *ptr) {
         closesocket(*_ConnectSocket);
         *_ConnectSocket = INVALID_SOCKET;
     }
+}
+
+/// @brief sets the reference heading. only used when auto heading is set
+/// @param _ref double reference heading [0, 2 * PI) radians
+void TcpRov::setReferenceHeading(double _ref) {
+    referenceHeading = _ref;
+    nextData.yaw = _ref;
+}
+
+/// @brief sets the reference depth. only used when auto depth is set
+/// @param _ref double reference depth [0, 200] meters
+void TcpRov::setReferenceDepth(double _ref) {
+    referenceDepth = _ref;
+    nextData.heave = _ref;
 }
 
 

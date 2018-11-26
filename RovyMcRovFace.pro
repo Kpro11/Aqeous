@@ -93,7 +93,8 @@ HEADERS += \
     converter.h \
     position.h \
     fontsize.h \
-    biaswidget.h
+    biaswidget.h \
+    constantvalues.h
 
 FORMS += \
     secondarywindow.ui \

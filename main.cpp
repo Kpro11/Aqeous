@@ -32,6 +32,7 @@ int main(int argc, char *argv[])
     QRect screenGeometryMainWindow = qList[0]->geometry();
 
     if (qList.length() >= 2) {
+        /* Code that somehow did not work: the overlay in mainwindow do not show
         //Both windows are made fullscreen && w1 => primarydisplay && w2 => secondary display
         w1.setWindowFlags(Qt::FramelessWindowHint);
         w1.showFullScreen();
@@ -44,8 +45,23 @@ int main(int argc, char *argv[])
         // If we want the window to always stay on top we can use Qt::WindowStaysOnTopHint
         w2.setWindowFlags(Qt::FramelessWindowHint);
         w2.showFullScreen();
+        */
 
-        // Should we add the posibility of secondary window keeping track of own variables?
+        w1.setWindowFlags(Qt::FramelessWindowHint);
+        int width = qList[0]->geometry().width();
+        int height = qList[0]->geometry().height();
+
+        w1.windowWidth = width;
+        w1.windowHeight = height;
+        w1.resize(width, height);
+        w1.move(0,0);
+
+        w2.setWindowFlags(Qt::FramelessWindowHint);
+        width = qList[1]->geometry().width();
+        height = qList[1]->geometry().height();
+        w2.resize(width, height);
+        w2.move(qList[0]->geometry().width(), 0);
+
     } else {
         //There is only one screen - put the windows side by side on the same screen
         int height = screenGeometryMainWindow.height() / 2;
@@ -86,17 +102,23 @@ int main(int argc, char *argv[])
     // connect rov values with ui and tcpRov
     QObject::connect(tcpRov, SIGNAL(updateROVValues(double, double, double, double, double, double)), &w2, SLOT(updateROVValues(double, double, double, double, double, double)) );
 
+    // connect "set auto H & W" gui elements to tcp rov
+    QObject::connect(&w2, qOverload<double>(&SecondaryWindow::updateAutoHeading), tcpRov, &TcpRov::setAutoHeading);
+    QObject::connect(&w2, qOverload<double>(&SecondaryWindow::updateAutoDepth), tcpRov, &TcpRov::setAutoDepth);
+    QObject::connect(&w2, qOverload<double>(&SecondaryWindow::updateReferenceHeading), tcpRov, &TcpRov::setReferenceHeading);
+    QObject::connect(&w2, qOverload<double>(&SecondaryWindow::updateReferenceDepth), tcpRov, &TcpRov::setReferenceDepth);
+
     HeadingWidget * hw = w1.headingWidget;
     // conect rov values to headingWidget
     QObject::connect(tcpRov, qOverload<double>(&TcpRov::updateYaw), hw, &HeadingWidget::updateYaw);
-    QObject::connect(&w1, qOverload<double>(&MainWindow::updateYawReference), hw, &HeadingWidget::updateYawReference);
-    QObject::connect(&w1, qOverload<double>(&MainWindow::updateAutoHeading), hw, &HeadingWidget::updateAutoHeading);
+    QObject::connect(tcpRov, qOverload<double>(&TcpRov::updateReferenceHeading), hw, &HeadingWidget::updateYawReference);
+    QObject::connect(tcpRov, qOverload<double>(&TcpRov::updateAutoHeading), hw, &HeadingWidget::updateAutoHeading);
 
 
     DepthWidget * dw = w1.depthWidget;
     QObject::connect(tcpRov, qOverload<double>(&TcpRov::updateDepth), dw, &DepthWidget::updateDepth);
-    QObject::connect(&w1, qOverload<double>(&MainWindow::updateAutoDepth), dw, &DepthWidget::updateAutoDepth);
-    QObject::connect(&w1, qOverload<double>(&MainWindow::updateDepthReference), dw, &DepthWidget::updateDepthReference);
+    QObject::connect(tcpRov, qOverload<double>(&TcpRov::updateAutoDepth), dw, &DepthWidget::updateAutoDepth);
+    QObject::connect(tcpRov, qOverload<double>(&TcpRov::updateReferenceDepth), dw, &DepthWidget::updateDepthReference);
 
     BiasWidget * bw = w1.biasWidget;
     QObject::connect(tcpRov, qOverload<double, double, double>(&TcpRov::updateBias), bw, &BiasWidget::updateBias);
