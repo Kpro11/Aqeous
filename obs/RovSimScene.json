@@ -50,7 +50,9 @@
             "flags": 0,
             "hotkeys": {
                 "OBSBasic.SelectScene": [],
+                "libobs.hide_scene_item.Elgato Gaming": [],
                 "libobs.hide_scene_item.Vinduopptak": [],
+                "libobs.show_scene_item.Elgato Gaming": [],
                 "libobs.show_scene_item.Vinduopptak": []
             },
             "id": "scene",
@@ -65,7 +67,7 @@
             "push-to-talk-delay": 0,
             "settings": {
                 "custom_size": false,
-                "id_counter": 2,
+                "id_counter": 10,
                 "items": [
                     {
                         "align": 5,
@@ -75,6 +77,35 @@
                         },
                         "bounds_align": 0,
                         "bounds_type": 0,
+                        "crop_bottom": 0,
+                        "crop_left": 0,
+                        "crop_right": 0,
+                        "crop_top": 0,
+                        "group_item_backup": false,
+                        "id": 3,
+                        "locked": false,
+                        "name": "Elgato Gaming",
+                        "pos": {
+                            "x": 0.0,
+                            "y": 0.0
+                        },
+                        "private_settings": {},
+                        "rot": 0.0,
+                        "scale": {
+                            "x": 1.5,
+                            "y": 1.5
+                        },
+                        "scale_filter": "disable",
+                        "visible": true
+                    },
+                    {
+                        "align": 5,
+                        "bounds": {
+                            "x": 3044.0,
+                            "y": 1944.0
+                        },
+                        "bounds_align": 0,
+                        "bounds_type": 2,
                         "crop_bottom": 0,
                         "crop_left": 0,
                         "crop_right": 0,
@@ -90,8 +121,8 @@
                         "private_settings": {},
                         "rot": 0.0,
                         "scale": {
-                            "x": 1.4185267686843872,
-                            "y": 1.4188988208770752
+                            "x": 1.0,
+                            "y": 1.0
                         },
                         "scale_filter": "disable",
                         "visible": true
@@ -118,7 +149,36 @@
             "push-to-talk": false,
             "push-to-talk-delay": 0,
             "settings": {
-                "window": "SINTEF Fisheries and Aquaculture simulation and visualization:OgreGLWindow:FhVis.exe"
+                "window": "SINTEF Fisheries and Aquaculture simulation and visualization:OgreGLWindow:FhRtVis.exe"
+            },
+            "sync": 0,
+            "volume": 1.0
+        },
+        {
+            "deinterlace_field_order": 0,
+            "deinterlace_mode": 0,
+            "enabled": true,
+            "flags": 0,
+            "hotkeys": {
+                "libobs.mute": [],
+                "libobs.push-to-mute": [],
+                "libobs.push-to-talk": [],
+                "libobs.unmute": []
+            },
+            "id": "dshow_input",
+            "mixers": 255,
+            "monitoring_type": 0,
+            "muted": false,
+            "name": "Elgato Gaming",
+            "private_settings": {},
+            "push-to-mute": false,
+            "push-to-mute-delay": 0,
+            "push-to-talk": false,
+            "push-to-talk-delay": 0,
+            "settings": {
+                "last_video_device_id": "Elgato Game Capture HD:__elgato",
+                "res_type": 0,
+                "video_device_id": "Elgato Game Capture HD:__elgato"
             },
             "sync": 0,
             "volume": 1.0
