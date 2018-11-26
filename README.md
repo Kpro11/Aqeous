@@ -1,7 +1,9 @@
 # Aqeous
 _This project is a part of the course TDT4290 customer driven project in the autumn of 2018._
 
-![](https://user-images.githubusercontent.com/13204226/48592191-864dde00-e947-11e8-885e-9eef5c134502.gif)
+Check out our promo video:
+[![Promo video](https://i.imgur.com/QeHmBUT.jpg)](https://www.youtube.com/watch?v=6YARfOoRswI)
+
 ## Requirements
 We recommend using a 64 bit compiler, specifically MSVC 2015. You can get this by installing Visual Studio 2015 from https://visualstudio.microsoft.com/vs/older-downloads/
 
@@ -34,3 +36,6 @@ _The reason the release option has to be used, and a potential fix is discussed 
 
 After that you should be good to go. If not, check that OBS is properly recording the fhsim window and then check that the settings are set in accordance with this link:
 https://obsproject.com/forum/resources/obs-studio-send-an-udp-stream-to-a-second-pc-using-obs.455/
+
+
+[![Promo video](https://i.imgur.com/Y7KXcFS.jpg)](https://www.youtube.com/watch?v=6YARfOoRswI)
